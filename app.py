@@ -7,6 +7,7 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
+from starlette.middleware.base import BaseHTTPMiddleware
 
 from engine import db, runner
 
@@ -14,6 +15,21 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PROB_DIR = os.path.join(BASE_DIR, "problems")
 
 app = FastAPI(title="LeetPrep Local")
+
+
+class NoCacheStaticMiddleware(BaseHTTPMiddleware):
+    """This is a local dev tool that gets its own frontend edited in place --
+    stale cached app.js/style.css after a reload is a worse failure mode than
+    the (negligible, localhost-only) cost of always refetching them."""
+
+    async def dispatch(self, request: Request, call_next):
+        response = await call_next(request)
+        if not request.url.path.startswith("/api"):
+            response.headers["Cache-Control"] = "no-store"
+        return response
+
+
+app.add_middleware(NoCacheStaticMiddleware)
 
 db.init_db()
 

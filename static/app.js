@@ -72,7 +72,16 @@ async function loadProblemList() {
 function renderProblemList() {
   const list = document.getElementById("problem-list");
   list.innerHTML = "";
+  let lastDifficulty = null;
   for (const p of allProblems) {
+    if (p.difficulty !== lastDifficulty) {
+      lastDifficulty = p.difficulty;
+      const count = allProblems.filter((x) => x.difficulty === p.difficulty).length;
+      const header = document.createElement("div");
+      header.className = "difficulty-header";
+      header.innerHTML = `<span class="diff-${p.difficulty}">${p.difficulty}</span><span class="difficulty-count">${count}</span>`;
+      list.appendChild(header);
+    }
     const item = document.createElement("div");
     item.className = "problem-item" + (currentProblem && currentProblem.id === p.id ? " active" : "");
     item.innerHTML = `

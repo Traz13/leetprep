@@ -149,6 +149,25 @@ html, body {
 .diff-Hard { color: var(--red); }
 .review-flag { color: var(--amber); }
 
+.difficulty-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 10px 16px 4px 16px;
+  margin-top: 4px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  border-top: 1px solid var(--line);
+}
+.difficulty-header:first-child {
+  margin-top: 0;
+  border-top: none;
+}
+.difficulty-header .difficulty-count {
+  color: var(--text-2);
+}
+
 /* ---------------- MAIN ---------------- */
 
 #main {
