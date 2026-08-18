@@ -1,0 +1,80 @@
+{
+  "id": "asteroid_collision",
+  "title": "Asteroid Collision",
+  "difficulty": "Medium",
+  "topic": "Array / Stack",
+  "tags": [
+    "array",
+    "stack",
+    "simulation"
+  ],
+  "description_md": "Given an array `asteroids` where each value's absolute value is size and sign is\ndirection (positive = right, negative = left), simulate collisions: equal sizes destroy both, the larger\nsurvives, and same-direction asteroids never collide. Return the state after all collisions resolve.",
+  "function_name": "asteroidCollision",
+  "params": [
+    {
+      "name": "asteroids",
+      "type": "vector<int>"
+    }
+  ],
+  "return_type": "vector<int>",
+  "starter_code": {
+    "python": "def asteroidCollision(asteroids):\n    # your code here -- stack simulation\n    pass\n",
+    "cpp": "vector<int> asteroidCollision(vector<int> asteroids) {\n    // your code here -- stack simulation\n    return {};\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          5,
+          10,
+          -5
+        ]
+      ],
+      "expected": [
+        5,
+        10
+      ],
+      "input_display": "asteroids=[5,10,-5]"
+    },
+    {
+      "inputs": [
+        [
+          8,
+          -8
+        ]
+      ],
+      "expected": [],
+      "input_display": "asteroids=[8,-8]"
+    },
+    {
+      "inputs": [
+        [
+          10,
+          2,
+          -5
+        ]
+      ],
+      "expected": [
+        10
+      ],
+      "hidden": true
+    },
+    {
+      "inputs": [
+        [
+          -2,
+          -1,
+          1,
+          2
+        ]
+      ],
+      "expected": [
+        -2,
+        -1,
+        1,
+        2
+      ],
+      "hidden": true
+    }
+  ]
+}

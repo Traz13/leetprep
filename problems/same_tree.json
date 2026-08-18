@@ -1,0 +1,85 @@
+{
+  "id": "same_tree",
+  "title": "Same Tree",
+  "difficulty": "Easy",
+  "topic": "Tree / DFS",
+  "tags": [
+    "tree",
+    "dfs",
+    "recursion"
+  ],
+  "description_md": "Given the roots of two binary trees `p` and `q`, return whether they are\nstructurally identical with the same node values.",
+  "function_name": "isSameTree",
+  "params": [
+    {
+      "name": "p",
+      "type": "tree"
+    },
+    {
+      "name": "q",
+      "type": "tree"
+    }
+  ],
+  "return_type": "bool",
+  "starter_code": {
+    "python": "# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\n\ndef isSameTree(p, q):\n    # your code here\n    pass\n",
+    "cpp": "// struct TreeNode {\n//     int val;\n//     TreeNode *left;\n//     TreeNode *right;\n//     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n// };\n\nbool isSameTree(TreeNode* p, TreeNode* q) {\n    // your code here\n    return false;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": true,
+      "input_display": "p=[1,2,3], q=[1,2,3]"
+    },
+    {
+      "inputs": [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          null,
+          2
+        ]
+      ],
+      "expected": false,
+      "input_display": "p=[1,2], q=[1,null,2]"
+    },
+    {
+      "inputs": [
+        [],
+        []
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "inputs": [
+        [
+          1,
+          2,
+          1
+        ],
+        [
+          1,
+          1,
+          2
+        ]
+      ],
+      "expected": false,
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "id": "expression_add_operators",
+  "title": "Expression Add Operators",
+  "difficulty": "Hard",
+  "topic": "Math / Backtracking",
+  "tags": [
+    "math",
+    "string",
+    "backtracking"
+  ],
+  "description_md": "Given a string `num` containing only digits and an integer `target`, return all\nways to insert the binary operators `+`, `-`, and `*` (not unary) between the digits so the resulting\nexpression evaluates to `target`. Numbers in the expression can't have leading zeros unless the number itself\nis `0`. Return the expressions in any order (grading here ignores order).",
+  "function_name": "addOperators",
+  "params": [
+    {
+      "name": "num",
+      "type": "string"
+    },
+    {
+      "name": "target",
+      "type": "int"
+    }
+  ],
+  "return_type": "vector<string>",
+  "unordered": true,
+  "starter_code": {
+    "python": "def addOperators(num, target):\n    # your code here -- backtrack over digit splits and operators, watch for leading zeros\n    pass\n",
+    "cpp": "vector<string> addOperators(string num, int target) {\n    // your code here -- backtrack over digit splits and operators, watch for leading zeros\n    return {};\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        "123",
+        6
+      ],
+      "expected": [
+        "1+2+3",
+        "1*2*3"
+      ],
+      "input_display": "num=\"123\", target=6"
+    },
+    {
+      "inputs": [
+        "232",
+        8
+      ],
+      "expected": [
+        "2*3+2",
+        "2+3*2"
+      ],
+      "input_display": "num=\"232\", target=8"
+    },
+    {
+      "inputs": [
+        "105",
+        5
+      ],
+      "expected": [
+        "1*0+5",
+        "10-5"
+      ],
+      "hidden": true
+    },
+    {
+      "inputs": [
+        "00",
+        0
+      ],
+      "expected": [
+        "0+0",
+        "0-0",
+        "0*0"
+      ],
+      "hidden": true
+    }
+  ]
+}

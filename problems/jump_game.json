@@ -1,0 +1,73 @@
+{
+  "id": "jump_game",
+  "title": "Jump Game",
+  "difficulty": "Medium",
+  "topic": "Array / Greedy",
+  "tags": [
+    "array",
+    "greedy",
+    "dynamic-programming"
+  ],
+  "description_md": "Given an array `nums` where `nums[i]` is the maximum jump length from index `i`,\nstarting at index 0, return whether you can reach the last index.",
+  "function_name": "canJump",
+  "params": [
+    {
+      "name": "nums",
+      "type": "vector<int>"
+    }
+  ],
+  "return_type": "bool",
+  "starter_code": {
+    "python": "def canJump(nums):\n    # your code here -- track farthest reachable index\n    pass\n",
+    "cpp": "bool canJump(vector<int> nums) {\n    // your code here -- track farthest reachable index\n    return false;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          2,
+          3,
+          1,
+          1,
+          4
+        ]
+      ],
+      "expected": true,
+      "input_display": "nums=[2,3,1,1,4]"
+    },
+    {
+      "inputs": [
+        [
+          3,
+          2,
+          1,
+          0,
+          4
+        ]
+      ],
+      "expected": false,
+      "input_display": "nums=[3,2,1,0,4]"
+    },
+    {
+      "inputs": [
+        [
+          0
+        ]
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "inputs": [
+        [
+          1,
+          0,
+          1,
+          0
+        ]
+      ],
+      "expected": false,
+      "hidden": true
+    }
+  ]
+}

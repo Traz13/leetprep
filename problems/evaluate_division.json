@@ -1,0 +1,165 @@
+{
+  "id": "evaluate_division",
+  "title": "Evaluate Division",
+  "difficulty": "Medium",
+  "topic": "Array / Graph",
+  "tags": [
+    "array",
+    "string",
+    "graph",
+    "union-find",
+    "dfs"
+  ],
+  "description_md": "Given `equations` of variable pairs `[Ai, Bi]` and integer `values` where\n`Ai / Bi = values[i]`, answer each query in `queries` (`[Cj, Dj]` meaning `Cj / Dj`).\n\nTo keep this judge's comparisons exact (no floating point), `values` and results are integers: if a queried\nvariable is unknown, or the true ratio between the two variables isn't a whole number, return `-1` for that\nquery. Otherwise return the whole-number ratio.",
+  "function_name": "calcEquation",
+  "params": [
+    {
+      "name": "equations",
+      "type": "vector<vector<string>>"
+    },
+    {
+      "name": "values",
+      "type": "vector<int>"
+    },
+    {
+      "name": "queries",
+      "type": "vector<vector<string>>"
+    }
+  ],
+  "return_type": "vector<int>",
+  "starter_code": {
+    "python": "def calcEquation(equations, values, queries):\n    # your code here -- build a weighted graph, DFS/BFS to accumulate the ratio along a path\n    pass\n",
+    "cpp": "vector<int> calcEquation(vector<vector<string>> equations, vector<int> values, vector<vector<string>> queries) {\n    // your code here -- build a weighted graph, DFS/BFS to accumulate the ratio along a path\n    return {};\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "b",
+            "c"
+          ]
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          [
+            "a",
+            "c"
+          ],
+          [
+            "a",
+            "a"
+          ],
+          [
+            "a",
+            "e"
+          ],
+          [
+            "x",
+            "x"
+          ]
+        ]
+      ],
+      "expected": [
+        6,
+        1,
+        -1,
+        -1
+      ],
+      "input_display": "equations=[[a,b],[b,c]], values=[2,3], queries=[[a,c],[a,a],[a,e],[x,x]]"
+    },
+    {
+      "inputs": [
+        [
+          [
+            "a",
+            "b"
+          ]
+        ],
+        [
+          10
+        ],
+        [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "b",
+            "a"
+          ],
+          [
+            "a",
+            "a"
+          ],
+          [
+            "b",
+            "b"
+          ],
+          [
+            "a",
+            "c"
+          ]
+        ]
+      ],
+      "expected": [
+        10,
+        -1,
+        1,
+        1,
+        -1
+      ],
+      "input_display": "equations=[[a,b]], values=[10], queries=[[a,b],[b,a],[a,a],[b,b],[a,c]]"
+    },
+    {
+      "inputs": [
+        [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "b",
+            "c"
+          ],
+          [
+            "c",
+            "d"
+          ]
+        ],
+        [
+          2,
+          2,
+          2
+        ],
+        [
+          [
+            "a",
+            "d"
+          ],
+          [
+            "d",
+            "a"
+          ],
+          [
+            "a",
+            "c"
+          ]
+        ]
+      ],
+      "expected": [
+        8,
+        -1,
+        4
+      ],
+      "hidden": true
+    }
+  ]
+}

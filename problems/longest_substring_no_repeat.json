@@ -1,0 +1,54 @@
+{
+  "id": "longest_substring_no_repeat",
+  "title": "Longest Substring Without Repeating Characters",
+  "difficulty": "Medium",
+  "topic": "String / Sliding Window",
+  "tags": [
+    "string",
+    "sliding-window",
+    "hash-map"
+  ],
+  "description_md": "Given a string `s`, return the length of the longest substring without repeating\ncharacters.",
+  "function_name": "lengthOfLongestSubstring",
+  "params": [
+    {
+      "name": "s",
+      "type": "string"
+    }
+  ],
+  "return_type": "int",
+  "starter_code": {
+    "python": "def lengthOfLongestSubstring(s):\n    # your code here -- sliding window with last-seen index\n    pass\n",
+    "cpp": "int lengthOfLongestSubstring(string s) {\n    // your code here -- sliding window with last-seen index\n    return 0;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        "abcabcbb"
+      ],
+      "expected": 3,
+      "input_display": "s=\"abcabcbb\""
+    },
+    {
+      "inputs": [
+        "bbbbb"
+      ],
+      "expected": 1,
+      "input_display": "s=\"bbbbb\""
+    },
+    {
+      "inputs": [
+        "pwwkew"
+      ],
+      "expected": 3,
+      "hidden": true
+    },
+    {
+      "inputs": [
+        ""
+      ],
+      "expected": 0,
+      "hidden": true
+    }
+  ]
+}

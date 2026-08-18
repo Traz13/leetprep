@@ -1,0 +1,59 @@
+{
+  "id": "generate_parentheses",
+  "title": "Generate Parentheses",
+  "difficulty": "Medium",
+  "topic": "String / Backtracking",
+  "tags": [
+    "string",
+    "backtracking",
+    "dynamic-programming"
+  ],
+  "description_md": "Given `n` pairs of parentheses, return all combinations of well-formed\nparenthesis strings (grading here ignores order).",
+  "function_name": "generateParenthesis",
+  "params": [
+    {
+      "name": "n",
+      "type": "int"
+    }
+  ],
+  "return_type": "vector<string>",
+  "unordered": true,
+  "starter_code": {
+    "python": "def generateParenthesis(n):\n    # your code here -- backtrack, only add ')' if it stays valid\n    pass\n",
+    "cpp": "vector<string> generateParenthesis(int n) {\n    // your code here -- backtrack, only add ')' if it stays valid\n    return {};\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        3
+      ],
+      "expected": [
+        "((()))",
+        "(()())",
+        "(())()",
+        "()(())",
+        "()()()"
+      ],
+      "input_display": "n=3"
+    },
+    {
+      "inputs": [
+        1
+      ],
+      "expected": [
+        "()"
+      ],
+      "input_display": "n=1"
+    },
+    {
+      "inputs": [
+        2
+      ],
+      "expected": [
+        "(())",
+        "()()"
+      ],
+      "hidden": true
+    }
+  ]
+}

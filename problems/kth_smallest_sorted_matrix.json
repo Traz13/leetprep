@@ -1,0 +1,101 @@
+{
+  "id": "kth_smallest_sorted_matrix",
+  "title": "Kth Smallest Element in a Sorted Matrix",
+  "difficulty": "Medium",
+  "topic": "Array / Binary Search",
+  "tags": [
+    "array",
+    "binary-search",
+    "heap",
+    "matrix"
+  ],
+  "description_md": "Given an `n x n` `matrix` where each row and column is sorted ascending, and an\ninteger `k`, return the `k`th smallest element in the matrix (by overall sorted order, not distinct values).\n\n**Follow-up they'll ask:** can you avoid flattening and sorting the whole matrix -- binary search on value or\na k-way heap merge?",
+  "function_name": "kthSmallest",
+  "params": [
+    {
+      "name": "matrix",
+      "type": "vector<vector<int>>"
+    },
+    {
+      "name": "k",
+      "type": "int"
+    }
+  ],
+  "return_type": "int",
+  "starter_code": {
+    "python": "def kthSmallest(matrix, k):\n    # your code here\n    pass\n",
+    "cpp": "int kthSmallest(vector<vector<int>> matrix, int k) {\n    // your code here\n    return 0;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          [
+            1,
+            5,
+            9
+          ],
+          [
+            10,
+            11,
+            13
+          ],
+          [
+            12,
+            13,
+            15
+          ]
+        ],
+        8
+      ],
+      "expected": 13,
+      "input_display": "matrix=[[1,5,9],[10,11,13],[12,13,15]], k=8"
+    },
+    {
+      "inputs": [
+        [
+          [
+            -5
+          ]
+        ],
+        1
+      ],
+      "expected": -5,
+      "input_display": "matrix=[[-5]], k=1"
+    },
+    {
+      "inputs": [
+        [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        2
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "inputs": [
+        [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        3
+      ],
+      "expected": 2,
+      "hidden": true
+    }
+  ]
+}

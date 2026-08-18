@@ -1,0 +1,103 @@
+{
+  "id": "max_consecutive_ones_iii",
+  "title": "Max Consecutive Ones III",
+  "difficulty": "Medium",
+  "topic": "Array / Sliding Window",
+  "tags": [
+    "array",
+    "sliding-window",
+    "binary-search"
+  ],
+  "description_md": "Given a binary array `nums` and an integer `k`, return the maximum number of\nconsecutive `1`s achievable if you may flip at most `k` zeros to `1`s.",
+  "function_name": "longestOnes",
+  "params": [
+    {
+      "name": "nums",
+      "type": "vector<int>"
+    },
+    {
+      "name": "k",
+      "type": "int"
+    }
+  ],
+  "return_type": "int",
+  "starter_code": {
+    "python": "def longestOnes(nums, k):\n    # your code here -- sliding window, shrink when zero-count exceeds k\n    pass\n",
+    "cpp": "int longestOnes(vector<int> nums, int k) {\n    // your code here -- sliding window, shrink when zero-count exceeds k\n    return 0;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          0
+        ],
+        2
+      ],
+      "expected": 6,
+      "input_display": "nums=[1,1,1,0,0,0,1,1,1,1,0], k=2"
+    },
+    {
+      "inputs": [
+        [
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          1,
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1
+        ],
+        3
+      ],
+      "expected": 10,
+      "input_display": "nums=[...], k=3"
+    },
+    {
+      "inputs": [
+        [
+          0,
+          0,
+          0,
+          1
+        ],
+        0
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "inputs": [
+        [
+          1,
+          1,
+          1
+        ],
+        0
+      ],
+      "expected": 3,
+      "hidden": true
+    }
+  ]
+}

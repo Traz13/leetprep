@@ -1,0 +1,100 @@
+{
+  "id": "final_array_state_k_mult_i",
+  "title": "Final Array State After K Multiplication Operations I",
+  "difficulty": "Easy",
+  "topic": "Array / Simulation",
+  "tags": [
+    "array",
+    "math",
+    "simulation"
+  ],
+  "description_md": "Given `nums`, and integers `k` and `multiplier`, perform `k` operations: each\noperation finds the minimum value in `nums` (the leftmost such index if there's a tie) and multiplies it by\n`multiplier`. Return `nums` after all `k` operations.",
+  "function_name": "getFinalState",
+  "params": [
+    {
+      "name": "nums",
+      "type": "vector<int>"
+    },
+    {
+      "name": "k",
+      "type": "int"
+    },
+    {
+      "name": "multiplier",
+      "type": "int"
+    }
+  ],
+  "return_type": "vector<int>",
+  "starter_code": {
+    "python": "def getFinalState(nums, k, multiplier):\n    # your code here\n    pass\n",
+    "cpp": "vector<int> getFinalState(vector<int> nums, int k, int multiplier) {\n    // your code here\n    return nums;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          2,
+          1,
+          3,
+          5,
+          6
+        ],
+        5,
+        2
+      ],
+      "expected": [
+        8,
+        4,
+        6,
+        5,
+        6
+      ],
+      "input_display": "nums=[2,1,3,5,6], k=5, multiplier=2"
+    },
+    {
+      "inputs": [
+        [
+          1,
+          2
+        ],
+        3,
+        4
+      ],
+      "expected": [
+        16,
+        8
+      ],
+      "input_display": "nums=[1,2], k=3, multiplier=4"
+    },
+    {
+      "inputs": [
+        [
+          1,
+          1,
+          1
+        ],
+        1,
+        2
+      ],
+      "expected": [
+        2,
+        1,
+        1
+      ],
+      "hidden": true
+    },
+    {
+      "inputs": [
+        [
+          5
+        ],
+        3,
+        1
+      ],
+      "expected": [
+        5
+      ],
+      "hidden": true
+    }
+  ]
+}

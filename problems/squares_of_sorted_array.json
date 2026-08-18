@@ -1,0 +1,91 @@
+{
+  "id": "squares_of_sorted_array",
+  "title": "Squares of a Sorted Array",
+  "difficulty": "Easy",
+  "topic": "Array / Two Pointers",
+  "tags": [
+    "array",
+    "two-pointers"
+  ],
+  "description_md": "Given an integer array `nums` sorted in non-decreasing order, return an array of\nthe squares of each number, also sorted in non-decreasing order.\n\n**Follow-up they'll ask:** can you do it in O(n) instead of sorting the squared array?",
+  "function_name": "sortedSquares",
+  "params": [
+    {
+      "name": "nums",
+      "type": "vector<int>"
+    }
+  ],
+  "return_type": "vector<int>",
+  "starter_code": {
+    "python": "def sortedSquares(nums):\n    # your code here -- two pointers from both ends\n    pass\n",
+    "cpp": "vector<int> sortedSquares(vector<int> nums) {\n    // your code here -- two pointers from both ends\n    return {};\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          -4,
+          -1,
+          0,
+          3,
+          10
+        ]
+      ],
+      "expected": [
+        0,
+        1,
+        9,
+        16,
+        100
+      ],
+      "input_display": "nums=[-4,-1,0,3,10]"
+    },
+    {
+      "inputs": [
+        [
+          -7,
+          -3,
+          2,
+          3,
+          11
+        ]
+      ],
+      "expected": [
+        4,
+        9,
+        9,
+        49,
+        121
+      ],
+      "input_display": "nums=[-7,-3,2,3,11]"
+    },
+    {
+      "inputs": [
+        [
+          -5,
+          -3,
+          -2,
+          -1
+        ]
+      ],
+      "expected": [
+        1,
+        4,
+        9,
+        25
+      ],
+      "hidden": true
+    },
+    {
+      "inputs": [
+        [
+          0
+        ]
+      ],
+      "expected": [
+        0
+      ],
+      "hidden": true
+    }
+  ]
+}

@@ -9,7 +9,8 @@ Built around the topics that show up in Anduril's actual technical screens: grap
 traversal, Dijkstra's shortest path, arrays, DP, trees, and general algorithmic
 efficiency — with a C++ track since that's their preferred language.
 
-Currently 43 problems, covering all but 5 of a 40-question Anduril-tagged list: 4
+Currently 63 problems, covering all but 5 of a 40-question Anduril-tagged list plus a
+second batch pulled from a general LeetCode practice list. 4 from the Anduril list
 overlapped with problems already in the set (Two Sum, Valid Parentheses, Number of
 Islands, Merge Intervals), and 5 don't fit the judge's current type system, so they
 were skipped rather than faked:
@@ -21,6 +22,25 @@ were skipped rather than faked:
   that the judge's order-independent comparison mode isn't safe to apply to
 - **Race Car** — the correct DP has enough subtlety that I didn't want to ship it
   without being able to verify the recurrence carefully
+
+The second batch (20 problems: Take Gifts From the Richest Pile, Can Place Flowers,
+Zero Array Transformation I, Squares of a Sorted Array, Expression Add Operators,
+Longest Substring Without Repeating Characters, Container With Most Water, Max
+Consecutive Ones III, Kth Smallest Element in a Sorted Matrix, Rank Transform of a
+Matrix, Longest Increasing Subsequence, Jump Game, Add Two Integers, Longest
+Consecutive Sequence, Same Tree, Asteroid Collision, Final Array State After K
+Multiplication Operations I, Generate Parentheses, Evaluate Division, Ransom Note)
+had a few of its own overlaps, same policy as above -- skipped as duplicates rather
+than added again under a new title:
+- **Binary Tree Vertical Order Traversal** was already in the set exactly as-is.
+- **Two Sum**, **Valid Parentheses**, **Coin Change** are functionally identical to
+  existing problems (Pair Sum Indices, Valid Bracket Sequence, Minimum Coins for
+  Amount respectively) -- same signature, same algorithm.
+- **Find Median from Data Stream** is covered by the existing doubled-median variant
+  (`median_data_stream_doubled`) for the same no-floating-point reason noted above.
+- **Evaluate Division** *is* included, but adapted: LeetCode's version returns
+  `vector<double>`, which this judge can't do. Values and results are integers
+  instead, and a query returns `-1` if the true ratio isn't a whole number.
 
 Ask if you want any of these added — the linked-list type in particular is a
 reasonable follow-up if you want it.

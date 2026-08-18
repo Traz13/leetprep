@@ -1022,6 +1022,486 @@ insertion instead of the median itself -- this is always a whole number.""",
             {"inputs": [[5]], "expected": [10], "hidden": True},
         ],
     },
+
+    # ---- added from the LeetCode practice-list screenshot ----
+
+    {
+        "id": "take_gifts_richest_pile",
+        "title": "Take Gifts From the Richest Pile",
+        "difficulty": "Easy",
+        "topic": "Array / Heap",
+        "tags": ["array", "heap"],
+        "description_md": """You're given an array `gifts` of pile sizes. In one operation, take the pile with
+the most gifts and replace it with `floor(sqrt(pile))` gifts remaining. Do this `k` times, then return the
+total number of gifts remaining across all piles.""",
+        "function_name": "pickGifts",
+        "params": [{"name": "gifts", "type": "vector<int>"}, {"name": "k", "type": "int"}],
+        "return_type": "int",
+        "starter_code": {
+            "python": "def pickGifts(gifts, k):\n    # your code here -- repeatedly replace the max pile with its floor(sqrt)\n    pass\n",
+            "cpp": "int pickGifts(vector<int> gifts, int k) {\n    // your code here -- repeatedly replace the max pile with its floor(sqrt)\n    return 0;\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [[25, 64, 9, 4, 100], 4], "expected": 29, "input_display": "gifts=[25,64,9,4,100], k=4"},
+            {"inputs": [[1, 1, 1, 1], 4], "expected": 4, "input_display": "gifts=[1,1,1,1], k=4"},
+            {"inputs": [[1], 1000000000], "expected": 1, "hidden": True},
+            {"inputs": [[2, 4, 8, 16], 1], "expected": 18, "hidden": True},
+        ],
+    },
+    {
+        "id": "can_place_flowers",
+        "title": "Can Place Flowers",
+        "difficulty": "Easy",
+        "topic": "Array / Greedy",
+        "tags": ["array", "greedy"],
+        "description_md": """You have a long flowerbed `flowerbed` where `0` is empty and `1` already has a
+flower planted; flowers can't be planted in adjacent plots. Given an integer `n`, return whether `n` new
+flowers can be planted without violating the no-adjacent rule.""",
+        "function_name": "canPlaceFlowers",
+        "params": [{"name": "flowerbed", "type": "vector<int>"}, {"name": "n", "type": "int"}],
+        "return_type": "bool",
+        "starter_code": {
+            "python": "def canPlaceFlowers(flowerbed, n):\n    # your code here\n    pass\n",
+            "cpp": "bool canPlaceFlowers(vector<int> flowerbed, int n) {\n    // your code here\n    return false;\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [[1, 0, 0, 0, 1], 1], "expected": True, "input_display": "flowerbed=[1,0,0,0,1], n=1"},
+            {"inputs": [[1, 0, 0, 0, 1], 2], "expected": False, "input_display": "flowerbed=[1,0,0,0,1], n=2"},
+            {"inputs": [[0, 0, 1, 0, 0], 1], "expected": True, "hidden": True},
+            {"inputs": [[0], 1], "expected": True, "hidden": True},
+        ],
+    },
+    {
+        "id": "zero_array_transformation_i",
+        "title": "Zero Array Transformation I",
+        "difficulty": "Medium",
+        "topic": "Array / Prefix Sum",
+        "tags": ["array", "prefix-sum", "difference-array"],
+        "description_md": """You're given `nums` and a list of `queries`, each `queries[i] = [li, ri]`.
+Processing queries **in order**, for each one you may choose *any subset* of indices within `[li, ri]` and
+decrement each chosen index by 1 (an index doesn't have to be chosen every time its range is queried). Return
+whether it's possible to turn `nums` into an all-zero array after processing every query.
+
+**Key insight:** since you can pick any subset per query, index `i` can be decremented at most as many times
+as the number of queries covering it -- so the answer is just whether every index is covered by at least
+`nums[i]` queries.""",
+        "function_name": "isZeroArray",
+        "params": [{"name": "nums", "type": "vector<int>"}, {"name": "queries", "type": "vector<vector<int>>"}],
+        "return_type": "bool",
+        "starter_code": {
+            "python": "def isZeroArray(nums, queries):\n    # your code here -- difference array of query coverage counts\n    pass\n",
+            "cpp": "bool isZeroArray(vector<int> nums, vector<vector<int>> queries) {\n    // your code here -- difference array of query coverage counts\n    return false;\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [[1, 0, 1], [[0, 2]]], "expected": True, "input_display": "nums=[1,0,1], queries=[[0,2]]"},
+            {"inputs": [[4, 3, 2, 1], [[1, 3], [0, 2]]], "expected": False, "input_display": "nums=[4,3,2,1], queries=[[1,3],[0,2]]"},
+            {"inputs": [[0, 0, 0], []], "expected": True, "hidden": True},
+            {"inputs": [[5], [[0, 0]]], "expected": False, "hidden": True},
+        ],
+    },
+    {
+        "id": "squares_of_sorted_array",
+        "title": "Squares of a Sorted Array",
+        "difficulty": "Easy",
+        "topic": "Array / Two Pointers",
+        "tags": ["array", "two-pointers"],
+        "description_md": """Given an integer array `nums` sorted in non-decreasing order, return an array of
+the squares of each number, also sorted in non-decreasing order.
+
+**Follow-up they'll ask:** can you do it in O(n) instead of sorting the squared array?""",
+        "function_name": "sortedSquares",
+        "params": [{"name": "nums", "type": "vector<int>"}],
+        "return_type": "vector<int>",
+        "starter_code": {
+            "python": "def sortedSquares(nums):\n    # your code here -- two pointers from both ends\n    pass\n",
+            "cpp": "vector<int> sortedSquares(vector<int> nums) {\n    // your code here -- two pointers from both ends\n    return {};\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [[-4, -1, 0, 3, 10]], "expected": [0, 1, 9, 16, 100], "input_display": "nums=[-4,-1,0,3,10]"},
+            {"inputs": [[-7, -3, 2, 3, 11]], "expected": [4, 9, 9, 49, 121], "input_display": "nums=[-7,-3,2,3,11]"},
+            {"inputs": [[-5, -3, -2, -1]], "expected": [1, 4, 9, 25], "hidden": True},
+            {"inputs": [[0]], "expected": [0], "hidden": True},
+        ],
+    },
+    {
+        "id": "expression_add_operators",
+        "title": "Expression Add Operators",
+        "difficulty": "Hard",
+        "topic": "Math / Backtracking",
+        "tags": ["math", "string", "backtracking"],
+        "description_md": """Given a string `num` containing only digits and an integer `target`, return all
+ways to insert the binary operators `+`, `-`, and `*` (not unary) between the digits so the resulting
+expression evaluates to `target`. Numbers in the expression can't have leading zeros unless the number itself
+is `0`. Return the expressions in any order (grading here ignores order).""",
+        "function_name": "addOperators",
+        "params": [{"name": "num", "type": "string"}, {"name": "target", "type": "int"}],
+        "return_type": "vector<string>",
+        "unordered": True,
+        "starter_code": {
+            "python": "def addOperators(num, target):\n    # your code here -- backtrack over digit splits and operators, watch for leading zeros\n    pass\n",
+            "cpp": "vector<string> addOperators(string num, int target) {\n    // your code here -- backtrack over digit splits and operators, watch for leading zeros\n    return {};\n}\n",
+        },
+        "test_cases": [
+            {"inputs": ["123", 6], "expected": ["1+2+3", "1*2*3"], "input_display": 'num="123", target=6'},
+            {"inputs": ["232", 8], "expected": ["2*3+2", "2+3*2"], "input_display": 'num="232", target=8'},
+            {"inputs": ["105", 5], "expected": ["1*0+5", "10-5"], "hidden": True},
+            {"inputs": ["00", 0], "expected": ["0+0", "0-0", "0*0"], "hidden": True},
+        ],
+    },
+    {
+        "id": "longest_substring_no_repeat",
+        "title": "Longest Substring Without Repeating Characters",
+        "difficulty": "Medium",
+        "topic": "String / Sliding Window",
+        "tags": ["string", "sliding-window", "hash-map"],
+        "description_md": """Given a string `s`, return the length of the longest substring without repeating
+characters.""",
+        "function_name": "lengthOfLongestSubstring",
+        "params": [{"name": "s", "type": "string"}],
+        "return_type": "int",
+        "starter_code": {
+            "python": "def lengthOfLongestSubstring(s):\n    # your code here -- sliding window with last-seen index\n    pass\n",
+            "cpp": "int lengthOfLongestSubstring(string s) {\n    // your code here -- sliding window with last-seen index\n    return 0;\n}\n",
+        },
+        "test_cases": [
+            {"inputs": ["abcabcbb"], "expected": 3, "input_display": 's="abcabcbb"'},
+            {"inputs": ["bbbbb"], "expected": 1, "input_display": 's="bbbbb"'},
+            {"inputs": ["pwwkew"], "expected": 3, "hidden": True},
+            {"inputs": [""], "expected": 0, "hidden": True},
+        ],
+    },
+    {
+        "id": "container_most_water",
+        "title": "Container With Most Water",
+        "difficulty": "Medium",
+        "topic": "Array / Two Pointers",
+        "tags": ["array", "two-pointers", "greedy"],
+        "description_md": """Given `n` non-negative integers `height` where each represents a vertical line at
+that index, find two lines that together with the x-axis form a container holding the most water. Return the
+maximum area.""",
+        "function_name": "maxArea",
+        "params": [{"name": "height", "type": "vector<int>"}],
+        "return_type": "int",
+        "starter_code": {
+            "python": "def maxArea(height):\n    # your code here -- two pointers from both ends, move the shorter line\n    pass\n",
+            "cpp": "int maxArea(vector<int> height) {\n    // your code here -- two pointers from both ends, move the shorter line\n    return 0;\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [[1, 8, 6, 2, 5, 4, 8, 3, 7]], "expected": 49, "input_display": "height=[1,8,6,2,5,4,8,3,7]"},
+            {"inputs": [[1, 1]], "expected": 1, "input_display": "height=[1,1]"},
+            {"inputs": [[4, 3, 2, 1, 4]], "expected": 16, "hidden": True},
+            {"inputs": [[1, 2, 1]], "expected": 2, "hidden": True},
+        ],
+    },
+    {
+        "id": "max_consecutive_ones_iii",
+        "title": "Max Consecutive Ones III",
+        "difficulty": "Medium",
+        "topic": "Array / Sliding Window",
+        "tags": ["array", "sliding-window", "binary-search"],
+        "description_md": """Given a binary array `nums` and an integer `k`, return the maximum number of
+consecutive `1`s achievable if you may flip at most `k` zeros to `1`s.""",
+        "function_name": "longestOnes",
+        "params": [{"name": "nums", "type": "vector<int>"}, {"name": "k", "type": "int"}],
+        "return_type": "int",
+        "starter_code": {
+            "python": "def longestOnes(nums, k):\n    # your code here -- sliding window, shrink when zero-count exceeds k\n    pass\n",
+            "cpp": "int longestOnes(vector<int> nums, int k) {\n    // your code here -- sliding window, shrink when zero-count exceeds k\n    return 0;\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [[1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0], 2], "expected": 6, "input_display": "nums=[1,1,1,0,0,0,1,1,1,1,0], k=2"},
+            {"inputs": [[0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1], 3], "expected": 10, "input_display": "nums=[...], k=3"},
+            {"inputs": [[0, 0, 0, 1], 0], "expected": 1, "hidden": True},
+            {"inputs": [[1, 1, 1], 0], "expected": 3, "hidden": True},
+        ],
+    },
+    {
+        "id": "kth_smallest_sorted_matrix",
+        "title": "Kth Smallest Element in a Sorted Matrix",
+        "difficulty": "Medium",
+        "topic": "Array / Binary Search",
+        "tags": ["array", "binary-search", "heap", "matrix"],
+        "description_md": """Given an `n x n` `matrix` where each row and column is sorted ascending, and an
+integer `k`, return the `k`th smallest element in the matrix (by overall sorted order, not distinct values).
+
+**Follow-up they'll ask:** can you avoid flattening and sorting the whole matrix -- binary search on value or
+a k-way heap merge?""",
+        "function_name": "kthSmallest",
+        "params": [{"name": "matrix", "type": "vector<vector<int>>"}, {"name": "k", "type": "int"}],
+        "return_type": "int",
+        "starter_code": {
+            "python": "def kthSmallest(matrix, k):\n    # your code here\n    pass\n",
+            "cpp": "int kthSmallest(vector<vector<int>> matrix, int k) {\n    // your code here\n    return 0;\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [[[1, 5, 9], [10, 11, 13], [12, 13, 15]], 8], "expected": 13, "input_display": "matrix=[[1,5,9],[10,11,13],[12,13,15]], k=8"},
+            {"inputs": [[[-5]], 1], "expected": -5, "input_display": "matrix=[[-5]], k=1"},
+            {"inputs": [[[1, 2], [1, 3]], 2], "expected": 1, "hidden": True},
+            {"inputs": [[[1, 2], [1, 3]], 3], "expected": 2, "hidden": True},
+        ],
+    },
+    {
+        "id": "rank_transform_matrix",
+        "title": "Rank Transform of a Matrix",
+        "difficulty": "Hard",
+        "topic": "Array / Union Find",
+        "tags": ["array", "union-find", "sorting", "matrix"],
+        "description_md": """Given an `m x n` `matrix`, return a matrix `answer` of the same size where
+`answer[i][j]` is the rank of `matrix[i][j]`. Rank is assigned as the smallest positive integer such that:
+- Ranks are consecutive integers starting at 1.
+- If two elements are in the same row or column, the smaller one has a strictly smaller rank.
+- If two elements are in the same row or column and equal, they get the same rank.
+
+This is the classic Union-Find-by-value variant: process values in increasing order, union cells sharing a
+row/column with equal value, and assign each group `max(current row rank, current col rank) + 1`.""",
+        "function_name": "matrixRankTransform",
+        "params": [{"name": "matrix", "type": "vector<vector<int>>"}],
+        "return_type": "vector<vector<int>>",
+        "starter_code": {
+            "python": "def matrixRankTransform(matrix):\n    # your code here -- process values in increasing order, union-find by row/col\n    pass\n",
+            "cpp": "vector<vector<int>> matrixRankTransform(vector<vector<int>> matrix) {\n    // your code here -- process values in increasing order, union-find by row/col\n    return matrix;\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [[[1, 2], [3, 4]]], "expected": [[1, 2], [2, 3]], "input_display": "matrix=[[1,2],[3,4]]"},
+            {"inputs": [[[7, 7], [7, 7]]], "expected": [[1, 1], [1, 1]], "input_display": "matrix=[[7,7],[7,7]]"},
+            {"inputs": [[[1, 3], [2, 4]]], "expected": [[1, 2], [2, 3]], "hidden": True},
+            {"inputs": [[[5]]], "expected": [[1]], "hidden": True},
+        ],
+    },
+    {
+        "id": "longest_increasing_subsequence",
+        "title": "Longest Increasing Subsequence",
+        "difficulty": "Medium",
+        "topic": "Array / Dynamic Programming",
+        "tags": ["array", "dynamic-programming", "binary-search"],
+        "description_md": """Given an integer array `nums`, return the length of the longest strictly
+increasing subsequence.
+
+**Follow-up they'll ask:** can you do it in O(n log n) with patience sorting / binary search instead of the
+O(n^2) DP?""",
+        "function_name": "lengthOfLIS",
+        "params": [{"name": "nums", "type": "vector<int>"}],
+        "return_type": "int",
+        "starter_code": {
+            "python": "def lengthOfLIS(nums):\n    # your code here\n    pass\n",
+            "cpp": "int lengthOfLIS(vector<int> nums) {\n    // your code here\n    return 0;\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [[10, 9, 2, 5, 3, 7, 101, 18]], "expected": 4, "input_display": "nums=[10,9,2,5,3,7,101,18]"},
+            {"inputs": [[0, 1, 0, 3, 2, 3]], "expected": 4, "input_display": "nums=[0,1,0,3,2,3]"},
+            {"inputs": [[7, 7, 7, 7, 7, 7, 7]], "expected": 1, "hidden": True},
+            {"inputs": [[4, 10, 4, 3, 8, 9]], "expected": 3, "hidden": True},
+        ],
+    },
+    {
+        "id": "jump_game",
+        "title": "Jump Game",
+        "difficulty": "Medium",
+        "topic": "Array / Greedy",
+        "tags": ["array", "greedy", "dynamic-programming"],
+        "description_md": """Given an array `nums` where `nums[i]` is the maximum jump length from index `i`,
+starting at index 0, return whether you can reach the last index.""",
+        "function_name": "canJump",
+        "params": [{"name": "nums", "type": "vector<int>"}],
+        "return_type": "bool",
+        "starter_code": {
+            "python": "def canJump(nums):\n    # your code here -- track farthest reachable index\n    pass\n",
+            "cpp": "bool canJump(vector<int> nums) {\n    // your code here -- track farthest reachable index\n    return false;\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [[2, 3, 1, 1, 4]], "expected": True, "input_display": "nums=[2,3,1,1,4]"},
+            {"inputs": [[3, 2, 1, 0, 4]], "expected": False, "input_display": "nums=[3,2,1,0,4]"},
+            {"inputs": [[0]], "expected": True, "hidden": True},
+            {"inputs": [[1, 0, 1, 0]], "expected": False, "hidden": True},
+        ],
+    },
+    {
+        "id": "add_two_integers",
+        "title": "Add Two Integers",
+        "difficulty": "Easy",
+        "topic": "Math",
+        "tags": ["math"],
+        "description_md": """Given two integers `num1` and `num2`, return their sum.""",
+        "function_name": "sumTwoIntegers",
+        "params": [{"name": "num1", "type": "int"}, {"name": "num2", "type": "int"}],
+        "return_type": "int",
+        "starter_code": {
+            "python": "def sumTwoIntegers(num1, num2):\n    # your code here\n    pass\n",
+            "cpp": "int sumTwoIntegers(int num1, int num2) {\n    // your code here\n    return 0;\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [12, 5], "expected": 17, "input_display": "num1=12, num2=5"},
+            {"inputs": [-10, 4], "expected": -6, "input_display": "num1=-10, num2=4"},
+            {"inputs": [0, 0], "expected": 0, "hidden": True},
+            {"inputs": [-100, 100], "expected": 0, "hidden": True},
+        ],
+    },
+    {
+        "id": "longest_consecutive_sequence",
+        "title": "Longest Consecutive Sequence",
+        "difficulty": "Medium",
+        "topic": "Array / Hashing",
+        "tags": ["array", "hash-map"],
+        "description_md": """Given an unsorted array of integers `nums`, return the length of the longest
+consecutive elements sequence, in O(n) time (no sorting).""",
+        "function_name": "longestConsecutive",
+        "params": [{"name": "nums", "type": "vector<int>"}],
+        "return_type": "int",
+        "starter_code": {
+            "python": "def longestConsecutive(nums):\n    # your code here -- hash set, only start counting from run starts\n    pass\n",
+            "cpp": "int longestConsecutive(vector<int> nums) {\n    // your code here -- hash set, only start counting from run starts\n    return 0;\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [[100, 4, 200, 1, 3, 2]], "expected": 4, "input_display": "nums=[100,4,200,1,3,2]"},
+            {"inputs": [[0, 3, 7, 2, 5, 8, 4, 6, 0, 1]], "expected": 9, "input_display": "nums=[0,3,7,2,5,8,4,6,0,1]"},
+            {"inputs": [[]], "expected": 0, "hidden": True},
+            {"inputs": [[1, 2, 0, 1]], "expected": 3, "hidden": True},
+        ],
+    },
+    {
+        "id": "same_tree",
+        "title": "Same Tree",
+        "difficulty": "Easy",
+        "topic": "Tree / DFS",
+        "tags": ["tree", "dfs", "recursion"],
+        "description_md": """Given the roots of two binary trees `p` and `q`, return whether they are
+structurally identical with the same node values.""",
+        "function_name": "isSameTree",
+        "params": [{"name": "p", "type": "tree"}, {"name": "q", "type": "tree"}],
+        "return_type": "bool",
+        "starter_code": {
+            "python": "# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\n\ndef isSameTree(p, q):\n    # your code here\n    pass\n",
+            "cpp": "// struct TreeNode {\n//     int val;\n//     TreeNode *left;\n//     TreeNode *right;\n//     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n// };\n\nbool isSameTree(TreeNode* p, TreeNode* q) {\n    // your code here\n    return false;\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [[1, 2, 3], [1, 2, 3]], "expected": True, "input_display": "p=[1,2,3], q=[1,2,3]"},
+            {"inputs": [[1, 2], [1, None, 2]], "expected": False, "input_display": "p=[1,2], q=[1,null,2]"},
+            {"inputs": [[], []], "expected": True, "hidden": True},
+            {"inputs": [[1, 2, 1], [1, 1, 2]], "expected": False, "hidden": True},
+        ],
+    },
+    {
+        "id": "asteroid_collision",
+        "title": "Asteroid Collision",
+        "difficulty": "Medium",
+        "topic": "Array / Stack",
+        "tags": ["array", "stack", "simulation"],
+        "description_md": """Given an array `asteroids` where each value's absolute value is size and sign is
+direction (positive = right, negative = left), simulate collisions: equal sizes destroy both, the larger
+survives, and same-direction asteroids never collide. Return the state after all collisions resolve.""",
+        "function_name": "asteroidCollision",
+        "params": [{"name": "asteroids", "type": "vector<int>"}],
+        "return_type": "vector<int>",
+        "starter_code": {
+            "python": "def asteroidCollision(asteroids):\n    # your code here -- stack simulation\n    pass\n",
+            "cpp": "vector<int> asteroidCollision(vector<int> asteroids) {\n    // your code here -- stack simulation\n    return {};\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [[5, 10, -5]], "expected": [5, 10], "input_display": "asteroids=[5,10,-5]"},
+            {"inputs": [[8, -8]], "expected": [], "input_display": "asteroids=[8,-8]"},
+            {"inputs": [[10, 2, -5]], "expected": [10], "hidden": True},
+            {"inputs": [[-2, -1, 1, 2]], "expected": [-2, -1, 1, 2], "hidden": True},
+        ],
+    },
+    {
+        "id": "final_array_state_k_mult_i",
+        "title": "Final Array State After K Multiplication Operations I",
+        "difficulty": "Easy",
+        "topic": "Array / Simulation",
+        "tags": ["array", "math", "simulation"],
+        "description_md": """Given `nums`, and integers `k` and `multiplier`, perform `k` operations: each
+operation finds the minimum value in `nums` (the leftmost such index if there's a tie) and multiplies it by
+`multiplier`. Return `nums` after all `k` operations.""",
+        "function_name": "getFinalState",
+        "params": [{"name": "nums", "type": "vector<int>"}, {"name": "k", "type": "int"}, {"name": "multiplier", "type": "int"}],
+        "return_type": "vector<int>",
+        "starter_code": {
+            "python": "def getFinalState(nums, k, multiplier):\n    # your code here\n    pass\n",
+            "cpp": "vector<int> getFinalState(vector<int> nums, int k, int multiplier) {\n    // your code here\n    return nums;\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [[2, 1, 3, 5, 6], 5, 2], "expected": [8, 4, 6, 5, 6], "input_display": "nums=[2,1,3,5,6], k=5, multiplier=2"},
+            {"inputs": [[1, 2], 3, 4], "expected": [16, 8], "input_display": "nums=[1,2], k=3, multiplier=4"},
+            {"inputs": [[1, 1, 1], 1, 2], "expected": [2, 1, 1], "hidden": True},
+            {"inputs": [[5], 3, 1], "expected": [5], "hidden": True},
+        ],
+    },
+    {
+        "id": "generate_parentheses",
+        "title": "Generate Parentheses",
+        "difficulty": "Medium",
+        "topic": "String / Backtracking",
+        "tags": ["string", "backtracking", "dynamic-programming"],
+        "description_md": """Given `n` pairs of parentheses, return all combinations of well-formed
+parenthesis strings (grading here ignores order).""",
+        "function_name": "generateParenthesis",
+        "params": [{"name": "n", "type": "int"}],
+        "return_type": "vector<string>",
+        "unordered": True,
+        "starter_code": {
+            "python": "def generateParenthesis(n):\n    # your code here -- backtrack, only add ')' if it stays valid\n    pass\n",
+            "cpp": "vector<string> generateParenthesis(int n) {\n    // your code here -- backtrack, only add ')' if it stays valid\n    return {};\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [3], "expected": ["((()))", "(()())", "(())()", "()(())", "()()()"], "input_display": "n=3"},
+            {"inputs": [1], "expected": ["()"], "input_display": "n=1"},
+            {"inputs": [2], "expected": ["(())", "()()"], "hidden": True},
+        ],
+    },
+    {
+        "id": "evaluate_division",
+        "title": "Evaluate Division",
+        "difficulty": "Medium",
+        "topic": "Array / Graph",
+        "tags": ["array", "string", "graph", "union-find", "dfs"],
+        "description_md": """Given `equations` of variable pairs `[Ai, Bi]` and integer `values` where
+`Ai / Bi = values[i]`, answer each query in `queries` (`[Cj, Dj]` meaning `Cj / Dj`).
+
+To keep this judge's comparisons exact (no floating point), `values` and results are integers: if a queried
+variable is unknown, or the true ratio between the two variables isn't a whole number, return `-1` for that
+query. Otherwise return the whole-number ratio.""",
+        "function_name": "calcEquation",
+        "params": [
+            {"name": "equations", "type": "vector<vector<string>>"},
+            {"name": "values", "type": "vector<int>"},
+            {"name": "queries", "type": "vector<vector<string>>"},
+        ],
+        "return_type": "vector<int>",
+        "starter_code": {
+            "python": "def calcEquation(equations, values, queries):\n    # your code here -- build a weighted graph, DFS/BFS to accumulate the ratio along a path\n    pass\n",
+            "cpp": "vector<int> calcEquation(vector<vector<string>> equations, vector<int> values, vector<vector<string>> queries) {\n    // your code here -- build a weighted graph, DFS/BFS to accumulate the ratio along a path\n    return {};\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [[["a", "b"], ["b", "c"]], [2, 3], [["a", "c"], ["a", "a"], ["a", "e"], ["x", "x"]]],
+             "expected": [6, 1, -1, -1], "input_display": 'equations=[[a,b],[b,c]], values=[2,3], queries=[[a,c],[a,a],[a,e],[x,x]]'},
+            {"inputs": [[["a", "b"]], [10], [["a", "b"], ["b", "a"], ["a", "a"], ["b", "b"], ["a", "c"]]],
+             "expected": [10, -1, 1, 1, -1], "input_display": 'equations=[[a,b]], values=[10], queries=[[a,b],[b,a],[a,a],[b,b],[a,c]]'},
+            {"inputs": [[["a", "b"], ["b", "c"], ["c", "d"]], [2, 2, 2], [["a", "d"], ["d", "a"], ["a", "c"]]],
+             "expected": [8, -1, 4], "hidden": True},
+        ],
+    },
+    {
+        "id": "ransom_note",
+        "title": "Ransom Note",
+        "difficulty": "Easy",
+        "topic": "Hash Table / String",
+        "tags": ["hash-table", "string"],
+        "description_md": """Given two strings `ransomNote` and `magazine`, return whether `ransomNote` can be
+constructed from letters of `magazine` (each letter in `magazine` can only be used once).""",
+        "function_name": "canConstruct",
+        "params": [{"name": "ransomNote", "type": "string"}, {"name": "magazine", "type": "string"}],
+        "return_type": "bool",
+        "starter_code": {
+            "python": "def canConstruct(ransomNote, magazine):\n    # your code here\n    pass\n",
+            "cpp": "bool canConstruct(string ransomNote, string magazine) {\n    // your code here\n    return false;\n}\n",
+        },
+        "test_cases": [
+            {"inputs": ["a", "b"], "expected": False, "input_display": 'ransomNote="a", magazine="b"'},
+            {"inputs": ["aa", "ab"], "expected": False, "input_display": 'ransomNote="aa", magazine="ab"'},
+            {"inputs": ["aa", "aab"], "expected": True, "hidden": True},
+            {"inputs": ["", "abc"], "expected": True, "hidden": True},
+        ],
+    },
 ]
 
 

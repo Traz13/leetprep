@@ -1,0 +1,61 @@
+{
+  "id": "ransom_note",
+  "title": "Ransom Note",
+  "difficulty": "Easy",
+  "topic": "Hash Table / String",
+  "tags": [
+    "hash-table",
+    "string"
+  ],
+  "description_md": "Given two strings `ransomNote` and `magazine`, return whether `ransomNote` can be\nconstructed from letters of `magazine` (each letter in `magazine` can only be used once).",
+  "function_name": "canConstruct",
+  "params": [
+    {
+      "name": "ransomNote",
+      "type": "string"
+    },
+    {
+      "name": "magazine",
+      "type": "string"
+    }
+  ],
+  "return_type": "bool",
+  "starter_code": {
+    "python": "def canConstruct(ransomNote, magazine):\n    # your code here\n    pass\n",
+    "cpp": "bool canConstruct(string ransomNote, string magazine) {\n    // your code here\n    return false;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        "a",
+        "b"
+      ],
+      "expected": false,
+      "input_display": "ransomNote=\"a\", magazine=\"b\""
+    },
+    {
+      "inputs": [
+        "aa",
+        "ab"
+      ],
+      "expected": false,
+      "input_display": "ransomNote=\"aa\", magazine=\"ab\""
+    },
+    {
+      "inputs": [
+        "aa",
+        "aab"
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "inputs": [
+        "",
+        "abc"
+      ],
+      "expected": true,
+      "hidden": true
+    }
+  ]
+}

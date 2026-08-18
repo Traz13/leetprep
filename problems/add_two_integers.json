@@ -1,0 +1,60 @@
+{
+  "id": "add_two_integers",
+  "title": "Add Two Integers",
+  "difficulty": "Easy",
+  "topic": "Math",
+  "tags": [
+    "math"
+  ],
+  "description_md": "Given two integers `num1` and `num2`, return their sum.",
+  "function_name": "sumTwoIntegers",
+  "params": [
+    {
+      "name": "num1",
+      "type": "int"
+    },
+    {
+      "name": "num2",
+      "type": "int"
+    }
+  ],
+  "return_type": "int",
+  "starter_code": {
+    "python": "def sumTwoIntegers(num1, num2):\n    # your code here\n    pass\n",
+    "cpp": "int sumTwoIntegers(int num1, int num2) {\n    // your code here\n    return 0;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        12,
+        5
+      ],
+      "expected": 17,
+      "input_display": "num1=12, num2=5"
+    },
+    {
+      "inputs": [
+        -10,
+        4
+      ],
+      "expected": -6,
+      "input_display": "num1=-10, num2=4"
+    },
+    {
+      "inputs": [
+        0,
+        0
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "inputs": [
+        -100,
+        100
+      ],
+      "expected": 0,
+      "hidden": true
+    }
+  ]
+}

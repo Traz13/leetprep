@@ -1,0 +1,117 @@
+{
+  "id": "rank_transform_matrix",
+  "title": "Rank Transform of a Matrix",
+  "difficulty": "Hard",
+  "topic": "Array / Union Find",
+  "tags": [
+    "array",
+    "union-find",
+    "sorting",
+    "matrix"
+  ],
+  "description_md": "Given an `m x n` `matrix`, return a matrix `answer` of the same size where\n`answer[i][j]` is the rank of `matrix[i][j]`. Rank is assigned as the smallest positive integer such that:\n- Ranks are consecutive integers starting at 1.\n- If two elements are in the same row or column, the smaller one has a strictly smaller rank.\n- If two elements are in the same row or column and equal, they get the same rank.\n\nThis is the classic Union-Find-by-value variant: process values in increasing order, union cells sharing a\nrow/column with equal value, and assign each group `max(current row rank, current col rank) + 1`.",
+  "function_name": "matrixRankTransform",
+  "params": [
+    {
+      "name": "matrix",
+      "type": "vector<vector<int>>"
+    }
+  ],
+  "return_type": "vector<vector<int>>",
+  "starter_code": {
+    "python": "def matrixRankTransform(matrix):\n    # your code here -- process values in increasing order, union-find by row/col\n    pass\n",
+    "cpp": "vector<vector<int>> matrixRankTransform(vector<vector<int>> matrix) {\n    // your code here -- process values in increasing order, union-find by row/col\n    return matrix;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "input_display": "matrix=[[1,2],[3,4]]"
+    },
+    {
+      "inputs": [
+        [
+          [
+            7,
+            7
+          ],
+          [
+            7,
+            7
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "input_display": "matrix=[[7,7],[7,7]]"
+    },
+    {
+      "inputs": [
+        [
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            4
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "hidden": true
+    },
+    {
+      "inputs": [
+        [
+          [
+            5
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          1
+        ]
+      ],
+      "hidden": true
+    }
+  ]
+}

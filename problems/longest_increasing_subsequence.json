@@ -1,0 +1,85 @@
+{
+  "id": "longest_increasing_subsequence",
+  "title": "Longest Increasing Subsequence",
+  "difficulty": "Medium",
+  "topic": "Array / Dynamic Programming",
+  "tags": [
+    "array",
+    "dynamic-programming",
+    "binary-search"
+  ],
+  "description_md": "Given an integer array `nums`, return the length of the longest strictly\nincreasing subsequence.\n\n**Follow-up they'll ask:** can you do it in O(n log n) with patience sorting / binary search instead of the\nO(n^2) DP?",
+  "function_name": "lengthOfLIS",
+  "params": [
+    {
+      "name": "nums",
+      "type": "vector<int>"
+    }
+  ],
+  "return_type": "int",
+  "starter_code": {
+    "python": "def lengthOfLIS(nums):\n    # your code here\n    pass\n",
+    "cpp": "int lengthOfLIS(vector<int> nums) {\n    // your code here\n    return 0;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          10,
+          9,
+          2,
+          5,
+          3,
+          7,
+          101,
+          18
+        ]
+      ],
+      "expected": 4,
+      "input_display": "nums=[10,9,2,5,3,7,101,18]"
+    },
+    {
+      "inputs": [
+        [
+          0,
+          1,
+          0,
+          3,
+          2,
+          3
+        ]
+      ],
+      "expected": 4,
+      "input_display": "nums=[0,1,0,3,2,3]"
+    },
+    {
+      "inputs": [
+        [
+          7,
+          7,
+          7,
+          7,
+          7,
+          7,
+          7
+        ]
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "inputs": [
+        [
+          4,
+          10,
+          4,
+          3,
+          8,
+          9
+        ]
+      ],
+      "expected": 3,
+      "hidden": true
+    }
+  ]
+}

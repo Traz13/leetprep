@@ -1,0 +1,77 @@
+{
+  "id": "container_most_water",
+  "title": "Container With Most Water",
+  "difficulty": "Medium",
+  "topic": "Array / Two Pointers",
+  "tags": [
+    "array",
+    "two-pointers",
+    "greedy"
+  ],
+  "description_md": "Given `n` non-negative integers `height` where each represents a vertical line at\nthat index, find two lines that together with the x-axis form a container holding the most water. Return the\nmaximum area.",
+  "function_name": "maxArea",
+  "params": [
+    {
+      "name": "height",
+      "type": "vector<int>"
+    }
+  ],
+  "return_type": "int",
+  "starter_code": {
+    "python": "def maxArea(height):\n    # your code here -- two pointers from both ends, move the shorter line\n    pass\n",
+    "cpp": "int maxArea(vector<int> height) {\n    // your code here -- two pointers from both ends, move the shorter line\n    return 0;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          1,
+          8,
+          6,
+          2,
+          5,
+          4,
+          8,
+          3,
+          7
+        ]
+      ],
+      "expected": 49,
+      "input_display": "height=[1,8,6,2,5,4,8,3,7]"
+    },
+    {
+      "inputs": [
+        [
+          1,
+          1
+        ]
+      ],
+      "expected": 1,
+      "input_display": "height=[1,1]"
+    },
+    {
+      "inputs": [
+        [
+          4,
+          3,
+          2,
+          1,
+          4
+        ]
+      ],
+      "expected": 16,
+      "hidden": true
+    },
+    {
+      "inputs": [
+        [
+          1,
+          2,
+          1
+        ]
+      ],
+      "expected": 2,
+      "hidden": true
+    }
+  ]
+}

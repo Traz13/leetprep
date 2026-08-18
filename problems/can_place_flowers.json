@@ -1,0 +1,81 @@
+{
+  "id": "can_place_flowers",
+  "title": "Can Place Flowers",
+  "difficulty": "Easy",
+  "topic": "Array / Greedy",
+  "tags": [
+    "array",
+    "greedy"
+  ],
+  "description_md": "You have a long flowerbed `flowerbed` where `0` is empty and `1` already has a\nflower planted; flowers can't be planted in adjacent plots. Given an integer `n`, return whether `n` new\nflowers can be planted without violating the no-adjacent rule.",
+  "function_name": "canPlaceFlowers",
+  "params": [
+    {
+      "name": "flowerbed",
+      "type": "vector<int>"
+    },
+    {
+      "name": "n",
+      "type": "int"
+    }
+  ],
+  "return_type": "bool",
+  "starter_code": {
+    "python": "def canPlaceFlowers(flowerbed, n):\n    # your code here\n    pass\n",
+    "cpp": "bool canPlaceFlowers(vector<int> flowerbed, int n) {\n    // your code here\n    return false;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          1,
+          0,
+          0,
+          0,
+          1
+        ],
+        1
+      ],
+      "expected": true,
+      "input_display": "flowerbed=[1,0,0,0,1], n=1"
+    },
+    {
+      "inputs": [
+        [
+          1,
+          0,
+          0,
+          0,
+          1
+        ],
+        2
+      ],
+      "expected": false,
+      "input_display": "flowerbed=[1,0,0,0,1], n=2"
+    },
+    {
+      "inputs": [
+        [
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        1
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "inputs": [
+        [
+          0
+        ],
+        1
+      ],
+      "expected": true,
+      "hidden": true
+    }
+  ]
+}
