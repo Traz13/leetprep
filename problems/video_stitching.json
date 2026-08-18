@@ -1,0 +1,93 @@
+{
+  "id": "video_stitching",
+  "title": "Video Stitching",
+  "difficulty": "Medium",
+  "topic": "Arrays / Greedy",
+  "tags": [
+    "array",
+    "greedy",
+    "dynamic-programming"
+  ],
+  "description_md": "You need to cover the interval `[0, time]` using `clips`, where each clip is\n`[start, end]`. Return the minimum number of clips needed, or `-1` if it's not possible.",
+  "function_name": "videoStitching",
+  "params": [
+    {
+      "name": "clips",
+      "type": "vector<vector<int>>"
+    },
+    {
+      "name": "time",
+      "type": "int"
+    }
+  ],
+  "return_type": "int",
+  "starter_code": {
+    "python": "def videoStitching(clips, time):\n    # your code here -- greedy interval covering\n    pass\n",
+    "cpp": "int videoStitching(vector<vector<int>> clips, int time) {\n    // your code here -- greedy interval covering\n    return -1;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          [
+            0,
+            2
+          ],
+          [
+            4,
+            6
+          ],
+          [
+            8,
+            10
+          ],
+          [
+            1,
+            9
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            5,
+            9
+          ]
+        ],
+        10
+      ],
+      "expected": 3,
+      "input_display": "clips=[...], time=10"
+    },
+    {
+      "inputs": [
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        5
+      ],
+      "expected": -1,
+      "input_display": "clips=[[0,1],[1,2]], time=5"
+    },
+    {
+      "inputs": [
+        [
+          [
+            0,
+            5
+          ]
+        ],
+        5
+      ],
+      "expected": 1,
+      "hidden": true
+    }
+  ]
+}

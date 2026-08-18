@@ -1,0 +1,83 @@
+{
+  "id": "shortest_word_distance_ii",
+  "title": "Shortest Word Distance II",
+  "difficulty": "Medium",
+  "topic": "Arrays / Design",
+  "tags": [
+    "array",
+    "hash-map",
+    "two-pointers",
+    "design"
+  ],
+  "description_md": "This is the \"design\" variant of Shortest Word Distance: you'll be asked many\n`(word1, word2)` queries against the same `wordsDict`, so precompute once and answer each query efficiently.\n\nGiven `wordsDict` and a list of `queries` (each `[word1, word2]`), return an array of shortest distances, one\nper query, using the precompute-then-two-pointer approach rather than rescanning the whole array each time.",
+  "function_name": "wordDistanceQueries",
+  "params": [
+    {
+      "name": "wordsDict",
+      "type": "vector<string>"
+    },
+    {
+      "name": "queries",
+      "type": "vector<vector<string>>"
+    }
+  ],
+  "return_type": "vector<int>",
+  "starter_code": {
+    "python": "def wordDistanceQueries(wordsDict, queries):\n    # your code here -- precompute positions per word, then two-pointer merge per query\n    pass\n",
+    "cpp": "vector<int> wordDistanceQueries(vector<string> wordsDict, vector<vector<string>> queries) {\n    // your code here\n    return {};\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          "practice",
+          "makes",
+          "perfect",
+          "coding",
+          "makes"
+        ],
+        [
+          [
+            "coding",
+            "practice"
+          ],
+          [
+            "makes",
+            "coding"
+          ]
+        ]
+      ],
+      "expected": [
+        3,
+        1
+      ],
+      "input_display": "wordsDict=[...], queries=[[coding,practice],[makes,coding]]"
+    },
+    {
+      "inputs": [
+        [
+          "a",
+          "b",
+          "a",
+          "c",
+          "b"
+        ],
+        [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "a",
+            "c"
+          ]
+        ]
+      ],
+      "expected": [
+        1,
+        1
+      ],
+      "hidden": true
+    }
+  ]
+}

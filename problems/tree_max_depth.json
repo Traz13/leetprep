@@ -1,0 +1,75 @@
+{
+  "id": "tree_max_depth",
+  "title": "Binary Tree Max Depth",
+  "difficulty": "Easy",
+  "topic": "Trees / DFS",
+  "tags": [
+    "tree",
+    "dfs",
+    "recursion"
+  ],
+  "description_md": "Given the root of a binary tree, return its maximum depth (the number of nodes\nalong the longest path from the root down to the farthest leaf).\n\nThe tree is provided as a level-order array where `null` marks a missing child (same convention LeetCode\nuses). It will be built into a `TreeNode` tree for you automatically -- your function receives the root.",
+  "function_name": "maxDepth",
+  "params": [
+    {
+      "name": "root",
+      "type": "tree"
+    }
+  ],
+  "return_type": "int",
+  "starter_code": {
+    "python": "# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\n\ndef maxDepth(root):\n    # root is a TreeNode or None\n    pass\n",
+    "cpp": "// struct TreeNode {\n//     int val;\n//     TreeNode *left;\n//     TreeNode *right;\n//     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n// };\n\nint maxDepth(TreeNode* root) {\n    // root is a TreeNode* or nullptr\n    return 0;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          3,
+          9,
+          20,
+          null,
+          null,
+          15,
+          7
+        ]
+      ],
+      "expected": 3,
+      "input_display": "tree=[3,9,20,null,null,15,7]"
+    },
+    {
+      "inputs": [
+        [
+          1,
+          null,
+          2
+        ]
+      ],
+      "expected": 2,
+      "input_display": "tree=[1,null,2]"
+    },
+    {
+      "inputs": [
+        []
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "inputs": [
+        [
+          1,
+          2,
+          3,
+          4,
+          null,
+          null,
+          null,
+          5
+        ]
+      ],
+      "expected": 4,
+      "hidden": true
+    }
+  ]
+}

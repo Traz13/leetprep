@@ -1,0 +1,75 @@
+{
+  "id": "median_data_stream_doubled",
+  "title": "Median From a Data Stream",
+  "difficulty": "Hard",
+  "topic": "Design / Heaps",
+  "tags": [
+    "heap",
+    "design",
+    "two-heaps"
+  ],
+  "description_md": "Design a structure that supports adding numbers from a stream and querying the\nrunning median after each addition, using two heaps (a max-heap for the lower half, a min-heap for the\nupper half) rather than re-sorting every time.\n\nTo keep this judge's integer-only comparisons exact (no floating point), return `2 x median` after each\ninsertion instead of the median itself -- this is always a whole number.",
+  "function_name": "medianStreamDoubled",
+  "params": [
+    {
+      "name": "nums",
+      "type": "vector<int>"
+    }
+  ],
+  "return_type": "vector<int>",
+  "starter_code": {
+    "python": "import heapq\ndef medianStreamDoubled(nums):\n    # your code here -- two heaps, return 2*median after each insertion\n    pass\n",
+    "cpp": "vector<int> medianStreamDoubled(vector<int> nums) {\n    // your code here -- two heaps (priority_queue), return 2*median after each insertion\n    return {};\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": [
+        2,
+        3,
+        4
+      ],
+      "input_display": "nums=[1,2,3] (insert one at a time)"
+    },
+    {
+      "inputs": [
+        [
+          2,
+          1,
+          5,
+          7,
+          2,
+          0,
+          5
+        ]
+      ],
+      "expected": [
+        4,
+        3,
+        4,
+        7,
+        4,
+        4,
+        4
+      ],
+      "hidden": true
+    },
+    {
+      "inputs": [
+        [
+          5
+        ]
+      ],
+      "expected": [
+        10
+      ],
+      "hidden": true
+    }
+  ]
+}

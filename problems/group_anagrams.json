@@ -1,0 +1,80 @@
+{
+  "id": "group_anagrams",
+  "title": "Group Anagrams",
+  "difficulty": "Medium",
+  "topic": "Arrays / Hashing",
+  "tags": [
+    "array",
+    "hash-map",
+    "string"
+  ],
+  "description_md": "Given an array of strings `strs`, group the anagrams together. Return the groups\nin any order (grading here ignores group order and order within each group).",
+  "function_name": "groupAnagrams",
+  "params": [
+    {
+      "name": "strs",
+      "type": "vector<string>"
+    }
+  ],
+  "return_type": "vector<vector<string>>",
+  "unordered": true,
+  "starter_code": {
+    "python": "def groupAnagrams(strs):\n    # your code here\n    pass\n",
+    "cpp": "vector<vector<string>> groupAnagrams(vector<string> strs) {\n    // your code here\n    return {};\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          "eat",
+          "tea",
+          "tan",
+          "ate",
+          "nat",
+          "bat"
+        ]
+      ],
+      "expected": [
+        [
+          "eat",
+          "tea",
+          "ate"
+        ],
+        [
+          "tan",
+          "nat"
+        ],
+        [
+          "bat"
+        ]
+      ],
+      "input_display": "strs=[\"eat\",\"tea\",\"tan\",\"ate\",\"nat\",\"bat\"]"
+    },
+    {
+      "inputs": [
+        [
+          ""
+        ]
+      ],
+      "expected": [
+        [
+          ""
+        ]
+      ],
+      "hidden": true
+    },
+    {
+      "inputs": [
+        [
+          "a"
+        ]
+      ],
+      "expected": [
+        [
+          "a"
+        ]
+      ],
+      "hidden": true
+    }
+  ]
+}

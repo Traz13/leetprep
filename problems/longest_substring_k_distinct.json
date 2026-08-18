@@ -1,0 +1,62 @@
+{
+  "id": "longest_substring_k_distinct",
+  "title": "Longest Substring With K Distinct Chars",
+  "difficulty": "Medium",
+  "topic": "Strings / Sliding Window",
+  "tags": [
+    "string",
+    "sliding-window",
+    "two-pointer"
+  ],
+  "description_md": "Given a string `s` and an integer `k`, return the length of the longest substring\nthat contains at most `k` distinct characters.\n\n**Follow-up they'll ask:** how would you extend this to a streaming input where you can't re-scan from the\nstart?",
+  "function_name": "longestKDistinct",
+  "params": [
+    {
+      "name": "s",
+      "type": "string"
+    },
+    {
+      "name": "k",
+      "type": "int"
+    }
+  ],
+  "return_type": "int",
+  "starter_code": {
+    "python": "def longestKDistinct(s, k):\n    # sliding window\n    pass\n",
+    "cpp": "int longestKDistinct(string s, int k) {\n    // sliding window\n    return 0;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        "eceba",
+        2
+      ],
+      "expected": 3,
+      "input_display": "s=\"eceba\", k=2"
+    },
+    {
+      "inputs": [
+        "aa",
+        1
+      ],
+      "expected": 2,
+      "input_display": "s=\"aa\", k=1"
+    },
+    {
+      "inputs": [
+        "a",
+        0
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "inputs": [
+        "abcadcacacaca",
+        3
+      ],
+      "expected": 11,
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "id": "game_of_life",
+  "title": "Game of Life",
+  "difficulty": "Medium",
+  "topic": "Arrays / Simulation",
+  "tags": [
+    "array",
+    "matrix",
+    "simulation"
+  ],
+  "description_md": "Given an `m x n` board where `1` is a live cell and `0` is dead, compute the next\nstate per Conway's rules (a live cell with 2-3 live neighbors survives; a dead cell with exactly 3 live\nneighbors becomes alive; all other cells die or stay dead). Return the new board.",
+  "function_name": "gameOfLife",
+  "params": [
+    {
+      "name": "board",
+      "type": "vector<vector<int>>"
+    }
+  ],
+  "return_type": "vector<vector<int>>",
+  "starter_code": {
+    "python": "def gameOfLife(board):\n    # your code here\n    pass\n",
+    "cpp": "vector<vector<int>> gameOfLife(vector<vector<int>> board) {\n    // your code here\n    return board;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          0
+        ]
+      ],
+      "input_display": "board=[[0,1,0],[0,0,1],[1,1,1],[0,0,0]]"
+    },
+    {
+      "inputs": [
+        [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "hidden": true
+    }
+  ]
+}

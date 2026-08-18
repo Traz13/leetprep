@@ -1,0 +1,55 @@
+{
+  "id": "flatten_binary_tree_preorder",
+  "title": "Flatten Binary Tree (Preorder)",
+  "difficulty": "Medium",
+  "topic": "Trees / DFS",
+  "tags": [
+    "tree",
+    "dfs",
+    "recursion"
+  ],
+  "description_md": "Given the root of a binary tree, flatten it to match the preorder traversal --\nreturn the preorder sequence of values (the actual LeetCode version turns this into an in-place linked list;\nhere just return the value order, which is the core of the algorithm either way).",
+  "function_name": "flattenPreorder",
+  "params": [
+    {
+      "name": "root",
+      "type": "tree"
+    }
+  ],
+  "return_type": "vector<int>",
+  "starter_code": {
+    "python": "# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\n\ndef flattenPreorder(root):\n    # your code here\n    pass\n",
+    "cpp": "// struct TreeNode {\n//     int val;\n//     TreeNode *left;\n//     TreeNode *right;\n//     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n// };\n\nvector<int> flattenPreorder(TreeNode* root) {\n    // your code here\n    return {};\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          1,
+          2,
+          5,
+          3,
+          4,
+          null,
+          6
+        ]
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "input_display": "tree=[1,2,5,3,4,null,6]"
+    },
+    {
+      "inputs": [
+        []
+      ],
+      "expected": [],
+      "hidden": true
+    }
+  ]
+}

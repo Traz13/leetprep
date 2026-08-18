@@ -1,0 +1,86 @@
+{
+  "id": "time_based_key_value_store",
+  "title": "Time Based Key-Value Store",
+  "difficulty": "Medium",
+  "topic": "Design / Binary Search",
+  "tags": [
+    "hash-map",
+    "binary-search",
+    "design"
+  ],
+  "description_md": "Design a time-based key-value store, exercised here as a single batch of\n`operations`. Each operation is either `[\"set\", key, value, timestamp]` (timestamps for a given key are\nnon-decreasing) or `[\"get\", key, timestamp]`. A `get` should return the value set for that key at the\nlargest recorded timestamp `<= timestamp`, or `\"\"` if none exists. Return the list of outputs for the `get`\noperations, in order (nothing is returned for `set`).",
+  "function_name": "timeMapOperations",
+  "params": [
+    {
+      "name": "operations",
+      "type": "vector<vector<string>>"
+    }
+  ],
+  "return_type": "vector<string>",
+  "starter_code": {
+    "python": "def timeMapOperations(operations):\n    # your code here -- store (timestamp, value) per key, binary search on get\n    pass\n",
+    "cpp": "vector<string> timeMapOperations(vector<vector<string>> operations) {\n    // your code here\n    return {};\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          [
+            "set",
+            "foo",
+            "bar",
+            "1"
+          ],
+          [
+            "get",
+            "foo",
+            "1"
+          ],
+          [
+            "get",
+            "foo",
+            "3"
+          ],
+          [
+            "set",
+            "foo",
+            "bar2",
+            "4"
+          ],
+          [
+            "get",
+            "foo",
+            "4"
+          ],
+          [
+            "get",
+            "foo",
+            "5"
+          ]
+        ]
+      ],
+      "expected": [
+        "bar",
+        "bar",
+        "bar2",
+        "bar2"
+      ],
+      "input_display": "operations=[set foo bar @1, get foo @1, get foo @3, set foo bar2 @4, get foo @4, get foo @5]"
+    },
+    {
+      "inputs": [
+        [
+          [
+            "get",
+            "missing",
+            "1"
+          ]
+        ]
+      ],
+      "expected": [
+        ""
+      ],
+      "hidden": true
+    }
+  ]
+}

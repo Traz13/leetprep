@@ -1,0 +1,73 @@
+{
+  "id": "min_coins_for_amount",
+  "title": "Minimum Coins for Amount",
+  "difficulty": "Medium",
+  "topic": "Dynamic Programming",
+  "tags": [
+    "dp",
+    "unbounded-knapsack"
+  ],
+  "description_md": "You're given an array `coins` representing available coin denominations (unlimited\nsupply of each) and an integer `amount`. Return the fewest number of coins needed to make up `amount`.\n\nIf it's not possible, return `-1`.\n\n**Follow-up they'll ask:** how would you also return which coins were used, not just the count?",
+  "function_name": "minCoins",
+  "params": [
+    {
+      "name": "coins",
+      "type": "vector<int>"
+    },
+    {
+      "name": "amount",
+      "type": "int"
+    }
+  ],
+  "return_type": "int",
+  "starter_code": {
+    "python": "def minCoins(coins, amount):\n    # your code here\n    pass\n",
+    "cpp": "int minCoins(vector<int> coins, int amount) {\n    // your code here\n    return -1;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          1,
+          2,
+          5
+        ],
+        11
+      ],
+      "expected": 3,
+      "input_display": "coins=[1,2,5], amount=11"
+    },
+    {
+      "inputs": [
+        [
+          2
+        ],
+        3
+      ],
+      "expected": -1,
+      "input_display": "coins=[2], amount=3"
+    },
+    {
+      "inputs": [
+        [
+          1
+        ],
+        0
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "inputs": [
+        [
+          1,
+          3,
+          4
+        ],
+        6
+      ],
+      "expected": 2,
+      "hidden": true
+    }
+  ]
+}

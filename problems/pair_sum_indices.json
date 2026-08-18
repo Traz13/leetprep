@@ -1,0 +1,107 @@
+{
+  "id": "pair_sum_indices",
+  "title": "Pair Sum Indices",
+  "difficulty": "Easy",
+  "topic": "Arrays / Hashing",
+  "tags": [
+    "array",
+    "hash-map"
+  ],
+  "description_md": "Given an array of integers `nums` and an integer `target`, return the indices of the\ntwo numbers that add up to `target`.\n\nAssume exactly one valid pair exists, and you may not use the same element twice.\nReturn the indices in the order you find them scanning left to right (lower index first).\n\n**Follow-up they'll ask:** can you do it in one pass instead of two?",
+  "function_name": "pairSumIndices",
+  "params": [
+    {
+      "name": "nums",
+      "type": "vector<int>"
+    },
+    {
+      "name": "target",
+      "type": "int"
+    }
+  ],
+  "return_type": "vector<int>",
+  "starter_code": {
+    "python": "def pairSumIndices(nums, target):\n    # your code here\n    pass\n",
+    "cpp": "vector<int> pairSumIndices(vector<int> nums, int target) {\n    // your code here\n    return {};\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          2,
+          7,
+          11,
+          15
+        ],
+        9
+      ],
+      "expected": [
+        0,
+        1
+      ],
+      "input_display": "nums=[2,7,11,15], target=9"
+    },
+    {
+      "inputs": [
+        [
+          3,
+          2,
+          4
+        ],
+        6
+      ],
+      "expected": [
+        1,
+        2
+      ],
+      "input_display": "nums=[3,2,4], target=6"
+    },
+    {
+      "inputs": [
+        [
+          3,
+          3
+        ],
+        6
+      ],
+      "expected": [
+        0,
+        1
+      ],
+      "input_display": "nums=[3,3], target=6"
+    },
+    {
+      "inputs": [
+        [
+          -1,
+          -2,
+          -3,
+          -4,
+          -5
+        ],
+        -8
+      ],
+      "expected": [
+        2,
+        4
+      ],
+      "hidden": true
+    },
+    {
+      "inputs": [
+        [
+          0,
+          4,
+          3,
+          0
+        ],
+        0
+      ],
+      "expected": [
+        0,
+        3
+      ],
+      "hidden": true
+    }
+  ]
+}

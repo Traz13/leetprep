@@ -1,0 +1,103 @@
+{
+  "id": "course_schedule_ii",
+  "title": "Course Schedule II",
+  "difficulty": "Medium",
+  "topic": "Graphs / Topological Sort",
+  "tags": [
+    "graph",
+    "topological-sort",
+    "bfs"
+  ],
+  "description_md": "You have `numCourses` courses labeled `0` to `numCourses-1`. `prerequisites[i] =\n[a, b]` means you must take course `b` before course `a`. Return a valid order to take all courses, or an\nempty array if it's impossible (a cycle exists).\n\nTo keep the judge deterministic, return the **lexicographically smallest** valid order (always pick the\nlowest-numbered course with no remaining prerequisites at each step -- a min-heap instead of a plain queue).",
+  "function_name": "courseOrder",
+  "params": [
+    {
+      "name": "numCourses",
+      "type": "int"
+    },
+    {
+      "name": "prerequisites",
+      "type": "vector<vector<int>>"
+    }
+  ],
+  "return_type": "vector<int>",
+  "starter_code": {
+    "python": "import heapq\ndef courseOrder(numCourses, prerequisites):\n    # your code here -- use a min-heap for the lexicographically smallest order\n    pass\n",
+    "cpp": "vector<int> courseOrder(int numCourses, vector<vector<int>> prerequisites) {\n    // your code here -- use a min-heap (priority_queue<int, vector<int>, greater<int>>)\n    return {};\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        4,
+        [
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            3,
+            2
+          ]
+        ]
+      ],
+      "expected": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "input_display": "numCourses=4, prerequisites=[[1,0],[2,0],[3,1],[3,2]]"
+    },
+    {
+      "inputs": [
+        2,
+        [
+          [
+            1,
+            0
+          ]
+        ]
+      ],
+      "expected": [
+        0,
+        1
+      ],
+      "input_display": "numCourses=2, prerequisites=[[1,0]]"
+    },
+    {
+      "inputs": [
+        2,
+        [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ]
+      ],
+      "expected": [],
+      "hidden": true
+    },
+    {
+      "inputs": [
+        1,
+        []
+      ],
+      "expected": [
+        0
+      ],
+      "hidden": true
+    }
+  ]
+}

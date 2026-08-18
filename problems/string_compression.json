@@ -1,0 +1,53 @@
+{
+  "id": "string_compression",
+  "title": "String Compression",
+  "difficulty": "Medium",
+  "topic": "Strings / Two Pointers",
+  "tags": [
+    "string",
+    "two-pointers"
+  ],
+  "description_md": "Given a string `s` of lowercase letters, compress consecutive runs of the same\ncharacter into the character followed by the run length -- but omit the count when a run has length 1 (e.g.\n`\"aabcccccaaa\"` becomes `\"a2bc5a3\"`, not `\"a2b1c5a3\"`). Return the compressed string.",
+  "function_name": "compress",
+  "params": [
+    {
+      "name": "s",
+      "type": "string"
+    }
+  ],
+  "return_type": "string",
+  "starter_code": {
+    "python": "def compress(s):\n    # your code here\n    pass\n",
+    "cpp": "string compress(string s) {\n    // your code here\n    return \"\";\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        "aabcccccaaa"
+      ],
+      "expected": "a2bc5a3",
+      "input_display": "s=\"aabcccccaaa\""
+    },
+    {
+      "inputs": [
+        "abbbbbbbbbbbb"
+      ],
+      "expected": "ab12",
+      "input_display": "s=\"abbbbbbbbbbbb\""
+    },
+    {
+      "inputs": [
+        "abcdef"
+      ],
+      "expected": "abcdef",
+      "hidden": true
+    },
+    {
+      "inputs": [
+        ""
+      ],
+      "expected": "",
+      "hidden": true
+    }
+  ]
+}

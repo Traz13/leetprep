@@ -1,0 +1,85 @@
+{
+  "id": "rotate_array_k",
+  "title": "Rotate Array In Place",
+  "difficulty": "Medium",
+  "topic": "Arrays",
+  "tags": [
+    "array",
+    "in-place"
+  ],
+  "description_md": "Given an array `nums`, rotate it to the right by `k` steps, and return the rotated\narray.\n\n**Follow-up they'll ask:** can you do this in O(1) extra space? (Hint: reverse the whole array, then reverse\neach segment.)",
+  "function_name": "rotateArray",
+  "params": [
+    {
+      "name": "nums",
+      "type": "vector<int>"
+    },
+    {
+      "name": "k",
+      "type": "int"
+    }
+  ],
+  "return_type": "vector<int>",
+  "starter_code": {
+    "python": "def rotateArray(nums, k):\n    # your code here\n    pass\n",
+    "cpp": "vector<int> rotateArray(vector<int> nums, int k) {\n    // your code here\n    return nums;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        3
+      ],
+      "expected": [
+        5,
+        6,
+        7,
+        1,
+        2,
+        3,
+        4
+      ],
+      "input_display": "nums=[1..7], k=3"
+    },
+    {
+      "inputs": [
+        [
+          -1,
+          -100,
+          3,
+          99
+        ],
+        2
+      ],
+      "expected": [
+        3,
+        99,
+        -1,
+        -100
+      ],
+      "input_display": "nums=[-1,-100,3,99], k=2"
+    },
+    {
+      "inputs": [
+        [
+          1,
+          2
+        ],
+        3
+      ],
+      "expected": [
+        2,
+        1
+      ],
+      "hidden": true
+    }
+  ]
+}

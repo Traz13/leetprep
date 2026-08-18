@@ -1,0 +1,71 @@
+{
+  "id": "search_rotated_sorted_array",
+  "title": "Search in Rotated Sorted Array",
+  "difficulty": "Medium",
+  "topic": "Arrays / Binary Search",
+  "tags": [
+    "array",
+    "binary-search"
+  ],
+  "description_md": "An ascending array with distinct values was rotated at an unknown pivot. Given\nthe rotated array `nums` and a `target`, return its index, or `-1` if not present -- in O(log n).",
+  "function_name": "searchRotated",
+  "params": [
+    {
+      "name": "nums",
+      "type": "vector<int>"
+    },
+    {
+      "name": "target",
+      "type": "int"
+    }
+  ],
+  "return_type": "int",
+  "starter_code": {
+    "python": "def searchRotated(nums, target):\n    # your code here -- modified binary search\n    pass\n",
+    "cpp": "int searchRotated(vector<int> nums, int target) {\n    // your code here -- modified binary search\n    return -1;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          4,
+          5,
+          6,
+          7,
+          0,
+          1,
+          2
+        ],
+        0
+      ],
+      "expected": 4,
+      "input_display": "nums=[4,5,6,7,0,1,2], target=0"
+    },
+    {
+      "inputs": [
+        [
+          4,
+          5,
+          6,
+          7,
+          0,
+          1,
+          2
+        ],
+        3
+      ],
+      "expected": -1,
+      "input_display": "nums=[4,5,6,7,0,1,2], target=3"
+    },
+    {
+      "inputs": [
+        [
+          1
+        ],
+        0
+      ],
+      "expected": -1,
+      "hidden": true
+    }
+  ]
+}

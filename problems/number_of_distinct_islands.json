@@ -1,0 +1,79 @@
+{
+  "id": "number_of_distinct_islands",
+  "title": "Number of Distinct Islands",
+  "difficulty": "Medium",
+  "topic": "Graphs / DFS",
+  "tags": [
+    "graph",
+    "dfs",
+    "hash-map",
+    "grid"
+  ],
+  "description_md": "Given a binary `grid`, an island is a group of `1`s connected 4-directionally.\nTwo islands are considered the same if one can be translated (not rotated or reflected) to exactly match the\nother. Return the number of distinct island shapes.",
+  "function_name": "numDistinctIslands",
+  "params": [
+    {
+      "name": "grid",
+      "type": "vector<vector<int>>"
+    }
+  ],
+  "return_type": "int",
+  "starter_code": {
+    "python": "def numDistinctIslands(grid):\n    # your code here -- DFS recording each cell's offset from the island's start cell\n    pass\n",
+    "cpp": "int numDistinctIslands(vector<vector<int>> grid) {\n    // your code here -- DFS recording each cell's offset from the island's start cell\n    return 0;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            1
+          ]
+        ]
+      ],
+      "expected": 1,
+      "input_display": "grid with two identically-shaped 2x2 islands"
+    },
+    {
+      "inputs": [
+        [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ]
+      ],
+      "expected": 1,
+      "hidden": true
+    }
+  ]
+}

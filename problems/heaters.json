@@ -1,0 +1,73 @@
+{
+  "id": "heaters",
+  "title": "Heaters",
+  "difficulty": "Medium",
+  "topic": "Arrays / Binary Search",
+  "tags": [
+    "array",
+    "binary-search",
+    "two-pointers"
+  ],
+  "description_md": "Given the positions of houses `houses` and heaters `heaters` on a number line,\nevery heater has the same warm radius. Return the minimum radius so that every house is covered by at least\none heater.",
+  "function_name": "findRadius",
+  "params": [
+    {
+      "name": "houses",
+      "type": "vector<int>"
+    },
+    {
+      "name": "heaters",
+      "type": "vector<int>"
+    }
+  ],
+  "return_type": "int",
+  "starter_code": {
+    "python": "def findRadius(houses, heaters):\n    # your code here\n    pass\n",
+    "cpp": "int findRadius(vector<int> houses, vector<int> heaters) {\n    // your code here\n    return 0;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          2
+        ]
+      ],
+      "expected": 1,
+      "input_display": "houses=[1,2,3], heaters=[2]"
+    },
+    {
+      "inputs": [
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        [
+          1,
+          4
+        ]
+      ],
+      "expected": 1,
+      "input_display": "houses=[1,2,3,4], heaters=[1,4]"
+    },
+    {
+      "inputs": [
+        [
+          1,
+          5
+        ],
+        [
+          2
+        ]
+      ],
+      "expected": 3,
+      "hidden": true
+    }
+  ]
+}

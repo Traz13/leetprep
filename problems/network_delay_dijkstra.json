@@ -1,0 +1,145 @@
+{
+  "id": "network_delay_dijkstra",
+  "title": "Sensor Network Shortest Delay",
+  "difficulty": "Medium",
+  "topic": "Graphs / Dijkstra",
+  "tags": [
+    "dijkstra",
+    "graph",
+    "priority-queue"
+  ],
+  "description_md": "You have `n` nodes (labeled `0` to `n-1`) representing sensors in a network, and a\nlist of directed edges `edges`, where each edge is `[u, v, w]` meaning it takes `w` time units to send a\nsignal from node `u` to node `v`.\n\nGiven a source node `src`, return an array `dist` where `dist[i]` is the shortest time to reach node `i`\nfrom `src`. If a node is unreachable, its value should be `-1`.\n\nThis is essentially the Dijkstra's-algorithm question Anduril is known to ask directly.\n**Follow-up they'll ask:** how does your solution change with negative edge weights? What's the complexity\nwith a binary heap vs a Fibonacci heap?",
+  "function_name": "shortestDelays",
+  "params": [
+    {
+      "name": "n",
+      "type": "int"
+    },
+    {
+      "name": "edges",
+      "type": "vector<vector<int>>"
+    },
+    {
+      "name": "src",
+      "type": "int"
+    }
+  ],
+  "return_type": "vector<int>",
+  "starter_code": {
+    "python": "def shortestDelays(n, edges, src):\n    # Dijkstra from src over n nodes; -1 for unreachable\n    pass\n",
+    "cpp": "vector<int> shortestDelays(int n, vector<vector<int>> edges, int src) {\n    // Dijkstra from src over n nodes; -1 for unreachable\n    return vector<int>(n, -1);\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        4,
+        [
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            2,
+            2
+          ],
+          [
+            0,
+            2,
+            4
+          ],
+          [
+            2,
+            3,
+            1
+          ]
+        ],
+        0
+      ],
+      "expected": [
+        0,
+        1,
+        3,
+        4
+      ],
+      "input_display": "n=4, edges=[[0,1,1],[1,2,2],[0,2,4],[2,3,1]], src=0"
+    },
+    {
+      "inputs": [
+        3,
+        [
+          [
+            0,
+            1,
+            5
+          ]
+        ],
+        0
+      ],
+      "expected": [
+        0,
+        5,
+        -1
+      ],
+      "input_display": "n=3, edges=[[0,1,5]], src=0"
+    },
+    {
+      "inputs": [
+        1,
+        [],
+        0
+      ],
+      "expected": [
+        0
+      ],
+      "hidden": true
+    },
+    {
+      "inputs": [
+        5,
+        [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            0,
+            2,
+            5
+          ],
+          [
+            1,
+            2,
+            1
+          ],
+          [
+            1,
+            3,
+            7
+          ],
+          [
+            2,
+            4,
+            1
+          ],
+          [
+            3,
+            4,
+            1
+          ]
+        ],
+        0
+      ],
+      "expected": [
+        0,
+        2,
+        3,
+        9,
+        4
+      ],
+      "hidden": true
+    }
+  ]
+}

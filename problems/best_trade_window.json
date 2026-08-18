@@ -1,0 +1,84 @@
+{
+  "id": "best_trade_window",
+  "title": "Best Trade Window",
+  "difficulty": "Easy",
+  "topic": "Arrays / Greedy",
+  "tags": [
+    "array",
+    "greedy",
+    "one-pass"
+  ],
+  "description_md": "You're given an array `prices` where `prices[i]` is the price of a stock on day `i`.\n\nYou may buy on one day and sell on a later day (at most one transaction).\nReturn the maximum profit you can achieve. If no profit is possible, return 0.\n\n**Follow-up they'll ask:** what if you could hold multiple positions, or trade with a cooldown day?",
+  "function_name": "maxProfit",
+  "params": [
+    {
+      "name": "prices",
+      "type": "vector<int>"
+    }
+  ],
+  "return_type": "int",
+  "starter_code": {
+    "python": "def maxProfit(prices):\n    # your code here\n    pass\n",
+    "cpp": "int maxProfit(vector<int> prices) {\n    // your code here\n    return 0;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          7,
+          1,
+          5,
+          3,
+          6,
+          4
+        ]
+      ],
+      "expected": 5,
+      "input_display": "prices=[7,1,5,3,6,4]"
+    },
+    {
+      "inputs": [
+        [
+          7,
+          6,
+          4,
+          3,
+          1
+        ]
+      ],
+      "expected": 0,
+      "input_display": "prices=[7,6,4,3,1]"
+    },
+    {
+      "inputs": [
+        [
+          1,
+          2
+        ]
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "inputs": [
+        [
+          2,
+          4,
+          1,
+          7
+        ]
+      ],
+      "expected": 6,
+      "hidden": true
+    },
+    {
+      "inputs": [
+        [
+          5
+        ]
+      ],
+      "expected": 0,
+      "hidden": true
+    }
+  ]
+}

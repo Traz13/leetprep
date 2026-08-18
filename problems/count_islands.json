@@ -1,0 +1,93 @@
+{
+  "id": "count_islands",
+  "title": "Count Connected Regions",
+  "difficulty": "Medium",
+  "topic": "Graphs / DFS-BFS",
+  "tags": [
+    "graph",
+    "dfs",
+    "grid",
+    "union-find"
+  ],
+  "description_md": "Given a 2D grid of `1`s (land) and `0`s (water), return the number of islands.\nAn island is a group of `1`s connected 4-directionally, and the grid is bounded on all four edges by water.\n\n**Follow-up they'll ask:** how would this scale if the grid were streamed in tiles too large to fit in\nmemory at once? (Union-Find with tile boundary stitching is the answer they're fishing for.)",
+  "function_name": "countIslands",
+  "params": [
+    {
+      "name": "grid",
+      "type": "vector<vector<int>>"
+    }
+  ],
+  "return_type": "int",
+  "starter_code": {
+    "python": "def countIslands(grid):\n    # your code here\n    pass\n",
+    "cpp": "int countIslands(vector<vector<int>> grid) {\n    // your code here\n    return 0;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          [
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            1
+          ]
+        ]
+      ],
+      "expected": 3,
+      "input_display": "4x4 grid with three islands"
+    },
+    {
+      "inputs": [
+        [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      ],
+      "expected": 0,
+      "input_display": "all water"
+    },
+    {
+      "inputs": [
+        [
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1
+          ]
+        ]
+      ],
+      "expected": 1,
+      "hidden": true
+    }
+  ]
+}

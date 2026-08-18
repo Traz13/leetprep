@@ -1,0 +1,66 @@
+{
+  "id": "word_break_ii",
+  "title": "Word Break II",
+  "difficulty": "Hard",
+  "topic": "Strings / Backtracking",
+  "tags": [
+    "string",
+    "dynamic-programming",
+    "backtracking",
+    "memoization"
+  ],
+  "description_md": "Given a string `s` and a dictionary `wordDict`, return all possible sentences\n(space-separated, in any order -- grading here ignores order) formed by breaking `s` into a sequence of\ndictionary words. Use memoization; the naive version times out on longer inputs.",
+  "function_name": "wordBreakSentences",
+  "params": [
+    {
+      "name": "s",
+      "type": "string"
+    },
+    {
+      "name": "wordDict",
+      "type": "vector<string>"
+    }
+  ],
+  "return_type": "vector<string>",
+  "unordered": true,
+  "starter_code": {
+    "python": "def wordBreakSentences(s, wordDict):\n    # your code here -- memoized backtracking\n    pass\n",
+    "cpp": "vector<string> wordBreakSentences(string s, vector<string> wordDict) {\n    // your code here -- memoized backtracking\n    return {};\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        "catsanddog",
+        [
+          "cat",
+          "cats",
+          "and",
+          "sand",
+          "dog"
+        ]
+      ],
+      "expected": [
+        "cat sand dog",
+        "cats and dog"
+      ],
+      "input_display": "s=\"catsanddog\", wordDict=[\"cat\",\"cats\",\"and\",\"sand\",\"dog\"]"
+    },
+    {
+      "inputs": [
+        "aaaa",
+        [
+          "a",
+          "aa"
+        ]
+      ],
+      "expected": [
+        "a a a a",
+        "a a aa",
+        "a aa a",
+        "aa a a",
+        "aa aa"
+      ],
+      "hidden": true
+    }
+  ]
+}

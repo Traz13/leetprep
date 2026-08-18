@@ -1,0 +1,87 @@
+{
+  "id": "move_zeroes",
+  "title": "Move Zeroes",
+  "difficulty": "Easy",
+  "topic": "Arrays / Two Pointers",
+  "tags": [
+    "array",
+    "two-pointers"
+  ],
+  "description_md": "Given an integer array `nums`, move all `0`s to the end of it while maintaining\nthe relative order of the non-zero elements. Return the resulting array.",
+  "function_name": "moveZeroes",
+  "params": [
+    {
+      "name": "nums",
+      "type": "vector<int>"
+    }
+  ],
+  "return_type": "vector<int>",
+  "starter_code": {
+    "python": "def moveZeroes(nums):\n    # your code here\n    pass\n",
+    "cpp": "vector<int> moveZeroes(vector<int> nums) {\n    // your code here\n    return nums;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          0,
+          1,
+          0,
+          3,
+          12
+        ]
+      ],
+      "expected": [
+        1,
+        3,
+        12,
+        0,
+        0
+      ],
+      "input_display": "nums=[0,1,0,3,12]"
+    },
+    {
+      "inputs": [
+        [
+          0
+        ]
+      ],
+      "expected": [
+        0
+      ],
+      "input_display": "nums=[0]"
+    },
+    {
+      "inputs": [
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": [
+        1,
+        2,
+        3
+      ],
+      "hidden": true
+    },
+    {
+      "inputs": [
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "expected": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "hidden": true
+    }
+  ]
+}

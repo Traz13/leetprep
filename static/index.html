@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LeetPrep Local</title>
+<link rel="stylesheet" href="/style.css" />
+<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+</head>
+<body>
+  <div id="app">
+
+    <aside id="sidebar">
+      <div class="brand">
+        <div class="brand-mark">◈</div>
+        <div class="brand-text">
+          <div class="brand-title">LEETPREP</div>
+          <div class="brand-sub">local / offline</div>
+        </div>
+      </div>
+
+      <div id="stats-panel"></div>
+
+      <div id="problem-list"></div>
+    </aside>
+
+    <main id="main">
+      <section id="desc-pane">
+        <div id="desc-content" class="placeholder">Select a problem from the left to begin.</div>
+      </section>
+
+      <section id="work-pane">
+        <div id="editor-toolbar">
+          <div class="lang-toggle">
+            <button data-lang="python" class="lang-btn active">Python</button>
+            <button data-lang="cpp" class="lang-btn">C++</button>
+          </div>
+          <div class="toolbar-right">
+            <span id="run-status"></span>
+            <button id="btn-run" class="btn btn-secondary" disabled>▷ Run</button>
+            <button id="btn-submit" class="btn btn-primary" disabled>Submit</button>
+          </div>
+        </div>
+        <div id="editor-container"></div>
+        <div id="console-pane">
+          <div id="console-header">
+            <span>CONSOLE</span>
+          </div>
+          <div id="console-body">
+            <div class="console-placeholder">Run your code to see test results here.</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.47.0/min/vs/loader.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>

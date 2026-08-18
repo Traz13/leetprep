@@ -1,0 +1,63 @@
+{
+  "id": "evaluate_rpn",
+  "title": "Evaluate Reverse Polish Notation",
+  "difficulty": "Medium",
+  "topic": "Arrays / Stack",
+  "tags": [
+    "array",
+    "math",
+    "stack"
+  ],
+  "description_md": "Evaluate an arithmetic expression given as `tokens` in Reverse Polish (postfix)\nNotation. Valid operators are `+ - * /`; division truncates toward zero. Return the result.",
+  "function_name": "evalRPN",
+  "params": [
+    {
+      "name": "tokens",
+      "type": "vector<string>"
+    }
+  ],
+  "return_type": "int",
+  "starter_code": {
+    "python": "def evalRPN(tokens):\n    # your code here -- stack-based evaluation\n    pass\n",
+    "cpp": "int evalRPN(vector<string> tokens) {\n    // your code here -- stack-based evaluation\n    return 0;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          "2",
+          "1",
+          "+",
+          "3",
+          "*"
+        ]
+      ],
+      "expected": 9,
+      "input_display": "tokens=[\"2\",\"1\",\"+\",\"3\",\"*\"]"
+    },
+    {
+      "inputs": [
+        [
+          "4",
+          "13",
+          "5",
+          "/",
+          "+"
+        ]
+      ],
+      "expected": 6,
+      "input_display": "tokens=[\"4\",\"13\",\"5\",\"/\",\"+\"]"
+    },
+    {
+      "inputs": [
+        [
+          "-4",
+          "2",
+          "/"
+        ]
+      ],
+      "expected": -2,
+      "hidden": true
+    }
+  ]
+}

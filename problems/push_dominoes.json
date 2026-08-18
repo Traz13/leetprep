@@ -1,0 +1,47 @@
+{
+  "id": "push_dominoes",
+  "title": "Push Dominoes",
+  "difficulty": "Medium",
+  "topic": "Strings / Simulation",
+  "tags": [
+    "string",
+    "two-pointers",
+    "simulation"
+  ],
+  "description_md": "A row of dominoes is given as a string of `L`, `R`, and `.` (standing). `R` means\nthat domino was pushed right, `L` means pushed left, and a pushed domino pushes the next standing domino in\nthe same direction. If a domino is pushed from both sides at once, it stays standing. Return the final\nstate.",
+  "function_name": "pushDominoes",
+  "params": [
+    {
+      "name": "dominoes",
+      "type": "string"
+    }
+  ],
+  "return_type": "string",
+  "starter_code": {
+    "python": "def pushDominoes(dominoes):\n    # your code here\n    pass\n",
+    "cpp": "string pushDominoes(string dominoes) {\n    // your code here\n    return dominoes;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        ".L.R...LR..L.."
+      ],
+      "expected": "LL.RR.LLRRLL..",
+      "input_display": "dominoes=\".L.R...LR..L..\""
+    },
+    {
+      "inputs": [
+        "RR.L"
+      ],
+      "expected": "RR.L",
+      "input_display": "dominoes=\"RR.L\""
+    },
+    {
+      "inputs": [
+        "..."
+      ],
+      "expected": "...",
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "id": "binary_tree_vertical_order",
+  "title": "Binary Tree Vertical Order Traversal",
+  "difficulty": "Medium",
+  "topic": "Trees / BFS",
+  "tags": [
+    "tree",
+    "bfs",
+    "hash-map"
+  ],
+  "description_md": "Given the root of a binary tree, return the vertical order traversal: group node\nvalues by column (root is column 0, left child is column-1, right child is column+1), ordered top-to-bottom\nwithin each column, columns ordered left to right.",
+  "function_name": "verticalOrder",
+  "params": [
+    {
+      "name": "root",
+      "type": "tree"
+    }
+  ],
+  "return_type": "vector<vector<int>>",
+  "starter_code": {
+    "python": "from collections import deque, defaultdict\n\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\n\ndef verticalOrder(root):\n    # your code here -- BFS tracking column index\n    pass\n",
+    "cpp": "// struct TreeNode {\n//     int val;\n//     TreeNode *left;\n//     TreeNode *right;\n//     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n// };\n\nvector<vector<int>> verticalOrder(TreeNode* root) {\n    // your code here -- BFS tracking column index (map<int,vector<int>> auto-sorts by key)\n    return {};\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          3,
+          9,
+          20,
+          null,
+          null,
+          15,
+          7
+        ]
+      ],
+      "expected": [
+        [
+          9
+        ],
+        [
+          3,
+          15
+        ],
+        [
+          20
+        ],
+        [
+          7
+        ]
+      ],
+      "input_display": "tree=[3,9,20,null,null,15,7]"
+    },
+    {
+      "inputs": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      ],
+      "expected": [
+        [
+          4
+        ],
+        [
+          2
+        ],
+        [
+          1,
+          5,
+          6
+        ],
+        [
+          3
+        ],
+        [
+          7
+        ]
+      ],
+      "hidden": true
+    }
+  ]
+}

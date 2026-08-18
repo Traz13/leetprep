@@ -1,0 +1,85 @@
+{
+  "id": "course_schedule",
+  "title": "Course Schedule",
+  "difficulty": "Medium",
+  "topic": "Graphs / Cycle Detection",
+  "tags": [
+    "graph",
+    "topological-sort",
+    "bfs"
+  ],
+  "description_md": "You have `numCourses` courses and a list of prerequisite pairs `[a, b]` meaning\n`b` must be completed before `a`. Return whether it's possible to finish all courses (i.e. the prerequisite\ngraph has no cycle).",
+  "function_name": "canFinish",
+  "params": [
+    {
+      "name": "numCourses",
+      "type": "int"
+    },
+    {
+      "name": "prerequisites",
+      "type": "vector<vector<int>>"
+    }
+  ],
+  "return_type": "bool",
+  "starter_code": {
+    "python": "def canFinish(numCourses, prerequisites):\n    # your code here\n    pass\n",
+    "cpp": "bool canFinish(int numCourses, vector<vector<int>> prerequisites) {\n    // your code here\n    return false;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        2,
+        [
+          [
+            1,
+            0
+          ]
+        ]
+      ],
+      "expected": true,
+      "input_display": "numCourses=2, prerequisites=[[1,0]]"
+    },
+    {
+      "inputs": [
+        2,
+        [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ]
+      ],
+      "expected": false,
+      "input_display": "numCourses=2, prerequisites=[[1,0],[0,1]]"
+    },
+    {
+      "inputs": [
+        5,
+        [
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            4,
+            3
+          ]
+        ]
+      ],
+      "expected": true,
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "id": "valid_bracket_sequence",
+  "title": "Valid Bracket Sequence",
+  "difficulty": "Easy",
+  "topic": "Strings / Stack",
+  "tags": [
+    "string",
+    "stack"
+  ],
+  "description_md": "Given a string `s` containing only the characters `(`, `)`, `{`, `}`, `[`, `]`,\ndetermine if the input string has correctly matched and nested brackets.\n\nReturn `true` if valid, `false` otherwise.",
+  "function_name": "isValidBrackets",
+  "params": [
+    {
+      "name": "s",
+      "type": "string"
+    }
+  ],
+  "return_type": "bool",
+  "starter_code": {
+    "python": "def isValidBrackets(s):\n    # your code here\n    pass\n",
+    "cpp": "bool isValidBrackets(string s) {\n    // your code here\n    return false;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        "()[]{}"
+      ],
+      "expected": true,
+      "input_display": "s=\"()[]{}\""
+    },
+    {
+      "inputs": [
+        "(]"
+      ],
+      "expected": false,
+      "input_display": "s=\"(]\""
+    },
+    {
+      "inputs": [
+        "([{}])"
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "inputs": [
+        "("
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "inputs": [
+        ""
+      ],
+      "expected": true,
+      "hidden": true
+    }
+  ]
+}

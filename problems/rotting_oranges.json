@@ -1,0 +1,84 @@
+{
+  "id": "rotting_oranges",
+  "title": "Rotting Oranges",
+  "difficulty": "Medium",
+  "topic": "Graphs / BFS",
+  "tags": [
+    "bfs",
+    "matrix",
+    "grid"
+  ],
+  "description_md": "A grid has `0` (empty), `1` (fresh orange), or `2` (rotten orange). Every minute,\nany fresh orange 4-directionally adjacent to a rotten one becomes rotten. Return the minimum minutes until no\nfresh orange remains, or `-1` if impossible.",
+  "function_name": "orangesRotting",
+  "params": [
+    {
+      "name": "grid",
+      "type": "vector<vector<int>>"
+    }
+  ],
+  "return_type": "int",
+  "starter_code": {
+    "python": "from collections import deque\ndef orangesRotting(grid):\n    # your code here -- multi-source BFS from all initially-rotten oranges\n    pass\n",
+    "cpp": "int orangesRotting(vector<vector<int>> grid) {\n    // your code here -- multi-source BFS from all initially-rotten oranges\n    return -1;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          [
+            2,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            1
+          ]
+        ]
+      ],
+      "expected": 4,
+      "input_display": "grid=[[2,1,1],[1,1,0],[0,1,1]]"
+    },
+    {
+      "inputs": [
+        [
+          [
+            2,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            1
+          ]
+        ]
+      ],
+      "expected": -1,
+      "input_display": "grid=[[2,1,1],[0,1,1],[1,0,1]] (isolated fresh orange)"
+    },
+    {
+      "inputs": [
+        [
+          [
+            0,
+            2
+          ]
+        ]
+      ],
+      "expected": 0,
+      "hidden": true
+    }
+  ]
+}

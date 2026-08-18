@@ -1,0 +1,75 @@
+{
+  "id": "making_a_large_island",
+  "title": "Making A Large Island",
+  "difficulty": "Hard",
+  "topic": "Graphs / DFS",
+  "tags": [
+    "graph",
+    "dfs",
+    "grid",
+    "union-find"
+  ],
+  "description_md": "Given an `n x n` binary `grid`, you may change at most one `0` to a `1`. Return\nthe size of the largest island possible afterward (an island is a 4-directionally connected group of `1`s).",
+  "function_name": "largestIsland",
+  "params": [
+    {
+      "name": "grid",
+      "type": "vector<vector<int>>"
+    }
+  ],
+  "return_type": "int",
+  "starter_code": {
+    "python": "def largestIsland(grid):\n    # your code here -- label each island with its size, then try flipping each 0\n    pass\n",
+    "cpp": "int largestIsland(vector<vector<int>> grid) {\n    // your code here -- label each island with its size, then try flipping each 0\n    return 0;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ]
+      ],
+      "expected": 3,
+      "input_display": "grid=[[1,0],[0,1]]"
+    },
+    {
+      "inputs": [
+        [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      ],
+      "expected": 4,
+      "input_display": "grid=[[1,1],[1,0]]"
+    },
+    {
+      "inputs": [
+        [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      ],
+      "expected": 4,
+      "hidden": true
+    }
+  ]
+}

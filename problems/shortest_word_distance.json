@@ -1,0 +1,77 @@
+{
+  "id": "shortest_word_distance",
+  "title": "Shortest Word Distance",
+  "difficulty": "Easy",
+  "topic": "Arrays / Strings",
+  "tags": [
+    "array",
+    "string"
+  ],
+  "description_md": "Given an array of strings `wordsDict` and two different strings `word1` and\n`word2` that are both guaranteed to appear in the array, return the shortest distance between their two\nclosest occurrences.",
+  "function_name": "shortestWordDistance",
+  "params": [
+    {
+      "name": "wordsDict",
+      "type": "vector<string>"
+    },
+    {
+      "name": "word1",
+      "type": "string"
+    },
+    {
+      "name": "word2",
+      "type": "string"
+    }
+  ],
+  "return_type": "int",
+  "starter_code": {
+    "python": "def shortestWordDistance(wordsDict, word1, word2):\n    # your code here\n    pass\n",
+    "cpp": "int shortestWordDistance(vector<string> wordsDict, string word1, string word2) {\n    // your code here\n    return -1;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          "practice",
+          "makes",
+          "perfect",
+          "coding",
+          "makes"
+        ],
+        "coding",
+        "practice"
+      ],
+      "expected": 3,
+      "input_display": "wordsDict=[...], word1=\"coding\", word2=\"practice\""
+    },
+    {
+      "inputs": [
+        [
+          "practice",
+          "makes",
+          "perfect",
+          "coding",
+          "makes"
+        ],
+        "makes",
+        "coding"
+      ],
+      "expected": 1,
+      "input_display": "wordsDict=[...], word1=\"makes\", word2=\"coding\""
+    },
+    {
+      "inputs": [
+        [
+          "a",
+          "c",
+          "b",
+          "a"
+        ],
+        "a",
+        "b"
+      ],
+      "expected": 1,
+      "hidden": true
+    }
+  ]
+}

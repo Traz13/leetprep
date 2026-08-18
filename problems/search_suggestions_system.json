@@ -1,0 +1,97 @@
+{
+  "id": "search_suggestions_system",
+  "title": "Search Suggestions System",
+  "difficulty": "Medium",
+  "topic": "Strings / Binary Search",
+  "tags": [
+    "array",
+    "string",
+    "binary-search",
+    "trie"
+  ],
+  "description_md": "Given `products` and a `searchWord`, for every prefix of `searchWord` (typed one\ncharacter at a time) return up to 3 lexicographically-smallest products that start with that prefix.",
+  "function_name": "suggestedProducts",
+  "params": [
+    {
+      "name": "products",
+      "type": "vector<string>"
+    },
+    {
+      "name": "searchWord",
+      "type": "string"
+    }
+  ],
+  "return_type": "vector<vector<string>>",
+  "starter_code": {
+    "python": "def suggestedProducts(products, searchWord):\n    # your code here\n    pass\n",
+    "cpp": "vector<vector<string>> suggestedProducts(vector<string> products, string searchWord) {\n    // your code here\n    return {};\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          "mobile",
+          "mouse",
+          "moneypot",
+          "monitor",
+          "mousepad"
+        ],
+        "mouse"
+      ],
+      "expected": [
+        [
+          "mobile",
+          "moneypot",
+          "monitor"
+        ],
+        [
+          "mobile",
+          "moneypot",
+          "monitor"
+        ],
+        [
+          "mouse",
+          "mousepad"
+        ],
+        [
+          "mouse",
+          "mousepad"
+        ],
+        [
+          "mouse",
+          "mousepad"
+        ]
+      ],
+      "input_display": "products=[...], searchWord=\"mouse\""
+    },
+    {
+      "inputs": [
+        [
+          "havana"
+        ],
+        "havana"
+      ],
+      "expected": [
+        [
+          "havana"
+        ],
+        [
+          "havana"
+        ],
+        [
+          "havana"
+        ],
+        [
+          "havana"
+        ],
+        [
+          "havana"
+        ],
+        [
+          "havana"
+        ]
+      ],
+      "hidden": true
+    }
+  ]
+}

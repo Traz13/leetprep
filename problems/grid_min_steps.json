@@ -1,0 +1,114 @@
+{
+  "id": "grid_min_steps",
+  "title": "Warehouse Grid Traversal",
+  "difficulty": "Medium",
+  "topic": "Graphs / BFS",
+  "tags": [
+    "bfs",
+    "grid",
+    "graph"
+  ],
+  "description_md": "A rectangular warehouse floor is represented as a grid where `0` is open floor and\n`1` is a blocked shelf. A robot starts at the northwest corner `(0,0)` and needs to reach the southeast\ncorner `(rows-1, cols-1)`, moving one cell at a time in the four cardinal directions.\n\nReturn the minimum number of steps required, or `-1` if the southeast corner is unreachable.\n\nThis is a direct analog of a real Anduril phone-screen question (minimum steps NW corner -> SE corner of a\nbuilding). **Follow-up they'll ask:** what if diagonal moves were allowed, or cells had different traversal costs?",
+  "function_name": "minSteps",
+  "params": [
+    {
+      "name": "grid",
+      "type": "vector<vector<int>>"
+    }
+  ],
+  "return_type": "int",
+  "starter_code": {
+    "python": "def minSteps(grid):\n    # BFS from (0,0) to (rows-1, cols-1)\n    pass\n",
+    "cpp": "int minSteps(vector<vector<int>> grid) {\n    // BFS from (0,0) to (rows-1, cols-1)\n    return -1;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ]
+      ],
+      "expected": 4,
+      "input_display": "3x3 grid, one blocked cell in middle"
+    },
+    {
+      "inputs": [
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      ],
+      "expected": -1,
+      "input_display": "2x2 grid, no path"
+    },
+    {
+      "inputs": [
+        [
+          [
+            0
+          ]
+        ]
+      ],
+      "expected": 0,
+      "hidden": true
+    },
+    {
+      "inputs": [
+        [
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      ],
+      "expected": 13,
+      "hidden": true
+    }
+  ]
+}

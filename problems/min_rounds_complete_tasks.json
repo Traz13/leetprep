@@ -1,0 +1,64 @@
+{
+  "id": "min_rounds_complete_tasks",
+  "title": "Minimum Rounds to Complete All Tasks",
+  "difficulty": "Medium",
+  "topic": "Arrays / Greedy",
+  "tags": [
+    "array",
+    "hash-map",
+    "greedy"
+  ],
+  "description_md": "Each task has a difficulty level in `tasks`. In one round you can complete either\n2 or 3 tasks of the *same* difficulty level. Return the minimum rounds to complete all tasks, or `-1` if\nimpossible (some difficulty level appears exactly once).",
+  "function_name": "minimumRounds",
+  "params": [
+    {
+      "name": "tasks",
+      "type": "vector<int>"
+    }
+  ],
+  "return_type": "int",
+  "starter_code": {
+    "python": "def minimumRounds(tasks):\n    # your code here -- count frequencies, ceil(count/3) per group, -1 if any count==1\n    pass\n",
+    "cpp": "int minimumRounds(vector<int> tasks) {\n    // your code here\n    return -1;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          2,
+          2,
+          3,
+          3,
+          2,
+          4,
+          4,
+          4,
+          4
+        ]
+      ],
+      "expected": 4,
+      "input_display": "tasks=[2,2,3,3,2,4,4,4,4]"
+    },
+    {
+      "inputs": [
+        [
+          2,
+          3,
+          3
+        ]
+      ],
+      "expected": -1,
+      "input_display": "tasks=[2,3,3] (task level 2 appears once)"
+    },
+    {
+      "inputs": [
+        [
+          1,
+          1
+        ]
+      ],
+      "expected": 1,
+      "hidden": true
+    }
+  ]
+}

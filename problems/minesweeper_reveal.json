@@ -1,0 +1,129 @@
+{
+  "id": "minesweeper_reveal",
+  "title": "Minesweeper Reveal",
+  "difficulty": "Medium",
+  "topic": "Arrays / DFS-BFS",
+  "tags": [
+    "array",
+    "dfs",
+    "bfs",
+    "matrix"
+  ],
+  "description_md": "Given a Minesweeper `board` (`'M'` mine, `'E'` unrevealed empty) and a `click`\n`[row, col]`, simulate one click: if it's a mine, reveal `'X'`; otherwise reveal it as the count of adjacent\nmines (as a digit string), and if the count is 0, reveal it as `'B'` and recursively flood-fill all 8\nneighbors the same way. Return the resulting board.",
+  "function_name": "updateBoard",
+  "params": [
+    {
+      "name": "board",
+      "type": "vector<vector<string>>"
+    },
+    {
+      "name": "click",
+      "type": "vector<int>"
+    }
+  ],
+  "return_type": "vector<vector<string>>",
+  "starter_code": {
+    "python": "def updateBoard(board, click):\n    # your code here -- flood fill from click\n    pass\n",
+    "cpp": "vector<vector<string>> updateBoard(vector<vector<string>> board, vector<int> click) {\n    // your code here -- flood fill from click\n    return board;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          [
+            "E",
+            "E",
+            "E",
+            "E",
+            "E"
+          ],
+          [
+            "E",
+            "E",
+            "M",
+            "E",
+            "E"
+          ],
+          [
+            "E",
+            "E",
+            "E",
+            "E",
+            "E"
+          ],
+          [
+            "E",
+            "E",
+            "E",
+            "E",
+            "E"
+          ]
+        ],
+        [
+          3,
+          0
+        ]
+      ],
+      "expected": [
+        [
+          "B",
+          "1",
+          "E",
+          "1",
+          "B"
+        ],
+        [
+          "B",
+          "1",
+          "M",
+          "1",
+          "B"
+        ],
+        [
+          "B",
+          "1",
+          "1",
+          "1",
+          "B"
+        ],
+        [
+          "B",
+          "B",
+          "B",
+          "B",
+          "B"
+        ]
+      ],
+      "input_display": "4x5 board with one mine, click=[3,0]"
+    },
+    {
+      "inputs": [
+        [
+          [
+            "E",
+            "E"
+          ],
+          [
+            "E",
+            "E"
+          ]
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "expected": [
+        [
+          "B",
+          "B"
+        ],
+        [
+          "B",
+          "B"
+        ]
+      ],
+      "hidden": true
+    }
+  ]
+}

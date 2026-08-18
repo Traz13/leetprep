@@ -1,0 +1,111 @@
+{
+  "id": "spiral_matrix",
+  "title": "Spiral Matrix",
+  "difficulty": "Medium",
+  "topic": "Arrays / Simulation",
+  "tags": [
+    "array",
+    "matrix",
+    "simulation"
+  ],
+  "description_md": "Given an `m x n` matrix, return all elements in clockwise spiral order starting\nfrom the top-left.",
+  "function_name": "spiralOrder",
+  "params": [
+    {
+      "name": "matrix",
+      "type": "vector<vector<int>>"
+    }
+  ],
+  "return_type": "vector<int>",
+  "starter_code": {
+    "python": "def spiralOrder(matrix):\n    # your code here\n    pass\n",
+    "cpp": "vector<int> spiralOrder(vector<vector<int>> matrix) {\n    // your code here\n    return {};\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5,
+            6
+          ],
+          [
+            7,
+            8,
+            9
+          ]
+        ]
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        6,
+        9,
+        8,
+        7,
+        4,
+        5
+      ],
+      "input_display": "matrix=[[1,2,3],[4,5,6],[7,8,9]]"
+    },
+    {
+      "inputs": [
+        [
+          [
+            1,
+            2,
+            3,
+            4
+          ],
+          [
+            5,
+            6,
+            7,
+            8
+          ],
+          [
+            9,
+            10,
+            11,
+            12
+          ]
+        ]
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        4,
+        8,
+        12,
+        11,
+        10,
+        9,
+        5,
+        6,
+        7
+      ],
+      "hidden": true
+    },
+    {
+      "inputs": [
+        [
+          [
+            1
+          ]
+        ]
+      ],
+      "expected": [
+        1
+      ],
+      "hidden": true
+    }
+  ]
+}

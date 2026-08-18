@@ -1,0 +1,83 @@
+{
+  "id": "daily_temperatures",
+  "title": "Daily Temperatures",
+  "difficulty": "Medium",
+  "topic": "Arrays / Monotonic Stack",
+  "tags": [
+    "array",
+    "stack",
+    "monotonic-stack"
+  ],
+  "description_md": "Given an array `temperatures`, return an array `answer` where `answer[i]` is the\nnumber of days you'd have to wait after day `i` to get a warmer temperature. If there's no future day with a\nwarmer temperature, put `0`.",
+  "function_name": "dailyTemperatures",
+  "params": [
+    {
+      "name": "temperatures",
+      "type": "vector<int>"
+    }
+  ],
+  "return_type": "vector<int>",
+  "starter_code": {
+    "python": "def dailyTemperatures(temperatures):\n    # your code here -- monotonic stack\n    pass\n",
+    "cpp": "vector<int> dailyTemperatures(vector<int> temperatures) {\n    // your code here -- monotonic stack\n    return {};\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          73,
+          74,
+          75,
+          71,
+          69,
+          72,
+          76,
+          73
+        ]
+      ],
+      "expected": [
+        1,
+        1,
+        4,
+        2,
+        1,
+        1,
+        0,
+        0
+      ],
+      "input_display": "temperatures=[73,74,75,71,69,72,76,73]"
+    },
+    {
+      "inputs": [
+        [
+          30,
+          40,
+          50,
+          60
+        ]
+      ],
+      "expected": [
+        1,
+        1,
+        1,
+        0
+      ],
+      "input_display": "temperatures=[30,40,50,60]"
+    },
+    {
+      "inputs": [
+        [
+          30,
+          60,
+          90
+        ]
+      ],
+      "expected": [
+        1,
+        1,
+        0
+      ],
+      "hidden": true
+    }
+  ]
+}

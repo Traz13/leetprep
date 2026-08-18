@@ -1,0 +1,79 @@
+{
+  "id": "meeting_rooms_ii",
+  "title": "Meeting Rooms II",
+  "difficulty": "Medium",
+  "topic": "Arrays / Greedy",
+  "tags": [
+    "array",
+    "sorting",
+    "greedy",
+    "heap"
+  ],
+  "description_md": "Given meeting time `intervals` `[start, end]`, return the minimum number of\nconference rooms required so no two overlapping meetings share a room.",
+  "function_name": "minMeetingRooms",
+  "params": [
+    {
+      "name": "intervals",
+      "type": "vector<vector<int>>"
+    }
+  ],
+  "return_type": "int",
+  "starter_code": {
+    "python": "def minMeetingRooms(intervals):\n    # your code here -- sort starts and ends separately, sweep\n    pass\n",
+    "cpp": "int minMeetingRooms(vector<vector<int>> intervals) {\n    // your code here -- sort starts and ends separately, sweep\n    return 0;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          [
+            0,
+            30
+          ],
+          [
+            5,
+            10
+          ],
+          [
+            15,
+            20
+          ]
+        ]
+      ],
+      "expected": 2,
+      "input_display": "intervals=[[0,30],[5,10],[15,20]]"
+    },
+    {
+      "inputs": [
+        [
+          [
+            7,
+            10
+          ],
+          [
+            2,
+            4
+          ]
+        ]
+      ],
+      "expected": 1,
+      "input_display": "intervals=[[7,10],[2,4]]"
+    },
+    {
+      "inputs": [
+        [
+          [
+            1,
+            5
+          ],
+          [
+            5,
+            10
+          ]
+        ]
+      ],
+      "expected": 1,
+      "hidden": true
+    }
+  ]
+}
