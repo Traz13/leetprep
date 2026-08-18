@@ -5,6 +5,7 @@ let currentLang = "python";
 let allProblems = [];
 
 const MONACO_LANG = { python: "python", cpp: "cpp" };
+const DIFFICULTY_ORDER = { Easy: 0, Medium: 1, Hard: 2 };
 
 require.config({ paths: { vs: "https://cdn.jsdelivr.net/npm/monaco-editor@0.47.0/min/vs" } });
 require(["vs/editor/editor.main"], () => {
@@ -61,6 +62,10 @@ async function refreshStats() {
 
 async function loadProblemList() {
   allProblems = await api("/api/problems");
+  allProblems.sort((a, b) => {
+    const diff = DIFFICULTY_ORDER[a.difficulty] - DIFFICULTY_ORDER[b.difficulty];
+    return diff !== 0 ? diff : a.title.localeCompare(b.title);
+  });
   renderProblemList();
 }
 
