@@ -78,6 +78,26 @@ After that it just starts instantly. Your browser opens automatically to
 `http://127.0.0.1:8420`. Close the terminal window (or Ctrl+C) to stop it — nothing
 stays running in the background.
 
+### Access from other devices on your network
+
+The server listens on all interfaces, so once it's running, other devices on the same
+network can reach it at `http://<this-machine's-LAN-IP>:8420` (the terminal prints this
+address on startup). Two things to know before you do this:
+
+- **Progress is shared, not per-user.** There's no login -- everyone hitting the same
+  server reads and writes the same `progress.db`. Fine for "my own laptop and phone,"
+  probably not what you want for "my roommate practices on their own account."
+- **There's no sandbox.** The judge runs submitted code directly as a subprocess with no
+  isolation (see the warning at the bottom of this file). Opening it to your network
+  means anyone who can reach that port can run arbitrary code on this machine through
+  the Run/Submit buttons -- only do this on a network of people you trust.
+
+You'll also need a firewall rule allowing inbound traffic on port 8420:
+- **Windows:** `netsh advfirewall firewall add rule name="LeetPrep" dir=in action=allow protocol=TCP localport=8420`
+- **macOS:** the first connection attempt triggers an "allow incoming connections?"
+  prompt for Python -- accept it.
+- **Linux:** `sudo ufw allow 8420/tcp` (if you're running `ufw`).
+
 ## How it works
 
 - **Run** compiles/executes your code against the visible sample test cases only —

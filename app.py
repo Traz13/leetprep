@@ -176,8 +176,29 @@ def _open_browser():
     webbrowser.open("http://127.0.0.1:8420")
 
 
+def _lan_ip():
+    """Best-effort local network IP for printing a URL other devices can use.
+    Doesn't actually send anything -- UDP connect() just picks the outbound
+    interface so we can read its address back off the socket."""
+    import socket
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        ip = s.getsockname()[0]
+        s.close()
+        return ip
+    except Exception:
+        return None
+
+
 if __name__ == "__main__":
     import uvicorn
     threading.Thread(target=_open_browser, daemon=True).start()
-    print("\nLeetPrep running at http://127.0.0.1:8420  (Ctrl+C to stop)\n")
-    uvicorn.run(app, host="127.0.0.1", port=8420, log_level="warning")
+    lan_ip = _lan_ip()
+    print("\nLeetPrep running at http://127.0.0.1:8420  (Ctrl+C to stop)")
+    if lan_ip:
+        print(f"Other devices on your network: http://{lan_ip}:8420")
+        print("(needs a firewall rule allowing inbound TCP 8420 -- see README)\n")
+    else:
+        print()
+    uvicorn.run(app, host="0.0.0.0", port=8420, log_level="warning")
