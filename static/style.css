@@ -235,6 +235,15 @@ html, body {
 .example-block .ex-label { color: var(--text-2); margin-bottom: 4px; }
 .example-block .ex-input { color: var(--text-0); }
 .example-block .ex-output { color: var(--green); margin-top: 4px; }
+.example-block .ex-explanation {
+  color: var(--text-1);
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--line);
+  font-family: var(--sans);
+  font-size: 11.5px;
+  line-height: 1.5;
+}
 .hidden-note {
   margin-top: 16px;
   color: var(--text-2);

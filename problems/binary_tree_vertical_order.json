@@ -8,7 +8,7 @@
     "bfs",
     "hash-map"
   ],
-  "description_md": "Given the root of a binary tree, return the vertical order traversal: group node\nvalues by column (root is column 0, left child is column-1, right child is column+1), ordered top-to-bottom\nwithin each column, columns ordered left to right.",
+  "description_md": "Given the root of a binary tree, return its *vertical order traversal*.\n\nPicture every node assigned a column number: the root is column 0, and each step down to a left child moves\none column to the left (`col - 1`), while each step to a right child moves one column to the right\n(`col + 1`) -- regardless of how deep in the tree that step happens. So a node's column depends only on the\nsequence of left/right moves from the root to reach it, not on its depth.\n\nGroup node values by column, ordered top-to-bottom (by depth) within each column, and return the columns\nordered from leftmost to rightmost.",
   "function_name": "verticalOrder",
   "params": [
     {
@@ -49,7 +49,8 @@
           7
         ]
       ],
-      "input_display": "tree=[3,9,20,null,null,15,7]"
+      "input_display": "tree=[3,9,20,null,null,15,7]",
+      "explanation": "Root 3 is column 0. Its left child 9 is column -1; its right child 20 is column 1. 20's own children then shift from column 1: its left child 15 lands back at column 0 (alongside the root), and its right child 7 lands at column 2. Sorted left to right by column: -1 -> [9], 0 -> [3, 15] (3 above 15), 1 -> [20], 2 -> [7]."
     },
     {
       "inputs": [

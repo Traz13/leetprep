@@ -43,7 +43,8 @@
         "cat sand dog",
         "cats and dog"
       ],
-      "input_display": "s=\"catsanddog\", wordDict=[\"cat\",\"cats\",\"and\",\"sand\",\"dog\"]"
+      "input_display": "s=\"catsanddog\", wordDict=[\"cat\",\"cats\",\"and\",\"sand\",\"dog\"]",
+      "explanation": "'catsanddog' can be fully broken into dictionary words two different ways: 'cat' + 'sand' + 'dog', or 'cats' + 'and' + 'dog'. Both use only words from wordDict and together account for every character in s, so both are valid sentences."
     },
     {
       "inputs": [

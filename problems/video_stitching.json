@@ -57,7 +57,8 @@
         10
       ],
       "expected": 3,
-      "input_display": "clips=[...], time=10"
+      "input_display": "clips=[...], time=10",
+      "explanation": "One way to cover [0,10] with 3 clips: [0,2] covers the start, [1,9] extends coverage all the way to 9, and [8,10] (overlapping [1,9] at 8-9) extends the last bit to 10. No pair of clips can bridge the full span, so 3 is the minimum."
     },
     {
       "inputs": [
@@ -74,7 +75,8 @@
         5
       ],
       "expected": -1,
-      "input_display": "clips=[[0,1],[1,2]], time=5"
+      "input_display": "clips=[[0,1],[1,2]], time=5",
+      "explanation": "The available clips only ever cover up to time 2, but [0,time]=[0,5] needs coverage all the way to 5. There's a gap from 2 to 5 that no clip fills, so it's impossible."
     },
     {
       "inputs": [

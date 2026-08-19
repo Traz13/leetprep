@@ -69,7 +69,8 @@
           0
         ]
       ],
-      "input_display": "board=[[0,1,0],[0,0,1],[1,1,1],[0,0,0]]"
+      "input_display": "board=[[0,1,0],[0,0,1],[1,1,1],[0,0,0]]",
+      "explanation": "Cell (0,1) starts alive but has only 1 live neighbor (diagonally down-right at (1,2)), so it dies of underpopulation. Cell (1,0) starts dead but has exactly 3 live neighbors -- (0,1), (2,0), and (2,1) -- so it comes alive. Cell (2,2) starts alive with 2 live neighbors, which is enough to survive unchanged."
     },
     {
       "inputs": [

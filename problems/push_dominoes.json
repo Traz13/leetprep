@@ -8,7 +8,7 @@
     "two-pointers",
     "simulation"
   ],
-  "description_md": "A row of dominoes is given as a string of `L`, `R`, and `.` (standing). `R` means\nthat domino was pushed right, `L` means pushed left, and a pushed domino pushes the next standing domino in\nthe same direction. If a domino is pushed from both sides at once, it stays standing. Return the final\nstate.",
+  "description_md": "A row of dominoes is represented by a string `dominoes` of the same length, where\neach character is `R` (that domino has already been pushed to the right), `L` (pushed to the left), or `.`\n(still standing upright, not pushed).\n\nEvery pushed domino, in turn, pushes the next *standing* domino in front of it in the same direction. If a\nstanding domino ends up being pushed from both the left and the right at the same moment (because an `R` and\nan `L` are advancing toward each other and reach it at the same time), the forces cancel out and it stays\nupright.\n\nReturn the final string once every domino has either fallen or settled.",
   "function_name": "pushDominoes",
   "params": [
     {
@@ -27,14 +27,16 @@
         ".L.R...LR..L.."
       ],
       "expected": "LL.RR.LLRRLL..",
-      "input_display": "dominoes=\".L.R...LR..L..\""
+      "input_display": "dominoes=\".L.R...LR..L..\"",
+      "explanation": "Reading left to right: the L at index 1 topples the domino at index 0. The R at index 3 and the L at index 7 push toward each other -- the domino exactly in the middle of that gap (index 5) stays upright since both pushes reach it at the same time, while the rest fall toward whichever push got there first. The L at index 7 and R at index 8 are already adjacent, so nothing happens between them. The R at index 8 and L at index 11 push toward each other across an even gap and split it evenly. Indices 12-13 are past the last L, so nothing ever pushes them and they stay standing."
     },
     {
       "inputs": [
         "RR.L"
       ],
       "expected": "RR.L",
-      "input_display": "dominoes=\"RR.L\""
+      "input_display": "dominoes=\"RR.L\"",
+      "explanation": "The push from the R at index 1 and the push from the L at index 3 both reach the standing domino at index 2 at the same instant, so they cancel and it stays upright -- nothing else moves."
     },
     {
       "inputs": [

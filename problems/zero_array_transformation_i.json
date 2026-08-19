@@ -8,7 +8,7 @@
     "prefix-sum",
     "difference-array"
   ],
-  "description_md": "You're given `nums` and a list of `queries`, each `queries[i] = [li, ri]`.\nProcessing queries **in order**, for each one you may choose *any subset* of indices within `[li, ri]` and\ndecrement each chosen index by 1 (an index doesn't have to be chosen every time its range is queried). Return\nwhether it's possible to turn `nums` into an all-zero array after processing every query.\n\n**Key insight:** since you can pick any subset per query, index `i` can be decremented at most as many times\nas the number of queries covering it -- so the answer is just whether every index is covered by at least\n`nums[i]` queries.",
+  "description_md": "You're given an integer array `nums` and a list of `queries`, where each\n`queries[i] = [li, ri]` describes an index range.\n\nProcess the queries **in order**. For each query, you may choose *any subset* of the indices in `[li, ri]`\n(including none of them, or all of them) and decrement each chosen index by 1. You don't have to pick the\nsame indices every time -- each query is an independent choice, limited only to that query's range.\n\nReturn `true` if there's some way to make these choices, across all the queries, that leaves `nums` entirely\nzero by the end. Return `false` if no sequence of choices can do it.",
   "function_name": "isZeroArray",
   "params": [
     {
@@ -41,7 +41,8 @@
         ]
       ],
       "expected": true,
-      "input_display": "nums=[1,0,1], queries=[[0,2]]"
+      "input_display": "nums=[1,0,1], queries=[[0,2]]",
+      "explanation": "The single query [0,2] covers every index. Choose to decrement indices 0 and 2 (but not 1), giving [0,0,0]."
     },
     {
       "inputs": [
@@ -63,7 +64,8 @@
         ]
       ],
       "expected": false,
-      "input_display": "nums=[4,3,2,1], queries=[[1,3],[0,2]]"
+      "input_display": "nums=[4,3,2,1], queries=[[1,3],[0,2]]",
+      "explanation": "Index 0 is only ever inside one query's range ([0,2]), so it can be decremented at most once total across both queries -- but nums[0]=4 would need to be decremented four times. No sequence of choices can catch it up."
     },
     {
       "inputs": [

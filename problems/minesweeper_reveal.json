@@ -9,7 +9,7 @@
     "bfs",
     "matrix"
   ],
-  "description_md": "Given a Minesweeper `board` (`'M'` mine, `'E'` unrevealed empty) and a `click`\n`[row, col]`, simulate one click: if it's a mine, reveal `'X'`; otherwise reveal it as the count of adjacent\nmines (as a digit string), and if the count is 0, reveal it as `'B'` and recursively flood-fill all 8\nneighbors the same way. Return the resulting board.",
+  "description_md": "You're given a Minesweeper `board` where every cell is either `'M'` (an\nunrevealed mine) or `'E'` (unrevealed and safe), and a single `click = [row, col]` on a cell that's guaranteed\nto currently be `'E'`. Simulate what happens after that one click:\n\n- If the clicked cell has **no mines** among its up-to-8 neighbors (horizontally, vertically, and diagonally\n  adjacent), reveal it as `'B'`, then automatically \"click\" every one of its neighbors too, applying these\n  same rules to each -- this is what causes a click on an empty area to reveal a whole open region at once.\n- If the clicked cell **does** have at least one adjacent mine, just reveal it as that count, e.g. `'3'` --\n  and don't chain-reveal its neighbors.\n\n(This function is only ever asked to click on a safe `'E'` cell, so you don't need to handle clicking directly\non a mine.) Return the board after the click and any resulting chain reveals.",
   "function_name": "updateBoard",
   "params": [
     {
@@ -94,7 +94,8 @@
           "B"
         ]
       ],
-      "input_display": "4x5 board with one mine, click=[3,0]"
+      "input_display": "4x5 board with one mine, click=[3,0]",
+      "explanation": "Clicking [3,0] has zero adjacent mines, so it reveals as 'B' and the flood-fill spreads to every neighbor, and keeps spreading through any neighbor that *also* has zero adjacent mines. It stops the instant it hits a cell with a nonzero count -- that cell reveals its count but does not pass the reveal along to its own neighbors. That's why [0][2] is left completely untouched ('E'): all four of its neighbors ([0][1], [0][3], [1][1], [1][3]) have exactly one adjacent mine each, so none of them are zero-count cells that would have flood-filled onward to reach it. The mine at [1,2] itself stays 'M' since the flood-fill never clicks directly on a mine."
     },
     {
       "inputs": [

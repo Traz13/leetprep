@@ -9,7 +9,7 @@
     "sorting",
     "matrix"
   ],
-  "description_md": "Given an `m x n` `matrix`, return a matrix `answer` of the same size where\n`answer[i][j]` is the rank of `matrix[i][j]`. Rank is assigned as the smallest positive integer such that:\n- Ranks are consecutive integers starting at 1.\n- If two elements are in the same row or column, the smaller one has a strictly smaller rank.\n- If two elements are in the same row or column and equal, they get the same rank.\n\nThis is the classic Union-Find-by-value variant: process values in increasing order, union cells sharing a\nrow/column with equal value, and assign each group `max(current row rank, current col rank) + 1`.",
+  "description_md": "Given an `m x n` `matrix`, return a matrix `answer` of the same size where\n`answer[i][j]` is the *rank* of `matrix[i][j]` -- think of rank as \"how many distinct value-tiers have I seen\nso far, scanning by value from smallest to largest.\" Ranks must satisfy:\n- Ranks are positive integers, and the smallest rank used is 1.\n- For any two cells in the **same row or same column**: if one's value is smaller, its rank must be strictly\n  smaller. If the values are equal, they must get the *same* rank.\n- Cells that don't share a row or column with each other have no ordering constraint between them -- their\n  ranks are only pinned down by the chains of shared rows/columns connecting them to everything else.\n- Subject to those constraints, ranks should be as small as possible.\n\nNote that equal values can force a rank to propagate across the whole matrix: if `matrix[0][0] == matrix[0][5]`\n(same row) and `matrix[0][5] == matrix[9][5]` (same column), all three cells must share one rank, even though\n`matrix[0][0]` and `matrix[9][5]` don't directly share a row or column.",
   "function_name": "matrixRankTransform",
   "params": [
     {
@@ -46,7 +46,8 @@
           3
         ]
       ],
-      "input_display": "matrix=[[1,2],[3,4]]"
+      "input_display": "matrix=[[1,2],[3,4]]",
+      "explanation": "1 is the smallest in its row and column, so it gets rank 1. Both 2 (same row as 1) and 3 (same column as 1) must rank above it, so each gets rank 2 -- they don't share a row or column with each other, so nothing forces them to match. 4 shares a row with 3 and a column with 2, so it must rank above both: rank 3."
     },
     {
       "inputs": [
@@ -71,7 +72,8 @@
           1
         ]
       ],
-      "input_display": "matrix=[[7,7],[7,7]]"
+      "input_display": "matrix=[[7,7],[7,7]]",
+      "explanation": "Every cell has the same value and every cell shares a row or column with another cell in the group (directly or through a chain), so all four are forced to the same rank: 1."
     },
     {
       "inputs": [

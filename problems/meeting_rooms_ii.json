@@ -41,7 +41,8 @@
         ]
       ],
       "expected": 2,
-      "input_display": "intervals=[[0,30],[5,10],[15,20]]"
+      "input_display": "intervals=[[0,30],[5,10],[15,20]]",
+      "explanation": "[5,10] and [15,20] never overlap each other, but [0,30] spans the entire time range and overlaps both of them individually. At any moment during [5,10] (or during [15,20]), both that meeting and [0,30] are in progress, so 2 rooms are needed at once -- but never 3, since [5,10] and [15,20] don't overlap each other."
     },
     {
       "inputs": [

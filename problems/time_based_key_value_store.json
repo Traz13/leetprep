@@ -8,7 +8,7 @@
     "binary-search",
     "design"
   ],
-  "description_md": "Design a time-based key-value store, exercised here as a single batch of\n`operations`. Each operation is either `[\"set\", key, value, timestamp]` (timestamps for a given key are\nnon-decreasing) or `[\"get\", key, timestamp]`. A `get` should return the value set for that key at the\nlargest recorded timestamp `<= timestamp`, or `\"\"` if none exists. Return the list of outputs for the `get`\noperations, in order (nothing is returned for `set`).",
+  "description_md": "You're implementing a key-value store where every value is stored with a\ntimestamp, so you can ask \"what was this key's value at (or just before) time T?\"\n\nYou're given a list of `operations` to apply in order, where each one is one of:\n- `[\"set\", key, value, timestamp]` -- store `value` for `key` at the given `timestamp`. For any single key,\n  the timestamps across its `set` calls only ever increase (never out of order).\n- `[\"get\", key, timestamp]` -- look up `key`'s value as of that `timestamp`: specifically, the value from the\n  most recent `set` for that key whose timestamp is `<= timestamp`. If no such `set` exists yet (either the\n  key was never set, or every `set` for it happened after this timestamp), the answer is `\"\"`.\n\nReturn the results of every `get`, in the order they appear in `operations` (a `set` doesn't produce an\noutput).",
   "function_name": "timeMapOperations",
   "params": [
     {
@@ -65,7 +65,8 @@
         "bar2",
         "bar2"
       ],
-      "input_display": "operations=[set foo bar @1, get foo @1, get foo @3, set foo bar2 @4, get foo @4, get foo @5]"
+      "input_display": "operations=[set foo bar @1, get foo @1, get foo @3, set foo bar2 @4, get foo @4, get foo @5]",
+      "explanation": "After 'set foo=bar @1', both 'get foo @1' and 'get foo @3' return 'bar' -- timestamp 1 is still the most recent set at or before either of those times. Once 'set foo=bar2 @4' happens, 'get foo @4' and 'get foo @5' both switch to 'bar2', since @4 is now the most recent set at or before both query times."
     },
     {
       "inputs": [

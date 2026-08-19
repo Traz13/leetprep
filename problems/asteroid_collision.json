@@ -8,7 +8,7 @@
     "stack",
     "simulation"
   ],
-  "description_md": "Given an array `asteroids` where each value's absolute value is size and sign is\ndirection (positive = right, negative = left), simulate collisions: equal sizes destroy both, the larger\nsurvives, and same-direction asteroids never collide. Return the state after all collisions resolve.",
+  "description_md": "You're given an array `asteroids` of integers representing asteroids in a row, all\nmoving at the same speed. For each asteroid, the absolute value represents its size, and the sign represents\nits direction: positive means moving right, negative means moving left.\n\nEach asteroid keeps moving in its direction until it either flies off the end of the row or meets another\nasteroid coming toward it. When two asteroids meet:\n- The smaller one explodes and disappears.\n- If they're the same size, both explode.\n- Two asteroids moving in the *same* direction never meet, no matter their sizes (they're moving at the same\n  speed, so the one behind never catches up).\n\nNote that a surviving asteroid can go on to meet *another* asteroid further down the line -- collisions can\nchain.\n\nReturn the array of asteroids that remain once no more collisions can happen, in their original left-to-right\norder.",
   "function_name": "asteroidCollision",
   "params": [
     {
@@ -34,7 +34,8 @@
         5,
         10
       ],
-      "input_display": "asteroids=[5,10,-5]"
+      "input_display": "asteroids=[5,10,-5]",
+      "explanation": "The 10 (moving right) and the -5 (moving left) meet; 10 is bigger, so it survives and -5 explodes. The 5 and 10 are both moving right, so they never meet each other."
     },
     {
       "inputs": [
@@ -44,7 +45,8 @@
         ]
       ],
       "expected": [],
-      "input_display": "asteroids=[8,-8]"
+      "input_display": "asteroids=[8,-8]",
+      "explanation": "8 and -8 meet and are exactly the same size, so both explode."
     },
     {
       "inputs": [
@@ -57,7 +59,8 @@
       "expected": [
         10
       ],
-      "hidden": true
+      "input_display": "asteroids=[10,2,-5]",
+      "explanation": "This is a chain reaction. The 2 and -5 meet first: -5 is bigger, so 2 explodes and -5 keeps moving left. -5 then meets the 10 behind it: 10 is bigger, so -5 explodes too, leaving only 10."
     },
     {
       "inputs": [

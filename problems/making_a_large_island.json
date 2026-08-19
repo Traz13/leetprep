@@ -37,7 +37,8 @@
         ]
       ],
       "expected": 3,
-      "input_display": "grid=[[1,0],[0,1]]"
+      "input_display": "grid=[[1,0],[0,1]]",
+      "explanation": "The two 1's at (0,0) and (1,1) aren't connected -- they only touch diagonally, which doesn't count. Flipping the 0 at (0,1) works because it's adjacent to (0,0) in its row AND to (1,1) in its column, joining all three cells into a single island of size 3. (Flipping (1,0) instead gives the same result by symmetry.)"
     },
     {
       "inputs": [

@@ -149,6 +149,7 @@ function renderDescription(p) {
       <div class="ex-label">Example ${i + 1}</div>
       <div class="ex-input">${escapeHtml(ex.input_display || "")}</div>
       <div class="ex-output">→ ${escapeHtml(JSON.stringify(ex.expected))}</div>
+      ${ex.explanation ? `<div class="ex-explanation">${escapeHtml(ex.explanation)}</div>` : ""}
     </div>
   `).join("");
   el.className = "";

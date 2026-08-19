@@ -73,7 +73,8 @@
         -1,
         -1
       ],
-      "input_display": "equations=[[a,b],[b,c]], values=[2,3], queries=[[a,c],[a,a],[a,e],[x,x]]"
+      "input_display": "equations=[[a,b],[b,c]], values=[2,3], queries=[[a,c],[a,a],[a,e],[x,x]]",
+      "explanation": "a/b=2 and b/c=3, so chaining them gives a/c = (a/b) * (b/c) = 2 * 3 = 6. a/a=1 trivially since a is a known variable. a/e=-1 because e never appears in any equation. x/x=-1 too -- even though it looks trivial, x was never introduced by any equation, so it's unknown."
     },
     {
       "inputs": [

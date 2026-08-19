@@ -380,11 +380,12 @@ the relative order of the non-zero elements. Return the resulting array.""",
         "topic": "Graphs / Topological Sort",
         "tags": ["graph", "topological-sort", "bfs"],
         "description_md": """You have `numCourses` courses labeled `0` to `numCourses-1`. `prerequisites[i] =
-[a, b]` means you must take course `b` before course `a`. Return a valid order to take all courses, or an
-empty array if it's impossible (a cycle exists).
+[a, b]` means you must take course `b` before course `a`. Return a valid order in which to take all the
+courses, or an empty array if it's impossible (which happens exactly when the prerequisites form a cycle).
 
-To keep the judge deterministic, return the **lexicographically smallest** valid order (always pick the
-lowest-numbered course with no remaining prerequisites at each step -- a min-heap instead of a plain queue).""",
+There's usually more than one valid order. To keep grading deterministic, return the
+**lexicographically smallest** one -- whenever more than one course is available to take next, pick the
+lowest-numbered one first.""",
         "function_name": "courseOrder",
         "params": [{"name": "numCourses", "type": "int"}, {"name": "prerequisites", "type": "vector<vector<int>>"}],
         "return_type": "vector<int>",
@@ -393,7 +394,8 @@ lowest-numbered course with no remaining prerequisites at each step -- a min-hea
             "cpp": "vector<int> courseOrder(int numCourses, vector<vector<int>> prerequisites) {\n    // your code here -- use a min-heap (priority_queue<int, vector<int>, greater<int>>)\n    return {};\n}\n",
         },
         "test_cases": [
-            {"inputs": [4, [[1, 0], [2, 0], [3, 1], [3, 2]]], "expected": [0, 1, 2, 3], "input_display": "numCourses=4, prerequisites=[[1,0],[2,0],[3,1],[3,2]]"},
+            {"inputs": [4, [[1, 0], [2, 0], [3, 1], [3, 2]]], "expected": [0, 1, 2, 3], "input_display": "numCourses=4, prerequisites=[[1,0],[2,0],[3,1],[3,2]]",
+             "explanation": "Course 0 has no prerequisites, so it must go first. That immediately unlocks both 1 and 2 -- pick 1 before 2 since it's lower-numbered. Course 3 needs both 1 and 2 finished, so it can only go last."},
             {"inputs": [2, [[1, 0]]], "expected": [0, 1], "input_display": "numCourses=2, prerequisites=[[1,0]]"},
             {"inputs": [2, [[1, 0], [0, 1]]], "expected": [], "hidden": True},
             {"inputs": [1, []], "expected": [0], "hidden": True},
@@ -494,9 +496,15 @@ the boundary of that circle.""",
         "difficulty": "Medium",
         "topic": "Trees / BFS",
         "tags": ["tree", "bfs", "hash-map"],
-        "description_md": """Given the root of a binary tree, return the vertical order traversal: group node
-values by column (root is column 0, left child is column-1, right child is column+1), ordered top-to-bottom
-within each column, columns ordered left to right.""",
+        "description_md": """Given the root of a binary tree, return its *vertical order traversal*.
+
+Picture every node assigned a column number: the root is column 0, and each step down to a left child moves
+one column to the left (`col - 1`), while each step to a right child moves one column to the right
+(`col + 1`) -- regardless of how deep in the tree that step happens. So a node's column depends only on the
+sequence of left/right moves from the root to reach it, not on its depth.
+
+Group node values by column, ordered top-to-bottom (by depth) within each column, and return the columns
+ordered from leftmost to rightmost.""",
         "function_name": "verticalOrder",
         "params": [{"name": "root", "type": "tree"}],
         "return_type": "vector<vector<int>>",
@@ -505,7 +513,8 @@ within each column, columns ordered left to right.""",
             "cpp": "// struct TreeNode {\n//     int val;\n//     TreeNode *left;\n//     TreeNode *right;\n//     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n// };\n\nvector<vector<int>> verticalOrder(TreeNode* root) {\n    // your code here -- BFS tracking column index (map<int,vector<int>> auto-sorts by key)\n    return {};\n}\n",
         },
         "test_cases": [
-            {"inputs": [[3, 9, 20, None, None, 15, 7]], "expected": [[9], [3, 15], [20], [7]], "input_display": "tree=[3,9,20,null,null,15,7]"},
+            {"inputs": [[3, 9, 20, None, None, 15, 7]], "expected": [[9], [3, 15], [20], [7]], "input_display": "tree=[3,9,20,null,null,15,7]",
+             "explanation": "Root 3 is column 0. Its left child 9 is column -1; its right child 20 is column 1. 20's own children then shift from column 1: its left child 15 lands back at column 0 (alongside the root), and its right child 7 lands at column 2. Sorted left to right by column: -1 -> [9], 0 -> [3, 15] (3 above 15), 1 -> [20], 2 -> [7]."},
             {"inputs": [[1, 2, 3, 4, 5, 6, 7]], "expected": [[4], [2], [1, 5, 6], [3], [7]], "hidden": True},
         ],
     },
@@ -515,10 +524,16 @@ within each column, columns ordered left to right.""",
         "difficulty": "Medium",
         "topic": "Strings / Simulation",
         "tags": ["string", "two-pointers", "simulation"],
-        "description_md": """A row of dominoes is given as a string of `L`, `R`, and `.` (standing). `R` means
-that domino was pushed right, `L` means pushed left, and a pushed domino pushes the next standing domino in
-the same direction. If a domino is pushed from both sides at once, it stays standing. Return the final
-state.""",
+        "description_md": """A row of dominoes is represented by a string `dominoes` of the same length, where
+each character is `R` (that domino has already been pushed to the right), `L` (pushed to the left), or `.`
+(still standing upright, not pushed).
+
+Every pushed domino, in turn, pushes the next *standing* domino in front of it in the same direction. If a
+standing domino ends up being pushed from both the left and the right at the same moment (because an `R` and
+an `L` are advancing toward each other and reach it at the same time), the forces cancel out and it stays
+upright.
+
+Return the final string once every domino has either fallen or settled.""",
         "function_name": "pushDominoes",
         "params": [{"name": "dominoes", "type": "string"}],
         "return_type": "string",
@@ -527,8 +542,10 @@ state.""",
             "cpp": "string pushDominoes(string dominoes) {\n    // your code here\n    return dominoes;\n}\n",
         },
         "test_cases": [
-            {"inputs": [".L.R...LR..L.."], "expected": "LL.RR.LLRRLL..", "input_display": 'dominoes=".L.R...LR..L.."'},
-            {"inputs": ["RR.L"], "expected": "RR.L", "input_display": 'dominoes="RR.L"'},
+            {"inputs": [".L.R...LR..L.."], "expected": "LL.RR.LLRRLL..", "input_display": 'dominoes=".L.R...LR..L.."',
+             "explanation": "Reading left to right: the L at index 1 topples the domino at index 0. The R at index 3 and the L at index 7 push toward each other -- the domino exactly in the middle of that gap (index 5) stays upright since both pushes reach it at the same time, while the rest fall toward whichever push got there first. The L at index 7 and R at index 8 are already adjacent, so nothing happens between them. The R at index 8 and L at index 11 push toward each other across an even gap and split it evenly. Indices 12-13 are past the last L, so nothing ever pushes them and they stay standing."},
+            {"inputs": ["RR.L"], "expected": "RR.L", "input_display": 'dominoes="RR.L"',
+             "explanation": "The push from the R at index 1 and the push from the L at index 3 both reach the standing domino at index 2 at the same instant, so they cancel and it stays upright -- nothing else moves."},
             {"inputs": ["..."], "expected": "...", "hidden": True},
         ],
     },
@@ -605,8 +622,13 @@ here just return the value order, which is the core of the algorithm either way)
         "difficulty": "Medium",
         "topic": "Strings / Binary Search",
         "tags": ["array", "string", "binary-search", "trie"],
-        "description_md": """Given `products` and a `searchWord`, for every prefix of `searchWord` (typed one
-character at a time) return up to 3 lexicographically-smallest products that start with that prefix.""",
+        "description_md": """You're given a list of `products` and a `searchWord` that a user is typing one
+character at a time. After each character they've typed so far (i.e. for every prefix of `searchWord`, from
+length 1 up to the full word), suggest up to 3 products from `products` that start with that prefix --
+whichever 3 come first alphabetically, if more than 3 match.
+
+Return a list with one entry per prefix length (so its length always equals `len(searchWord)`), where each
+entry is that prefix's list of up to 3 suggested products, in alphabetical order.""",
         "function_name": "suggestedProducts",
         "params": [{"name": "products", "type": "vector<string>"}, {"name": "searchWord", "type": "string"}],
         "return_type": "vector<vector<string>>",
@@ -617,7 +639,8 @@ character at a time) return up to 3 lexicographically-smallest products that sta
         "test_cases": [
             {"inputs": [["mobile", "mouse", "moneypot", "monitor", "mousepad"], "mouse"],
              "expected": [["mobile", "moneypot", "monitor"], ["mobile", "moneypot", "monitor"], ["mouse", "mousepad"], ["mouse", "mousepad"], ["mouse", "mousepad"]],
-             "input_display": 'products=[...], searchWord="mouse"'},
+             "input_display": 'products=[...], searchWord="mouse"',
+             "explanation": "After typing 'm' and 'mo', all 5 products still match, so the 3 alphabetically-first ones show: mobile, moneypot, monitor. Once 'mou' is typed, only mouse and mousepad still match the prefix -- and they keep matching for 'mous' and 'mouse' too, since both those words contain 'mouse' as a prefix."},
             {"inputs": [["havana"], "havana"], "expected": [["havana"]] * 6, "hidden": True},
         ],
     },
@@ -639,7 +662,8 @@ neighbors becomes alive; all other cells die or stay dead). Return the new board
         },
         "test_cases": [
             {"inputs": [[[0, 1, 0], [0, 0, 1], [1, 1, 1], [0, 0, 0]]], "expected": [[0, 0, 0], [1, 0, 1], [0, 1, 1], [0, 1, 0]],
-             "input_display": "board=[[0,1,0],[0,0,1],[1,1,1],[0,0,0]]"},
+             "input_display": "board=[[0,1,0],[0,0,1],[1,1,1],[0,0,0]]",
+             "explanation": "Cell (0,1) starts alive but has only 1 live neighbor (diagonally down-right at (1,2)), so it dies of underpopulation. Cell (1,0) starts dead but has exactly 3 live neighbors -- (0,1), (2,0), and (2,1) -- so it comes alive. Cell (2,2) starts alive with 2 live neighbors, which is enough to survive unchanged."},
             {"inputs": [[[1, 1], [1, 0]]], "expected": [[1, 1], [1, 1]], "hidden": True},
         ],
     },
@@ -716,10 +740,20 @@ the rotated array `nums` and a `target`, return its index, or `-1` if not presen
         "difficulty": "Medium",
         "topic": "Graphs / BFS",
         "tags": ["bfs", "matrix", "graph"],
-        "description_md": """An `n x n` board is numbered 1 to n² in a boustrophedon (back-and-forth) pattern
-starting bottom-left. Each square is `-1` (nothing) or a number (a snake/ladder destination). From square
-`i`, one move goes to any of `i+1` .. `i+6` (whichever exist), then immediately follows a snake/ladder if
-present. Return the minimum number of moves to reach square n², or `-1` if impossible.""",
+        "description_md": """You're playing Snakes and Ladders on an `n x n` board, given as a 2D array where
+`board[0]` is the *top* row and `board[n-1]` is the *bottom* row (matching how the board is normally drawn).
+
+Squares are numbered 1 to n² starting at the **bottom-left** square, moving right across the bottom row, then
+continuing on the row above it moving *left*, then right again on the row above that, and so on -- alternating
+direction each row, snaking upward until it reaches n² at the top row. Each square holds `-1` (nothing
+special) or a destination square number (the top of a ladder or the head of a snake).
+
+Starting on square 1, each move advances you by 1 to 6 squares (like a die roll) to any square number from
+`current + 1` up to `current + 6`, as long as that number doesn't exceed n². If the square you land on has a
+ladder/snake destination (not `-1`), you immediately move to that destination instead -- and destinations are
+never themselves another ladder/snake start, so there's no chaining.
+
+Return the minimum number of moves to reach square n², or `-1` if it's not reachable.""",
         "function_name": "snakesAndLadders",
         "params": [{"name": "board", "type": "vector<vector<int>>"}],
         "return_type": "int",
@@ -728,9 +762,10 @@ present. Return the minimum number of moves to reach square n², or `-1` if impo
             "cpp": "int snakesAndLadders(vector<vector<int>> board) {\n    // your code here -- BFS over square numbers 1..n*n\n    return -1;\n}\n",
         },
         "test_cases": [
+            {"inputs": [[[-1, -1], [-1, 3]]], "expected": 1, "input_display": "board=[[-1,-1],[-1,3]]",
+             "explanation": "This is a 2x2 board, so squares are numbered 1-4: square 1 is bottom-left (board[1][0]), square 2 is bottom-right (board[1][1]), square 3 is top-right (board[0][1]) -- the row above reads right-to-left -- and square 4 is top-left (board[0][0]). From square 1, one die roll can reach square 4 directly, and board[0][0] is -1 (no ladder there), so you land on square 4 = n^2 in a single move."},
             {"inputs": [[[-1, -1, -1, -1, -1, -1], [-1, -1, -1, -1, -1, -1], [-1, -1, -1, -1, -1, -1], [-1, 35, -1, -1, 13, -1], [-1, -1, -1, -1, -1, -1], [-1, 15, -1, -1, -1, -1]]],
-             "expected": 4, "input_display": "6x6 board with a couple of ladders"},
-            {"inputs": [[[-1, -1], [-1, 3]]], "expected": 1, "hidden": True},
+             "expected": 4, "input_display": "6x6 board with a couple of ladders", "hidden": True},
         ],
     },
     {
@@ -761,11 +796,18 @@ using O(1) extra space (Floyd's cycle detection, treating the array as a linked 
         "difficulty": "Medium",
         "topic": "Design / Binary Search",
         "tags": ["hash-map", "binary-search", "design"],
-        "description_md": """Design a time-based key-value store, exercised here as a single batch of
-`operations`. Each operation is either `["set", key, value, timestamp]` (timestamps for a given key are
-non-decreasing) or `["get", key, timestamp]`. A `get` should return the value set for that key at the
-largest recorded timestamp `<= timestamp`, or `""` if none exists. Return the list of outputs for the `get`
-operations, in order (nothing is returned for `set`).""",
+        "description_md": """You're implementing a key-value store where every value is stored with a
+timestamp, so you can ask "what was this key's value at (or just before) time T?"
+
+You're given a list of `operations` to apply in order, where each one is one of:
+- `["set", key, value, timestamp]` -- store `value` for `key` at the given `timestamp`. For any single key,
+  the timestamps across its `set` calls only ever increase (never out of order).
+- `["get", key, timestamp]` -- look up `key`'s value as of that `timestamp`: specifically, the value from the
+  most recent `set` for that key whose timestamp is `<= timestamp`. If no such `set` exists yet (either the
+  key was never set, or every `set` for it happened after this timestamp), the answer is `""`.
+
+Return the results of every `get`, in the order they appear in `operations` (a `set` doesn't produce an
+output).""",
         "function_name": "timeMapOperations",
         "params": [{"name": "operations", "type": "vector<vector<string>>"}],
         "return_type": "vector<string>",
@@ -775,7 +817,8 @@ operations, in order (nothing is returned for `set`).""",
         },
         "test_cases": [
             {"inputs": [[["set", "foo", "bar", "1"], ["get", "foo", "1"], ["get", "foo", "3"], ["set", "foo", "bar2", "4"], ["get", "foo", "4"], ["get", "foo", "5"]]],
-             "expected": ["bar", "bar", "bar2", "bar2"], "input_display": "operations=[set foo bar @1, get foo @1, get foo @3, set foo bar2 @4, get foo @4, get foo @5]"},
+             "expected": ["bar", "bar", "bar2", "bar2"], "input_display": "operations=[set foo bar @1, get foo @1, get foo @3, set foo bar2 @4, get foo @4, get foo @5]",
+             "explanation": "After 'set foo=bar @1', both 'get foo @1' and 'get foo @3' return 'bar' -- timestamp 1 is still the most recent set at or before either of those times. Once 'set foo=bar2 @4' happens, 'get foo @4' and 'get foo @5' both switch to 'bar2', since @4 is now the most recent set at or before both query times."},
             {"inputs": [[["get", "missing", "1"]]], "expected": [""], "hidden": True},
         ],
     },
@@ -795,7 +838,8 @@ from the top-left.""",
             "cpp": "vector<int> spiralOrder(vector<vector<int>> matrix) {\n    // your code here\n    return {};\n}\n",
         },
         "test_cases": [
-            {"inputs": [[[1, 2, 3], [4, 5, 6], [7, 8, 9]]], "expected": [1, 2, 3, 6, 9, 8, 7, 4, 5], "input_display": "matrix=[[1,2,3],[4,5,6],[7,8,9]]"},
+            {"inputs": [[[1, 2, 3], [4, 5, 6], [7, 8, 9]]], "expected": [1, 2, 3, 6, 9, 8, 7, 4, 5], "input_display": "matrix=[[1,2,3],[4,5,6],[7,8,9]]",
+             "explanation": "Across the top row (1, 2, 3), down the right column (6, 9), back across the bottom row right-to-left (8, 7), up the left column (4), then the one cell left in the center (5)."},
             {"inputs": [[[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]]], "expected": [1, 2, 3, 4, 8, 12, 11, 10, 9, 5, 6, 7], "hidden": True},
             {"inputs": [[[1]]], "expected": [1], "hidden": True},
         ],
@@ -816,8 +860,10 @@ from the top-left.""",
             "cpp": "int videoStitching(vector<vector<int>> clips, int time) {\n    // your code here -- greedy interval covering\n    return -1;\n}\n",
         },
         "test_cases": [
-            {"inputs": [[[0, 2], [4, 6], [8, 10], [1, 9], [1, 5], [5, 9]], 10], "expected": 3, "input_display": "clips=[...], time=10"},
-            {"inputs": [[[0, 1], [1, 2]], 5], "expected": -1, "input_display": "clips=[[0,1],[1,2]], time=5"},
+            {"inputs": [[[0, 2], [4, 6], [8, 10], [1, 9], [1, 5], [5, 9]], 10], "expected": 3, "input_display": "clips=[...], time=10",
+             "explanation": "One way to cover [0,10] with 3 clips: [0,2] covers the start, [1,9] extends coverage all the way to 9, and [8,10] (overlapping [1,9] at 8-9) extends the last bit to 10. No pair of clips can bridge the full span, so 3 is the minimum."},
+            {"inputs": [[[0, 1], [1, 2]], 5], "expected": -1, "input_display": "clips=[[0,1],[1,2]], time=5",
+             "explanation": "The available clips only ever cover up to time 2, but [0,time]=[0,5] needs coverage all the way to 5. There's a gap from 2 to 5 that no clip fills, so it's impossible."},
             {"inputs": [[[0, 5]], 5], "expected": 1, "hidden": True},
         ],
     },
@@ -827,10 +873,18 @@ from the top-left.""",
         "difficulty": "Medium",
         "topic": "Arrays / DFS-BFS",
         "tags": ["array", "dfs", "bfs", "matrix"],
-        "description_md": """Given a Minesweeper `board` (`'M'` mine, `'E'` unrevealed empty) and a `click`
-`[row, col]`, simulate one click: if it's a mine, reveal `'X'`; otherwise reveal it as the count of adjacent
-mines (as a digit string), and if the count is 0, reveal it as `'B'` and recursively flood-fill all 8
-neighbors the same way. Return the resulting board.""",
+        "description_md": """You're given a Minesweeper `board` where every cell is either `'M'` (an
+unrevealed mine) or `'E'` (unrevealed and safe), and a single `click = [row, col]` on a cell that's guaranteed
+to currently be `'E'`. Simulate what happens after that one click:
+
+- If the clicked cell has **no mines** among its up-to-8 neighbors (horizontally, vertically, and diagonally
+  adjacent), reveal it as `'B'`, then automatically "click" every one of its neighbors too, applying these
+  same rules to each -- this is what causes a click on an empty area to reveal a whole open region at once.
+- If the clicked cell **does** have at least one adjacent mine, just reveal it as that count, e.g. `'3'` --
+  and don't chain-reveal its neighbors.
+
+(This function is only ever asked to click on a safe `'E'` cell, so you don't need to handle clicking directly
+on a mine.) Return the board after the click and any resulting chain reveals.""",
         "function_name": "updateBoard",
         "params": [{"name": "board", "type": "vector<vector<string>>"}, {"name": "click", "type": "vector<int>"}],
         "return_type": "vector<vector<string>>",
@@ -841,7 +895,8 @@ neighbors the same way. Return the resulting board.""",
         "test_cases": [
             {"inputs": [[["E", "E", "E", "E", "E"], ["E", "E", "M", "E", "E"], ["E", "E", "E", "E", "E"], ["E", "E", "E", "E", "E"]], [3, 0]],
              "expected": [["B", "1", "E", "1", "B"], ["B", "1", "M", "1", "B"], ["B", "1", "1", "1", "B"], ["B", "B", "B", "B", "B"]],
-             "input_display": "4x5 board with one mine, click=[3,0]"},
+             "input_display": "4x5 board with one mine, click=[3,0]",
+             "explanation": "Clicking [3,0] has zero adjacent mines, so it reveals as 'B' and the flood-fill spreads to every neighbor, and keeps spreading through any neighbor that *also* has zero adjacent mines. It stops the instant it hits a cell with a nonzero count -- that cell reveals its count but does not pass the reveal along to its own neighbors. That's why [0][2] is left completely untouched ('E'): all four of its neighbors ([0][1], [0][3], [1][1], [1][3]) have exactly one adjacent mine each, so none of them are zero-count cells that would have flood-filled onward to reach it. The mine at [1,2] itself stays 'M' since the flood-fill never clicks directly on a mine."},
             {"inputs": [[["E", "E"], ["E", "E"]], [0, 0]], "expected": [["B", "B"], ["B", "B"]], "hidden": True},
         ],
     },
@@ -905,7 +960,8 @@ conference rooms required so no two overlapping meetings share a room.""",
             "cpp": "int minMeetingRooms(vector<vector<int>> intervals) {\n    // your code here -- sort starts and ends separately, sweep\n    return 0;\n}\n",
         },
         "test_cases": [
-            {"inputs": [[[0, 30], [5, 10], [15, 20]]], "expected": 2, "input_display": "intervals=[[0,30],[5,10],[15,20]]"},
+            {"inputs": [[[0, 30], [5, 10], [15, 20]]], "expected": 2, "input_display": "intervals=[[0,30],[5,10],[15,20]]",
+             "explanation": "[5,10] and [15,20] never overlap each other, but [0,30] spans the entire time range and overlaps both of them individually. At any moment during [5,10] (or during [15,20]), both that meeting and [0,30] are in progress, so 2 rooms are needed at once -- but never 3, since [5,10] and [15,20] don't overlap each other."},
             {"inputs": [[[7, 10], [2, 4]]], "expected": 1, "input_display": "intervals=[[7,10],[2,4]]"},
             {"inputs": [[[1, 5], [5, 10]]], "expected": 1, "hidden": True},
         ],
@@ -969,7 +1025,8 @@ the size of the largest island possible afterward (an island is a 4-directionall
             "cpp": "int largestIsland(vector<vector<int>> grid) {\n    // your code here -- label each island with its size, then try flipping each 0\n    return 0;\n}\n",
         },
         "test_cases": [
-            {"inputs": [[[1, 0], [0, 1]]], "expected": 3, "input_display": "grid=[[1,0],[0,1]]"},
+            {"inputs": [[[1, 0], [0, 1]]], "expected": 3, "input_display": "grid=[[1,0],[0,1]]",
+             "explanation": "The two 1's at (0,0) and (1,1) aren't connected -- they only touch diagonally, which doesn't count. Flipping the 0 at (0,1) works because it's adjacent to (0,0) in its row AND to (1,1) in its column, joining all three cells into a single island of size 3. (Flipping (1,0) instead gives the same result by symmetry.)"},
             {"inputs": [[[1, 1], [1, 0]]], "expected": 4, "input_display": "grid=[[1,1],[1,0]]"},
             {"inputs": [[[1, 1], [1, 1]]], "expected": 4, "hidden": True},
         ],
@@ -993,7 +1050,8 @@ dictionary words. Use memoization; the naive version times out on longer inputs.
         },
         "test_cases": [
             {"inputs": ["catsanddog", ["cat", "cats", "and", "sand", "dog"]], "expected": ["cat sand dog", "cats and dog"],
-             "input_display": 's="catsanddog", wordDict=["cat","cats","and","sand","dog"]'},
+             "input_display": 's="catsanddog", wordDict=["cat","cats","and","sand","dog"]',
+             "explanation": "'catsanddog' can be fully broken into dictionary words two different ways: 'cat' + 'sand' + 'dog', or 'cats' + 'and' + 'dog'. Both use only words from wordDict and together account for every character in s, so both are valid sentences."},
             {"inputs": ["aaaa", ["a", "aa"]], "expected": ["a a a a", "a a aa", "a aa a", "aa a a", "aa aa"], "hidden": True},
         ],
     },
@@ -1017,7 +1075,8 @@ insertion instead of the median itself -- this is always a whole number.""",
             "cpp": "vector<int> medianStreamDoubled(vector<int> nums) {\n    // your code here -- two heaps (priority_queue), return 2*median after each insertion\n    return {};\n}\n",
         },
         "test_cases": [
-            {"inputs": [[1, 2, 3]], "expected": [2, 3, 4], "input_display": "nums=[1,2,3] (insert one at a time)"},
+            {"inputs": [[1, 2, 3]], "expected": [2, 3, 4], "input_display": "nums=[1,2,3] (insert one at a time)",
+             "explanation": "After inserting just 1, the median is 1, so 2*median = 2. After inserting 1 and 2, the numbers seen so far are {1,2} and the median of an even-sized set is the average of the two middle values: (1+2)/2 = 1.5, so 2*median = 3. After inserting 1, 2, and 3, the median of {1,2,3} is the middle value 2, so 2*median = 4."},
             {"inputs": [[2, 1, 5, 7, 2, 0, 5]], "expected": [4, 3, 4, 7, 4, 4, 4], "hidden": True},
             {"inputs": [[5]], "expected": [10], "hidden": True},
         ],
@@ -1077,14 +1136,15 @@ flowers can be planted without violating the no-adjacent rule.""",
         "difficulty": "Medium",
         "topic": "Array / Prefix Sum",
         "tags": ["array", "prefix-sum", "difference-array"],
-        "description_md": """You're given `nums` and a list of `queries`, each `queries[i] = [li, ri]`.
-Processing queries **in order**, for each one you may choose *any subset* of indices within `[li, ri]` and
-decrement each chosen index by 1 (an index doesn't have to be chosen every time its range is queried). Return
-whether it's possible to turn `nums` into an all-zero array after processing every query.
+        "description_md": """You're given an integer array `nums` and a list of `queries`, where each
+`queries[i] = [li, ri]` describes an index range.
 
-**Key insight:** since you can pick any subset per query, index `i` can be decremented at most as many times
-as the number of queries covering it -- so the answer is just whether every index is covered by at least
-`nums[i]` queries.""",
+Process the queries **in order**. For each query, you may choose *any subset* of the indices in `[li, ri]`
+(including none of them, or all of them) and decrement each chosen index by 1. You don't have to pick the
+same indices every time -- each query is an independent choice, limited only to that query's range.
+
+Return `true` if there's some way to make these choices, across all the queries, that leaves `nums` entirely
+zero by the end. Return `false` if no sequence of choices can do it.""",
         "function_name": "isZeroArray",
         "params": [{"name": "nums", "type": "vector<int>"}, {"name": "queries", "type": "vector<vector<int>>"}],
         "return_type": "bool",
@@ -1093,8 +1153,10 @@ as the number of queries covering it -- so the answer is just whether every inde
             "cpp": "bool isZeroArray(vector<int> nums, vector<vector<int>> queries) {\n    // your code here -- difference array of query coverage counts\n    return false;\n}\n",
         },
         "test_cases": [
-            {"inputs": [[1, 0, 1], [[0, 2]]], "expected": True, "input_display": "nums=[1,0,1], queries=[[0,2]]"},
-            {"inputs": [[4, 3, 2, 1], [[1, 3], [0, 2]]], "expected": False, "input_display": "nums=[4,3,2,1], queries=[[1,3],[0,2]]"},
+            {"inputs": [[1, 0, 1], [[0, 2]]], "expected": True, "input_display": "nums=[1,0,1], queries=[[0,2]]",
+             "explanation": "The single query [0,2] covers every index. Choose to decrement indices 0 and 2 (but not 1), giving [0,0,0]."},
+            {"inputs": [[4, 3, 2, 1], [[1, 3], [0, 2]]], "expected": False, "input_display": "nums=[4,3,2,1], queries=[[1,3],[0,2]]",
+             "explanation": "Index 0 is only ever inside one query's range ([0,2]), so it can be decremented at most once total across both queries -- but nums[0]=4 would need to be decremented four times. No sequence of choices can catch it up."},
             {"inputs": [[0, 0, 0], []], "expected": True, "hidden": True},
             {"inputs": [[5], [[0, 0]]], "expected": False, "hidden": True},
         ],
@@ -1142,7 +1204,8 @@ is `0`. Return the expressions in any order (grading here ignores order).""",
             "cpp": "vector<string> addOperators(string num, int target) {\n    // your code here -- backtrack over digit splits and operators, watch for leading zeros\n    return {};\n}\n",
         },
         "test_cases": [
-            {"inputs": ["123", 6], "expected": ["1+2+3", "1*2*3"], "input_display": 'num="123", target=6'},
+            {"inputs": ["123", 6], "expected": ["1+2+3", "1*2*3"], "input_display": 'num="123", target=6',
+             "explanation": "Splitting the digits as 1, 2, 3 and inserting operators: 1+2+3=6 and 1*2*3=6 both hit the target. Other splits/operators (like 12+3=15, or 1-2+3=2) don't."},
             {"inputs": ["232", 8], "expected": ["2*3+2", "2+3*2"], "input_display": 'num="232", target=8'},
             {"inputs": ["105", 5], "expected": ["1*0+5", "10-5"], "hidden": True},
             {"inputs": ["00", 0], "expected": ["0+0", "0-0", "0*0"], "hidden": True},
@@ -1234,7 +1297,8 @@ a k-way heap merge?""",
             "cpp": "int kthSmallest(vector<vector<int>> matrix, int k) {\n    // your code here\n    return 0;\n}\n",
         },
         "test_cases": [
-            {"inputs": [[[1, 5, 9], [10, 11, 13], [12, 13, 15]], 8], "expected": 13, "input_display": "matrix=[[1,5,9],[10,11,13],[12,13,15]], k=8"},
+            {"inputs": [[[1, 5, 9], [10, 11, 13], [12, 13, 15]], 8], "expected": 13, "input_display": "matrix=[[1,5,9],[10,11,13],[12,13,15]], k=8",
+             "explanation": "Flattening every value and sorting gives [1,5,9,10,11,12,13,13,15] -- note 13 shows up twice since it appears twice in the matrix, and duplicates aren't collapsed. The 8th value in that sorted order is 13."},
             {"inputs": [[[-5]], 1], "expected": -5, "input_display": "matrix=[[-5]], k=1"},
             {"inputs": [[[1, 2], [1, 3]], 2], "expected": 1, "hidden": True},
             {"inputs": [[[1, 2], [1, 3]], 3], "expected": 2, "hidden": True},
@@ -1247,13 +1311,18 @@ a k-way heap merge?""",
         "topic": "Array / Union Find",
         "tags": ["array", "union-find", "sorting", "matrix"],
         "description_md": """Given an `m x n` `matrix`, return a matrix `answer` of the same size where
-`answer[i][j]` is the rank of `matrix[i][j]`. Rank is assigned as the smallest positive integer such that:
-- Ranks are consecutive integers starting at 1.
-- If two elements are in the same row or column, the smaller one has a strictly smaller rank.
-- If two elements are in the same row or column and equal, they get the same rank.
+`answer[i][j]` is the *rank* of `matrix[i][j]` -- think of rank as "how many distinct value-tiers have I seen
+so far, scanning by value from smallest to largest." Ranks must satisfy:
+- Ranks are positive integers, and the smallest rank used is 1.
+- For any two cells in the **same row or same column**: if one's value is smaller, its rank must be strictly
+  smaller. If the values are equal, they must get the *same* rank.
+- Cells that don't share a row or column with each other have no ordering constraint between them -- their
+  ranks are only pinned down by the chains of shared rows/columns connecting them to everything else.
+- Subject to those constraints, ranks should be as small as possible.
 
-This is the classic Union-Find-by-value variant: process values in increasing order, union cells sharing a
-row/column with equal value, and assign each group `max(current row rank, current col rank) + 1`.""",
+Note that equal values can force a rank to propagate across the whole matrix: if `matrix[0][0] == matrix[0][5]`
+(same row) and `matrix[0][5] == matrix[9][5]` (same column), all three cells must share one rank, even though
+`matrix[0][0]` and `matrix[9][5]` don't directly share a row or column.""",
         "function_name": "matrixRankTransform",
         "params": [{"name": "matrix", "type": "vector<vector<int>>"}],
         "return_type": "vector<vector<int>>",
@@ -1262,8 +1331,10 @@ row/column with equal value, and assign each group `max(current row rank, curren
             "cpp": "vector<vector<int>> matrixRankTransform(vector<vector<int>> matrix) {\n    // your code here -- process values in increasing order, union-find by row/col\n    return matrix;\n}\n",
         },
         "test_cases": [
-            {"inputs": [[[1, 2], [3, 4]]], "expected": [[1, 2], [2, 3]], "input_display": "matrix=[[1,2],[3,4]]"},
-            {"inputs": [[[7, 7], [7, 7]]], "expected": [[1, 1], [1, 1]], "input_display": "matrix=[[7,7],[7,7]]"},
+            {"inputs": [[[1, 2], [3, 4]]], "expected": [[1, 2], [2, 3]], "input_display": "matrix=[[1,2],[3,4]]",
+             "explanation": "1 is the smallest in its row and column, so it gets rank 1. Both 2 (same row as 1) and 3 (same column as 1) must rank above it, so each gets rank 2 -- they don't share a row or column with each other, so nothing forces them to match. 4 shares a row with 3 and a column with 2, so it must rank above both: rank 3."},
+            {"inputs": [[[7, 7], [7, 7]]], "expected": [[1, 1], [1, 1]], "input_display": "matrix=[[7,7],[7,7]]",
+             "explanation": "Every cell has the same value and every cell shares a row or column with another cell in the group (directly or through a chain), so all four are forced to the same rank: 1."},
             {"inputs": [[[1, 3], [2, 4]]], "expected": [[1, 2], [2, 3]], "hidden": True},
             {"inputs": [[[5]]], "expected": [[1]], "hidden": True},
         ],
@@ -1386,9 +1457,22 @@ structurally identical with the same node values.""",
         "difficulty": "Medium",
         "topic": "Array / Stack",
         "tags": ["array", "stack", "simulation"],
-        "description_md": """Given an array `asteroids` where each value's absolute value is size and sign is
-direction (positive = right, negative = left), simulate collisions: equal sizes destroy both, the larger
-survives, and same-direction asteroids never collide. Return the state after all collisions resolve.""",
+        "description_md": """You're given an array `asteroids` of integers representing asteroids in a row, all
+moving at the same speed. For each asteroid, the absolute value represents its size, and the sign represents
+its direction: positive means moving right, negative means moving left.
+
+Each asteroid keeps moving in its direction until it either flies off the end of the row or meets another
+asteroid coming toward it. When two asteroids meet:
+- The smaller one explodes and disappears.
+- If they're the same size, both explode.
+- Two asteroids moving in the *same* direction never meet, no matter their sizes (they're moving at the same
+  speed, so the one behind never catches up).
+
+Note that a surviving asteroid can go on to meet *another* asteroid further down the line -- collisions can
+chain.
+
+Return the array of asteroids that remain once no more collisions can happen, in their original left-to-right
+order.""",
         "function_name": "asteroidCollision",
         "params": [{"name": "asteroids", "type": "vector<int>"}],
         "return_type": "vector<int>",
@@ -1397,9 +1481,12 @@ survives, and same-direction asteroids never collide. Return the state after all
             "cpp": "vector<int> asteroidCollision(vector<int> asteroids) {\n    // your code here -- stack simulation\n    return {};\n}\n",
         },
         "test_cases": [
-            {"inputs": [[5, 10, -5]], "expected": [5, 10], "input_display": "asteroids=[5,10,-5]"},
-            {"inputs": [[8, -8]], "expected": [], "input_display": "asteroids=[8,-8]"},
-            {"inputs": [[10, 2, -5]], "expected": [10], "hidden": True},
+            {"inputs": [[5, 10, -5]], "expected": [5, 10], "input_display": "asteroids=[5,10,-5]",
+             "explanation": "The 10 (moving right) and the -5 (moving left) meet; 10 is bigger, so it survives and -5 explodes. The 5 and 10 are both moving right, so they never meet each other."},
+            {"inputs": [[8, -8]], "expected": [], "input_display": "asteroids=[8,-8]",
+             "explanation": "8 and -8 meet and are exactly the same size, so both explode."},
+            {"inputs": [[10, 2, -5]], "expected": [10], "input_display": "asteroids=[10,2,-5]",
+             "explanation": "This is a chain reaction. The 2 and -5 meet first: -5 is bigger, so 2 explodes and -5 keeps moving left. -5 then meets the 10 behind it: 10 is bigger, so -5 explodes too, leaving only 10."},
             {"inputs": [[-2, -1, 1, 2]], "expected": [-2, -1, 1, 2], "hidden": True},
         ],
     },
@@ -1420,7 +1507,8 @@ operation finds the minimum value in `nums` (the leftmost such index if there's 
             "cpp": "vector<int> getFinalState(vector<int> nums, int k, int multiplier) {\n    // your code here\n    return nums;\n}\n",
         },
         "test_cases": [
-            {"inputs": [[2, 1, 3, 5, 6], 5, 2], "expected": [8, 4, 6, 5, 6], "input_display": "nums=[2,1,3,5,6], k=5, multiplier=2"},
+            {"inputs": [[2, 1, 3, 5, 6], 5, 2], "expected": [8, 4, 6, 5, 6], "input_display": "nums=[2,1,3,5,6], k=5, multiplier=2",
+             "explanation": "[2,1,3,5,6] -> multiply the 1 (index 1): [2,2,3,5,6] -> two 2's are now tied for smallest, so multiply the leftmost one (index 0): [4,2,3,5,6] -> multiply the remaining 2 (index 1): [4,4,3,5,6] -> multiply the 3 (index 2): [4,4,6,5,6] -> two 4's are tied again, multiply the leftmost (index 0): [8,4,6,5,6]. That's all 5 operations."},
             {"inputs": [[1, 2], 3, 4], "expected": [16, 8], "input_display": "nums=[1,2], k=3, multiplier=4"},
             {"inputs": [[1, 1, 1], 1, 2], "expected": [2, 1, 1], "hidden": True},
             {"inputs": [[5], 3, 1], "expected": [5], "hidden": True},
@@ -1473,7 +1561,8 @@ query. Otherwise return the whole-number ratio.""",
         },
         "test_cases": [
             {"inputs": [[["a", "b"], ["b", "c"]], [2, 3], [["a", "c"], ["a", "a"], ["a", "e"], ["x", "x"]]],
-             "expected": [6, 1, -1, -1], "input_display": 'equations=[[a,b],[b,c]], values=[2,3], queries=[[a,c],[a,a],[a,e],[x,x]]'},
+             "expected": [6, 1, -1, -1], "input_display": 'equations=[[a,b],[b,c]], values=[2,3], queries=[[a,c],[a,a],[a,e],[x,x]]',
+             "explanation": "a/b=2 and b/c=3, so chaining them gives a/c = (a/b) * (b/c) = 2 * 3 = 6. a/a=1 trivially since a is a known variable. a/e=-1 because e never appears in any equation. x/x=-1 too -- even though it looks trivial, x was never introduced by any equation, so it's unknown."},
             {"inputs": [[["a", "b"]], [10], [["a", "b"], ["b", "a"], ["a", "a"], ["b", "b"], ["a", "c"]]],
              "expected": [10, -1, 1, 1, -1], "input_display": 'equations=[[a,b]], values=[10], queries=[[a,b],[b,a],[a,a],[b,b],[a,c]]'},
             {"inputs": [[["a", "b"], ["b", "c"], ["c", "d"]], [2, 2, 2], [["a", "d"], ["d", "a"], ["a", "c"]]],

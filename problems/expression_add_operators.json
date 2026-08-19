@@ -36,7 +36,8 @@
         "1+2+3",
         "1*2*3"
       ],
-      "input_display": "num=\"123\", target=6"
+      "input_display": "num=\"123\", target=6",
+      "explanation": "Splitting the digits as 1, 2, 3 and inserting operators: 1+2+3=6 and 1*2*3=6 both hit the target. Other splits/operators (like 12+3=15, or 1-2+3=2) don't."
     },
     {
       "inputs": [

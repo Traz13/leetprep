@@ -8,7 +8,7 @@
     "topological-sort",
     "bfs"
   ],
-  "description_md": "You have `numCourses` courses labeled `0` to `numCourses-1`. `prerequisites[i] =\n[a, b]` means you must take course `b` before course `a`. Return a valid order to take all courses, or an\nempty array if it's impossible (a cycle exists).\n\nTo keep the judge deterministic, return the **lexicographically smallest** valid order (always pick the\nlowest-numbered course with no remaining prerequisites at each step -- a min-heap instead of a plain queue).",
+  "description_md": "You have `numCourses` courses labeled `0` to `numCourses-1`. `prerequisites[i] =\n[a, b]` means you must take course `b` before course `a`. Return a valid order in which to take all the\ncourses, or an empty array if it's impossible (which happens exactly when the prerequisites form a cycle).\n\nThere's usually more than one valid order. To keep grading deterministic, return the\n**lexicographically smallest** one -- whenever more than one course is available to take next, pick the\nlowest-numbered one first.",
   "function_name": "courseOrder",
   "params": [
     {
@@ -54,7 +54,8 @@
         2,
         3
       ],
-      "input_display": "numCourses=4, prerequisites=[[1,0],[2,0],[3,1],[3,2]]"
+      "input_display": "numCourses=4, prerequisites=[[1,0],[2,0],[3,1],[3,2]]",
+      "explanation": "Course 0 has no prerequisites, so it must go first. That immediately unlocks both 1 and 2 -- pick 1 before 2 since it's lower-numbered. Course 3 needs both 1 and 2 finished, so it can only go last."
     },
     {
       "inputs": [

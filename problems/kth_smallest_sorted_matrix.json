@@ -49,7 +49,8 @@
         8
       ],
       "expected": 13,
-      "input_display": "matrix=[[1,5,9],[10,11,13],[12,13,15]], k=8"
+      "input_display": "matrix=[[1,5,9],[10,11,13],[12,13,15]], k=8",
+      "explanation": "Flattening every value and sorting gives [1,5,9,10,11,12,13,13,15] -- note 13 shows up twice since it appears twice in the matrix, and duplicates aren't collapsed. The 8th value in that sorted order is 13."
     },
     {
       "inputs": [

@@ -49,7 +49,8 @@
         5,
         6
       ],
-      "input_display": "nums=[2,1,3,5,6], k=5, multiplier=2"
+      "input_display": "nums=[2,1,3,5,6], k=5, multiplier=2",
+      "explanation": "[2,1,3,5,6] -> multiply the 1 (index 1): [2,2,3,5,6] -> two 2's are now tied for smallest, so multiply the leftmost one (index 0): [4,2,3,5,6] -> multiply the remaining 2 (index 1): [4,4,3,5,6] -> multiply the 3 (index 2): [4,4,6,5,6] -> two 4's are tied again, multiply the leftmost (index 0): [8,4,6,5,6]. That's all 5 operations."
     },
     {
       "inputs": [

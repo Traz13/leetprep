@@ -53,7 +53,8 @@
         4,
         5
       ],
-      "input_display": "matrix=[[1,2,3],[4,5,6],[7,8,9]]"
+      "input_display": "matrix=[[1,2,3],[4,5,6],[7,8,9]]",
+      "explanation": "Across the top row (1, 2, 3), down the right column (6, 9), back across the bottom row right-to-left (8, 7), up the left column (4), then the one cell left in the center (5)."
     },
     {
       "inputs": [
