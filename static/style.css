@@ -262,6 +262,12 @@ html, body {
   border: 1px solid var(--line);
   border-radius: 8px;
   overflow-x: auto;
+  /* Explicit, not left to default: per spec, setting only overflow-x forces
+     the browser to compute overflow-y as "auto" too, which would silently
+     clip (no visible scrollbar) any diagram whose content extends even a
+     couple px past its computed height. Diagrams never need vertical
+     scroll -- only wide ones need horizontal -- so this is always correct. */
+  overflow-y: visible;
 }
 .diagram-block svg { display: block; }
 

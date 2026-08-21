@@ -9,6 +9,7 @@
     "two-heaps"
   ],
   "description_md": "Design a structure that supports adding numbers from a stream and querying the\nrunning median after each addition, using two heaps (a max-heap for the lower half, a min-heap for the\nupper half) rather than re-sorting every time.\n\nTo keep this judge's integer-only comparisons exact (no floating point), return `2 x median` after each\ninsertion instead of the median itself -- this is always a whole number.",
+  "diagram_svg": "<svg viewBox=\"0 0 264 96\" width=\"264\" height=\"96\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"SF Mono, Cascadia Code, Consolas, monospace\"><text x=\"6\" y=\"14\" font-size=\"10\" fill=\"var(--text-2)\">insert 1</text><text x=\"6\" y=\"40\" font-size=\"12\" fill=\"var(--text-0)\" font-family=\"SF Mono, Consolas, monospace\">[1]</text><text x=\"6\" y=\"64\" font-size=\"10.5\" fill=\"#ffb454\">2 &#215; median = 2</text><text x=\"90\" y=\"14\" font-size=\"10\" fill=\"var(--text-2)\">insert 2</text><text x=\"90\" y=\"40\" font-size=\"12\" fill=\"var(--text-0)\" font-family=\"SF Mono, Consolas, monospace\">[1 2]</text><text x=\"90\" y=\"64\" font-size=\"10.5\" fill=\"#ffb454\">2 &#215; median = 3</text><text x=\"174\" y=\"14\" font-size=\"10\" fill=\"var(--text-2)\">insert 3</text><text x=\"174\" y=\"40\" font-size=\"12\" fill=\"var(--text-0)\" font-family=\"SF Mono, Consolas, monospace\">[1 2 3]</text><text x=\"174\" y=\"64\" font-size=\"10.5\" fill=\"#ffb454\">2 &#215; median = 4</text></svg>",
   "function_name": "medianStreamDoubled",
   "params": [
     {
