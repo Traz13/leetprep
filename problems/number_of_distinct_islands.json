@@ -57,7 +57,8 @@
         ]
       ],
       "expected": 1,
-      "input_display": "grid with two identically-shaped 2x2 islands"
+      "input_display": "grid=[[1,1,0,0,0],[1,1,0,0,0],[0,0,0,1,1],[0,0,0,1,1]]",
+      "explanation": "There are two separate 2x2 island blobs -- one at the top-left, one at the bottom-right -- but they're the exact same shape (a 2x2 square), just shifted to a different position. Since only the shape matters, not the location, they count as 1 distinct shape."
     },
     {
       "inputs": [

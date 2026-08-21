@@ -287,6 +287,7 @@ function renderDescription(p) {
       ${tagsHtml}
     </div>
     <div id="desc-body">${mdToHtml(p.description_md)}</div>
+    ${p.diagram_svg ? `<div class="diagram-block">${p.diagram_svg}</div>` : ""}
     ${exHtml}
     ${p.hidden_count > 0 ? `<div class="hidden-note">+ ${p.hidden_count} additional hidden test case(s) checked on Submit</div>` : ""}
   `;

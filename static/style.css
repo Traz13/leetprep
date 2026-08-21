@@ -255,6 +255,16 @@ html, body {
 }
 #desc-body strong { color: var(--text-0); }
 
+.diagram-block {
+  margin: 4px 0 20px 0;
+  padding: 14px;
+  background: var(--bg-1);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow-x: auto;
+}
+.diagram-block svg { display: block; }
+
 .example-block {
   background: var(--bg-1);
   border: 1px solid var(--line);

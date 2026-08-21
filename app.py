@@ -119,6 +119,7 @@ def api_get_problem(problem_id: str):
         "topic": p["topic"],
         "tags": p["tags"],
         "description_md": p["description_md"],
+        "diagram_svg": p.get("diagram_svg"),
         "starter_code": p["starter_code"],
         "examples": visible_cases,
         "hidden_count": len(p["test_cases"]) - len(visible_cases),

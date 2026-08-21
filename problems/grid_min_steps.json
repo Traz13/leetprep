@@ -9,6 +9,7 @@
     "graph"
   ],
   "description_md": "A rectangular warehouse floor is represented as a grid where `0` is open floor and\n`1` is a blocked shelf. A robot starts at the northwest corner `(0,0)` and needs to reach the southeast\ncorner `(rows-1, cols-1)`, moving one cell at a time in the four cardinal directions.\n\nReturn the minimum number of steps required, or `-1` if the southeast corner is unreachable.\n\nThis is a direct analog of a real Anduril phone-screen question (minimum steps NW corner -> SE corner of a\nbuilding). **Follow-up they'll ask:** what if diagonal moves were allowed, or cells had different traversal costs?",
+  "diagram_svg": "<svg viewBox=\"0 0 138 138\" width=\"138\" height=\"138\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"SF Mono, Cascadia Code, Consolas, monospace\"><rect x=\"6\" y=\"6\" width=\"40\" height=\"40\" rx=\"4\" fill=\"#fbbf7a\" stroke=\"#ffb454\" stroke-width=\"1.5\"/><text x=\"26.0\" y=\"32.0\" text-anchor=\"middle\" font-size=\"14\" fill=\"#1a1204\" font-weight=\"700\">S</text><rect x=\"48\" y=\"6\" width=\"40\" height=\"40\" rx=\"4\" fill=\"var(--bg-2)\" stroke=\"var(--line)\" stroke-width=\"1.5\"/><rect x=\"90\" y=\"6\" width=\"40\" height=\"40\" rx=\"4\" fill=\"var(--bg-2)\" stroke=\"var(--line)\" stroke-width=\"1.5\"/><rect x=\"6\" y=\"48\" width=\"40\" height=\"40\" rx=\"4\" fill=\"#fbbf7a\" stroke=\"#ffb454\" stroke-width=\"1.5\"/><rect x=\"48\" y=\"48\" width=\"40\" height=\"40\" rx=\"4\" fill=\"var(--bg-3)\" stroke=\"var(--line)\" stroke-width=\"1.5\"/><text x=\"68.0\" y=\"74.0\" text-anchor=\"middle\" font-size=\"14\" fill=\"var(--text-2)\" font-weight=\"700\">#</text><rect x=\"90\" y=\"48\" width=\"40\" height=\"40\" rx=\"4\" fill=\"var(--bg-2)\" stroke=\"var(--line)\" stroke-width=\"1.5\"/><rect x=\"6\" y=\"90\" width=\"40\" height=\"40\" rx=\"4\" fill=\"#fbbf7a\" stroke=\"#ffb454\" stroke-width=\"1.5\"/><rect x=\"48\" y=\"90\" width=\"40\" height=\"40\" rx=\"4\" fill=\"#fbbf7a\" stroke=\"#ffb454\" stroke-width=\"1.5\"/><rect x=\"90\" y=\"90\" width=\"40\" height=\"40\" rx=\"4\" fill=\"#fbbf7a\" stroke=\"#ffb454\" stroke-width=\"1.5\"/><text x=\"110.0\" y=\"116.0\" text-anchor=\"middle\" font-size=\"14\" fill=\"#1a1204\" font-weight=\"700\">E</text></svg>",
   "function_name": "minSteps",
   "params": [
     {
@@ -43,7 +44,8 @@
         ]
       ],
       "expected": 4,
-      "input_display": "3x3 grid, one blocked cell in middle"
+      "input_display": "grid=[[0,0,0],[0,1,0],[0,0,0]] (3x3, one blocked cell in the middle)",
+      "explanation": "The direct diagonal shortcut isn't allowed (only up/down/left/right moves), and the middle cell is blocked, so the shortest path has to go around it -- e.g. (0,0)->(1,0)->(2,0)->(2,1)->(2,2), 4 steps."
     },
     {
       "inputs": [
@@ -59,7 +61,8 @@
         ]
       ],
       "expected": -1,
-      "input_display": "2x2 grid, no path"
+      "input_display": "grid=[[0,1],[1,0]] (2x2, no path)",
+      "explanation": "The start (0,0) and end (1,1) are both open, but the only two cells connecting them, (0,1) and (1,0), are both blocked -- there's no route at all."
     },
     {
       "inputs": [
