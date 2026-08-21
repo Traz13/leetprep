@@ -43,6 +43,7 @@ async function init() {
   await refreshStats();
   await loadProblemList();
   wireToolbar();
+  wireDataPanel();
 }
 
 async function refreshStats() {
@@ -112,6 +113,131 @@ function wireToolbar() {
   });
   document.getElementById("btn-run").onclick = () => runOrSubmit(false);
   document.getElementById("btn-submit").onclick = () => runOrSubmit(true);
+}
+
+// ---------------- DATA PANEL (backup / restore / clear) ----------------
+
+function wireDataPanel() {
+  document.getElementById("btn-clear").onclick = openClearStage1;
+
+  const fileInput = document.getElementById("import-file-input");
+  document.getElementById("btn-import").onclick = () => fileInput.click();
+  fileInput.onchange = () => importBackupFile(fileInput);
+
+  document.getElementById("modal-overlay").onclick = (e) => {
+    if (e.target.id === "modal-overlay") hideModal();
+  };
+
+  loadDbInfo();
+}
+
+async function loadDbInfo() {
+  const note = document.getElementById("db-path-note");
+  try {
+    const info = await api("/api/backup/info");
+    const sizeKb = (info.size_bytes / 1024).toFixed(1);
+    note.textContent = `Stored in: ${info.path} (${sizeKb} KB)`;
+  } catch (e) {
+    note.textContent = "";
+  }
+}
+
+async function importBackupFile(fileInput) {
+  const file = fileInput.files[0];
+  fileInput.value = "";
+  if (!file) return;
+
+  const ok = confirm(
+    `Load "${file.name}"?\n\nThis replaces your current progress with the contents of this file. ` +
+    `Your existing database is copied to progress.db.bak first, but the app will switch to the ` +
+    `imported data immediately -- there's no in-app undo after this point.`
+  );
+  if (!ok) return;
+
+  const formData = new FormData();
+  formData.append("file", file);
+  try {
+    const res = await fetch("/api/backup/import", { method: "POST", body: formData });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.detail || `HTTP ${res.status}`);
+    await afterDatabaseChange();
+    alert("Backup loaded.");
+  } catch (e) {
+    alert(`Failed to load backup: ${e.message || e}`);
+  }
+}
+
+async function afterDatabaseChange() {
+  await refreshStats();
+  await loadProblemList();
+  await loadDbInfo();
+  currentProblem = null;
+  document.getElementById("desc-content").className = "placeholder";
+  document.getElementById("desc-content").innerHTML = "Select a problem from the left to begin.";
+  document.getElementById("btn-run").disabled = true;
+  document.getElementById("btn-submit").disabled = true;
+  resetConsole();
+}
+
+function showModal(html) {
+  document.getElementById("modal-box").innerHTML = html;
+  document.getElementById("modal-overlay").classList.remove("hidden");
+}
+
+function hideModal() {
+  document.getElementById("modal-overlay").classList.add("hidden");
+  document.getElementById("modal-box").innerHTML = "";
+}
+
+async function openClearStage1() {
+  const stats = await api("/api/stats");
+  showModal(`
+    <h2 class="danger">Clear all progress?</h2>
+    <div class="modal-warn-box">
+      This permanently deletes <b>${stats.solved}</b> solved and <b>${stats.attempted}</b> attempted
+      problem(s), plus your saved code for every problem in this app.
+    </div>
+    <p>A safety copy of the current database is saved on disk automatically
+      (<code>progress.db.before-clear-*.bak</code>), but this app has no button to restore it -- you'd need
+      to manually rename that file back if you ever wanted it. Use <b>Save Backup</b> first if you might want
+      this data later.</p>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" id="modal-cancel">Cancel</button>
+      <button class="btn btn-danger" id="modal-continue" style="width:auto;">Continue →</button>
+    </div>
+  `);
+  document.getElementById("modal-cancel").onclick = hideModal;
+  document.getElementById("modal-continue").onclick = openClearStage2;
+}
+
+function openClearStage2() {
+  showModal(`
+    <h2 class="danger">Are you absolutely sure?</h2>
+    <p>Type <b>DELETE</b> below to confirm. There is no in-app undo.</p>
+    <input type="text" id="modal-confirm-input" class="modal-input" placeholder="Type DELETE" autocomplete="off" />
+    <div class="modal-actions">
+      <button class="btn btn-secondary" id="modal-cancel">Cancel</button>
+      <button class="btn btn-confirm-danger" id="modal-delete" style="width:auto;" disabled>Delete Everything</button>
+    </div>
+  `);
+  const input = document.getElementById("modal-confirm-input");
+  const deleteBtn = document.getElementById("modal-delete");
+  input.oninput = () => { deleteBtn.disabled = input.value !== "DELETE"; };
+  input.focus();
+  document.getElementById("modal-cancel").onclick = hideModal;
+  deleteBtn.onclick = async () => {
+    deleteBtn.disabled = true;
+    deleteBtn.textContent = "Deleting…";
+    try {
+      await api("/api/backup/clear", { method: "POST" });
+      hideModal();
+      await afterDatabaseChange();
+    } catch (e) {
+      alert(`Failed to clear progress: ${e.message || e}`);
+      deleteBtn.disabled = false;
+      deleteBtn.textContent = "Delete Everything";
+    }
+  };
 }
 
 function loadCodeForLang() {

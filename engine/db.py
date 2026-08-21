@@ -139,3 +139,14 @@ def due_for_review():
     ).fetchall()
     conn.close()
     return [r["problem_id"] for r in rows]
+
+
+def reset_db():
+    """Wipe all progress/submission rows but keep the schema -- used by the
+    Clear All Progress action. Callers are responsible for backing up the
+    file first if they want it recoverable."""
+    conn = get_conn()
+    conn.execute("DELETE FROM progress")
+    conn.execute("DELETE FROM submissions")
+    conn.commit()
+    conn.close()

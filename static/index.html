@@ -21,6 +21,16 @@
 
       <div id="stats-panel"></div>
 
+      <div id="data-panel">
+        <div class="data-row">
+          <a id="btn-export" class="btn btn-secondary btn-small" href="/api/backup/export" download>⬇ Save Backup</a>
+          <button id="btn-import" class="btn btn-secondary btn-small">⬆ Load Backup</button>
+        </div>
+        <button id="btn-clear" class="btn btn-danger btn-small">Clear All Progress</button>
+        <div id="db-path-note" class="db-path-note"></div>
+        <input type="file" id="import-file-input" accept=".db" style="display:none" />
+      </div>
+
       <div id="problem-list"></div>
     </aside>
 
@@ -53,6 +63,10 @@
       </section>
     </main>
 
+  </div>
+
+  <div id="modal-overlay" class="modal-overlay hidden">
+    <div class="modal-box" id="modal-box"></div>
   </div>
 
 <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.47.0/min/vs/loader.js"></script>

@@ -1,12 +1,17 @@
+import datetime
 import json
 import os
+import shutil
+import sqlite3
+import tempfile
 import webbrowser
 import threading
 
-from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import JSONResponse
+from fastapi import FastAPI, File, HTTPException, Request, UploadFile
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
+from starlette.background import BackgroundTask
 from starlette.middleware.base import BaseHTTPMiddleware
 
 from engine import db, runner
@@ -165,6 +170,89 @@ def api_stats():
         "due_for_review": len(due),
         "due_ids": due,
     }
+
+
+SQLITE_MAGIC = b"SQLite format 3\x00"
+
+
+@app.get("/api/backup/info")
+def api_backup_info():
+    exists = os.path.isfile(db.DB_PATH)
+    return {
+        "path": db.DB_PATH,
+        "exists": exists,
+        "size_bytes": os.path.getsize(db.DB_PATH) if exists else 0,
+    }
+
+
+@app.get("/api/backup/export")
+def api_backup_export():
+    if not os.path.isfile(db.DB_PATH):
+        raise HTTPException(status_code=404, detail="No progress database found yet -- solve or attempt a problem first.")
+
+    # VACUUM INTO writes a clean, consistent snapshot to a brand-new file --
+    # safer than copying the live file's bytes directly, which could in
+    # principle race a concurrent write.
+    fd, tmp_path = tempfile.mkstemp(suffix=".db")
+    os.close(fd)
+    os.remove(tmp_path)
+    conn = sqlite3.connect(db.DB_PATH)
+    conn.execute("VACUUM INTO ?", (tmp_path,))
+    conn.close()
+
+    stamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+    return FileResponse(
+        tmp_path,
+        filename=f"leetprep-progress-{stamp}.db",
+        media_type="application/octet-stream",
+        background=BackgroundTask(lambda: os.path.isfile(tmp_path) and os.remove(tmp_path)),
+    )
+
+
+@app.post("/api/backup/import")
+async def api_backup_import(file: UploadFile = File(...)):
+    data = await file.read()
+    if not data.startswith(SQLITE_MAGIC):
+        raise HTTPException(status_code=400, detail="That doesn't look like a SQLite database file.")
+
+    tmp_dir = os.path.dirname(db.DB_PATH)
+    fd, tmp_path = tempfile.mkstemp(dir=tmp_dir, suffix=".upload.db")
+    try:
+        with os.fdopen(fd, "wb") as f:
+            f.write(data)
+
+        conn = sqlite3.connect(tmp_path)
+        try:
+            conn.execute("SELECT problem_id, status FROM progress LIMIT 1")
+            conn.execute("SELECT problem_id, language FROM submissions LIMIT 1")
+        except sqlite3.Error:
+            raise HTTPException(
+                status_code=400,
+                detail="This file doesn't have the tables LeetPrep expects -- it might not be a LeetPrep backup.",
+            )
+        finally:
+            # Must close before the outer `finally` tries to remove tmp_path --
+            # on Windows a lingering open connection keeps the file locked.
+            conn.close()
+
+        if os.path.isfile(db.DB_PATH):
+            shutil.copy2(db.DB_PATH, db.DB_PATH + ".bak")
+
+        os.replace(tmp_path, db.DB_PATH)
+    finally:
+        if os.path.isfile(tmp_path):
+            os.remove(tmp_path)
+
+    return {"ok": True}
+
+
+@app.post("/api/backup/clear")
+def api_backup_clear():
+    if os.path.isfile(db.DB_PATH):
+        stamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+        shutil.copy2(db.DB_PATH, f"{db.DB_PATH}.before-clear-{stamp}.bak")
+    db.reset_db()
+    return {"ok": True}
 
 
 app.mount("/", StaticFiles(directory=os.path.join(BASE_DIR, "static"), html=True), name="static")
