@@ -9,6 +9,7 @@
     "bfs"
   ],
   "description_md": "You have `numCourses` courses and a list of prerequisite pairs `[a, b]` meaning\n`b` must be completed before `a`. Return whether it's possible to finish all courses (i.e. the prerequisite\ngraph has no cycle).",
+  "diagram_svg": "<svg viewBox=\"0 0 160 160\" width=\"160\" height=\"160\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"SF Mono, Cascadia Code, Consolas, monospace\"><defs><marker id=\"cyc-arrow\" markerWidth=\"7\" markerHeight=\"7\" refX=\"6\" refY=\"2.5\" orient=\"auto\"><path d=\"M0,0 L6,2.5 L0,5 Z\" fill=\"#f87171\"/></marker></defs><path d=\"M70.0,42.0 Q58.0,68.5 70.0,95.0\" fill=\"none\" stroke=\"#f87171\" stroke-width=\"1.8\" marker-end=\"url(#cyc-arrow)\" opacity=\"0.85\"/><path d=\"M70.0,98.0 Q82.0,71.5 70.0,45.0\" fill=\"none\" stroke=\"#f87171\" stroke-width=\"1.8\" marker-end=\"url(#cyc-arrow)\" opacity=\"0.85\"/><circle cx=\"70.0\" cy=\"24.0\" r=\"18\" fill=\"var(--bg-3)\" stroke=\"#f87171\" stroke-width=\"2\"/><text x=\"70.0\" y=\"29.0\" text-anchor=\"middle\" font-size=\"13\" fill=\"var(--text-0)\" font-weight=\"600\">0</text><circle cx=\"70.0\" cy=\"116.0\" r=\"18\" fill=\"var(--bg-3)\" stroke=\"#f87171\" stroke-width=\"2\"/><text x=\"70.0\" y=\"121.0\" text-anchor=\"middle\" font-size=\"13\" fill=\"var(--text-0)\" font-weight=\"600\">1</text></svg>",
   "function_name": "canFinish",
   "params": [
     {
