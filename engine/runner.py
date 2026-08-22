@@ -396,7 +396,7 @@ def run_cpp(user_code, problem):
 
         try:
             compile_proc = subprocess.run(
-                [_gpp_path(), "-O2", "-std=c++17", "-static-libgcc", "-static-libstdc++", "-static",
+                [_gpp_path(), "-O2", "-std=c++20", "-static-libgcc", "-static-libstdc++", "-static",
                  "-o", bin_path, src_path],
                 capture_output=True, text=True, timeout=CPP_COMPILE_TIMEOUT,
             )
