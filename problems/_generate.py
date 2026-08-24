@@ -1659,6 +1659,62 @@ constructed from letters of `magazine` (each letter in `magazine` can only be us
             {"inputs": ["", "abc"], "expected": True, "hidden": True},
         ],
     },
+    {
+        "id": "top_k_frequent_elements",
+        "title": "Top K Frequent Elements",
+        "difficulty": "Medium",
+        "topic": "Array / Heap",
+        "tags": ["array", "heap", "hash-map", "bucket-sort"],
+        "description_md": """Given an integer array `nums` and an integer `k`, return the `k` most frequent
+elements. The test cases here are built so the top-`k` set is always unambiguous (no tie sits right at the
+boundary) -- return them in any order (grading here ignores order).
+
+**Follow-up they'll ask:** can you beat sorting all values by frequency (O(n log n))? Bucket sort by frequency,
+or a size-k min-heap, both get you to O(n).""",
+        "diagram_svg": """<svg viewBox="0 0 213 124" width="213" height="124" xmlns="http://www.w3.org/2000/svg" font-family="SF Mono, Cascadia Code, Consolas, monospace"><rect x="6" y="24" width="34" height="60" rx="3" fill="#ffb454" fill-opacity="0.9" stroke="#ffb454" stroke-width="1.5"/><text x="23.0" y="18" text-anchor="middle" font-size="11" fill="#ffb454" font-weight="600">x3</text><text x="23.0" y="100" text-anchor="middle" font-size="12" fill="var(--text-0)" font-weight="600">1</text><rect x="50" y="44" width="34" height="40" rx="3" fill="#ffb454" fill-opacity="0.9" stroke="#ffb454" stroke-width="1.5"/><text x="67.0" y="38" text-anchor="middle" font-size="11" fill="#ffb454" font-weight="600">x2</text><text x="67.0" y="100" text-anchor="middle" font-size="12" fill="var(--text-0)" font-weight="600">2</text><rect x="94" y="64" width="34" height="20" rx="3" fill="var(--bg-3)" fill-opacity="0.9" stroke="var(--line)" stroke-width="1.5"/><text x="111.0" y="58" text-anchor="middle" font-size="11" fill="var(--text-1)" font-weight="600">x1</text><text x="111.0" y="100" text-anchor="middle" font-size="12" fill="var(--text-0)" font-weight="600">3</text><text x="6" y="118" font-size="10.5" fill="#ffb454">top 2 by frequency, highlighted</text></svg>""",
+        "function_name": "topKFrequent",
+        "params": [{"name": "nums", "type": "vector<int>"}, {"name": "k", "type": "int"}],
+        "return_type": "vector<int>",
+        "unordered": True,
+        "starter_code": {
+            "python": "def topKFrequent(nums, k):\n    # your code here -- count frequencies, then bucket sort or heap by count\n    pass\n",
+            "cpp": "vector<int> topKFrequent(vector<int> nums, int k) {\n    // your code here -- count frequencies, then bucket sort or heap by count\n    return {};\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [[1, 1, 1, 2, 2, 3], 2], "expected": [1, 2], "input_display": "nums=[1,1,1,2,2,3], k=2",
+             "explanation": "1 appears 3 times, 2 appears 2 times, 3 appears once. The two most frequent values are 1 and 2 -- the diagram above shows this exact example."},
+            {"inputs": [[1], 1], "expected": [1], "input_display": "nums=[1], k=1"},
+            {"inputs": [[4, 4, 4, 6, 6, 7, 7, 7, 7], 2], "expected": [7, 4], "hidden": True},
+            {"inputs": [[5, 3, 1, 1, 1, 3, 73, 1], 1], "expected": [1], "hidden": True},
+        ],
+    },
+    {
+        "id": "permutations",
+        "title": "Permutations",
+        "difficulty": "Medium",
+        "topic": "Array / Backtracking",
+        "tags": ["array", "backtracking", "recursion"],
+        "description_md": """Given an array `nums` of distinct integers, return all possible permutations of it.
+
+To keep this judge's comparisons exact -- unlike most backtracking problems here, the order of results matters
+to how equality is checked, not just which permutations are present -- return them in the order standard
+backtracking produces: at each position, try the not-yet-used numbers in the same relative order they appear
+in the input array.""",
+        "diagram_svg": """<svg viewBox="0 0 380 120" width="380" height="120" xmlns="http://www.w3.org/2000/svg" font-family="SF Mono, Cascadia Code, Consolas, monospace"><line x1="190.0" y1="16" x2="50.0" y2="54" stroke="var(--line)" stroke-width="2"/><line x1="50.0" y1="54" x2="20" y2="100" stroke="var(--line)" stroke-width="2"/><line x1="50.0" y1="54" x2="80" y2="100" stroke="var(--line)" stroke-width="2"/><line x1="190.0" y1="16" x2="170.0" y2="54" stroke="var(--line)" stroke-width="2"/><line x1="170.0" y1="54" x2="140" y2="100" stroke="var(--line)" stroke-width="2"/><line x1="170.0" y1="54" x2="200" y2="100" stroke="var(--line)" stroke-width="2"/><line x1="190.0" y1="16" x2="290.0" y2="54" stroke="var(--line)" stroke-width="2"/><line x1="290.0" y1="54" x2="260" y2="100" stroke="var(--line)" stroke-width="2"/><line x1="290.0" y1="54" x2="320" y2="100" stroke="var(--line)" stroke-width="2"/><circle cx="190.0" cy="16" r="11" fill="var(--bg-3)" stroke="var(--text-2)" stroke-width="2"/><text x="190.0" y="20" text-anchor="middle" font-size="10" fill="var(--text-2)">?</text><circle cx="50.0" cy="54" r="15" fill="var(--bg-3)" stroke="var(--amber)" stroke-width="2"/><text x="50.0" y="59" text-anchor="middle" font-size="13" fill="var(--text-0)" font-weight="700">1</text><circle cx="20" cy="100" r="15" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="2"/><text x="20" y="105" text-anchor="middle" font-size="12" fill="#0a0a0a" font-weight="700">123</text><circle cx="80" cy="100" r="15" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="2"/><text x="80" y="105" text-anchor="middle" font-size="12" fill="#0a0a0a" font-weight="700">132</text><circle cx="170.0" cy="54" r="15" fill="var(--bg-3)" stroke="var(--amber)" stroke-width="2"/><text x="170.0" y="59" text-anchor="middle" font-size="13" fill="var(--text-0)" font-weight="700">2</text><circle cx="140" cy="100" r="15" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="2"/><text x="140" y="105" text-anchor="middle" font-size="12" fill="#0a0a0a" font-weight="700">213</text><circle cx="200" cy="100" r="15" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="2"/><text x="200" y="105" text-anchor="middle" font-size="12" fill="#0a0a0a" font-weight="700">231</text><circle cx="290.0" cy="54" r="15" fill="var(--bg-3)" stroke="var(--amber)" stroke-width="2"/><text x="290.0" y="59" text-anchor="middle" font-size="13" fill="var(--text-0)" font-weight="700">3</text><circle cx="260" cy="100" r="15" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="2"/><text x="260" y="105" text-anchor="middle" font-size="12" fill="#0a0a0a" font-weight="700">312</text><circle cx="320" cy="100" r="15" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="2"/><text x="320" y="105" text-anchor="middle" font-size="12" fill="#0a0a0a" font-weight="700">321</text></svg>""",
+        "function_name": "permute",
+        "params": [{"name": "nums", "type": "vector<int>"}],
+        "return_type": "vector<vector<int>>",
+        "starter_code": {
+            "python": "def permute(nums):\n    # your code here -- backtrack, trying unused numbers in input order at each step\n    pass\n",
+            "cpp": "vector<vector<int>> permute(vector<int> nums) {\n    // your code here -- backtrack, trying unused numbers in input order at each step\n    return {};\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [[1, 2, 3]], "expected": [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]],
+             "input_display": "nums=[1,2,3]",
+             "explanation": "Pick the first number from {1,2,3} in order, then the second from whatever's left (the third is then forced) -- that produces exactly these 6 orderings, matching the tree above."},
+            {"inputs": [[0, 1]], "expected": [[0, 1], [1, 0]], "input_display": "nums=[0,1]", "hidden": True},
+        ],
+    },
 ]
 
 

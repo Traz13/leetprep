@@ -1,0 +1,90 @@
+{
+  "id": "permutations",
+  "title": "Permutations",
+  "difficulty": "Medium",
+  "topic": "Array / Backtracking",
+  "tags": [
+    "array",
+    "backtracking",
+    "recursion"
+  ],
+  "description_md": "Given an array `nums` of distinct integers, return all possible permutations of it.\n\nTo keep this judge's comparisons exact -- unlike most backtracking problems here, the order of results matters\nto how equality is checked, not just which permutations are present -- return them in the order standard\nbacktracking produces: at each position, try the not-yet-used numbers in the same relative order they appear\nin the input array.",
+  "diagram_svg": "<svg viewBox=\"0 0 380 120\" width=\"380\" height=\"120\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"SF Mono, Cascadia Code, Consolas, monospace\"><line x1=\"190.0\" y1=\"16\" x2=\"50.0\" y2=\"54\" stroke=\"var(--line)\" stroke-width=\"2\"/><line x1=\"50.0\" y1=\"54\" x2=\"20\" y2=\"100\" stroke=\"var(--line)\" stroke-width=\"2\"/><line x1=\"50.0\" y1=\"54\" x2=\"80\" y2=\"100\" stroke=\"var(--line)\" stroke-width=\"2\"/><line x1=\"190.0\" y1=\"16\" x2=\"170.0\" y2=\"54\" stroke=\"var(--line)\" stroke-width=\"2\"/><line x1=\"170.0\" y1=\"54\" x2=\"140\" y2=\"100\" stroke=\"var(--line)\" stroke-width=\"2\"/><line x1=\"170.0\" y1=\"54\" x2=\"200\" y2=\"100\" stroke=\"var(--line)\" stroke-width=\"2\"/><line x1=\"190.0\" y1=\"16\" x2=\"290.0\" y2=\"54\" stroke=\"var(--line)\" stroke-width=\"2\"/><line x1=\"290.0\" y1=\"54\" x2=\"260\" y2=\"100\" stroke=\"var(--line)\" stroke-width=\"2\"/><line x1=\"290.0\" y1=\"54\" x2=\"320\" y2=\"100\" stroke=\"var(--line)\" stroke-width=\"2\"/><circle cx=\"190.0\" cy=\"16\" r=\"11\" fill=\"var(--bg-3)\" stroke=\"var(--text-2)\" stroke-width=\"2\"/><text x=\"190.0\" y=\"20\" text-anchor=\"middle\" font-size=\"10\" fill=\"var(--text-2)\">?</text><circle cx=\"50.0\" cy=\"54\" r=\"15\" fill=\"var(--bg-3)\" stroke=\"var(--amber)\" stroke-width=\"2\"/><text x=\"50.0\" y=\"59\" text-anchor=\"middle\" font-size=\"13\" fill=\"var(--text-0)\" font-weight=\"700\">1</text><circle cx=\"20\" cy=\"100\" r=\"15\" fill=\"#6ee7b7\" fill-opacity=\"0.85\" stroke=\"#6ee7b7\" stroke-width=\"2\"/><text x=\"20\" y=\"105\" text-anchor=\"middle\" font-size=\"12\" fill=\"#0a0a0a\" font-weight=\"700\">123</text><circle cx=\"80\" cy=\"100\" r=\"15\" fill=\"#6ee7b7\" fill-opacity=\"0.85\" stroke=\"#6ee7b7\" stroke-width=\"2\"/><text x=\"80\" y=\"105\" text-anchor=\"middle\" font-size=\"12\" fill=\"#0a0a0a\" font-weight=\"700\">132</text><circle cx=\"170.0\" cy=\"54\" r=\"15\" fill=\"var(--bg-3)\" stroke=\"var(--amber)\" stroke-width=\"2\"/><text x=\"170.0\" y=\"59\" text-anchor=\"middle\" font-size=\"13\" fill=\"var(--text-0)\" font-weight=\"700\">2</text><circle cx=\"140\" cy=\"100\" r=\"15\" fill=\"#6ee7b7\" fill-opacity=\"0.85\" stroke=\"#6ee7b7\" stroke-width=\"2\"/><text x=\"140\" y=\"105\" text-anchor=\"middle\" font-size=\"12\" fill=\"#0a0a0a\" font-weight=\"700\">213</text><circle cx=\"200\" cy=\"100\" r=\"15\" fill=\"#6ee7b7\" fill-opacity=\"0.85\" stroke=\"#6ee7b7\" stroke-width=\"2\"/><text x=\"200\" y=\"105\" text-anchor=\"middle\" font-size=\"12\" fill=\"#0a0a0a\" font-weight=\"700\">231</text><circle cx=\"290.0\" cy=\"54\" r=\"15\" fill=\"var(--bg-3)\" stroke=\"var(--amber)\" stroke-width=\"2\"/><text x=\"290.0\" y=\"59\" text-anchor=\"middle\" font-size=\"13\" fill=\"var(--text-0)\" font-weight=\"700\">3</text><circle cx=\"260\" cy=\"100\" r=\"15\" fill=\"#6ee7b7\" fill-opacity=\"0.85\" stroke=\"#6ee7b7\" stroke-width=\"2\"/><text x=\"260\" y=\"105\" text-anchor=\"middle\" font-size=\"12\" fill=\"#0a0a0a\" font-weight=\"700\">312</text><circle cx=\"320\" cy=\"100\" r=\"15\" fill=\"#6ee7b7\" fill-opacity=\"0.85\" stroke=\"#6ee7b7\" stroke-width=\"2\"/><text x=\"320\" y=\"105\" text-anchor=\"middle\" font-size=\"12\" fill=\"#0a0a0a\" font-weight=\"700\">321</text></svg>",
+  "function_name": "permute",
+  "params": [
+    {
+      "name": "nums",
+      "type": "vector<int>"
+    }
+  ],
+  "return_type": "vector<vector<int>>",
+  "starter_code": {
+    "python": "def permute(nums):\n    # your code here -- backtrack, trying unused numbers in input order at each step\n    pass\n",
+    "cpp": "vector<vector<int>> permute(vector<int> nums) {\n    // your code here -- backtrack, trying unused numbers in input order at each step\n    return {};\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          1,
+          3,
+          2
+        ],
+        [
+          2,
+          1,
+          3
+        ],
+        [
+          2,
+          3,
+          1
+        ],
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          3,
+          2,
+          1
+        ]
+      ],
+      "input_display": "nums=[1,2,3]",
+      "explanation": "Pick the first number from {1,2,3} in order, then the second from whatever's left (the third is then forced) -- that produces exactly these 6 orderings, matching the tree above."
+    },
+    {
+      "inputs": [
+        [
+          0,
+          1
+        ]
+      ],
+      "expected": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "input_display": "nums=[0,1]",
+      "hidden": true
+    }
+  ]
+}
