@@ -294,12 +294,13 @@ function renderDescription(p) {
 }
 
 function mdToHtml(md) {
-  // minimal markdown: **bold**, `code`, paragraphs
-  const esc = escapeHtml(md);
-  const withInline = esc
-    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-    .replace(/`(.+?)`/g, "<code>$1</code>");
-  return withInline.split(/\n\s*\n/).map((p) => `<p>${p.replace(/\n/g, "<br/>")}</p>`).join("");
+  // minimal markdown: **bold**, `code`, paragraphs; single newlines are soft wraps
+  return md.split(/\n\s*\n/).map((para) => {
+    const withInline = escapeHtml(para.replace(/\n/g, " "))
+      .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+      .replace(/`(.+?)`/g, "<code>$1</code>");
+    return `<p>${withInline}</p>`;
+  }).join("");
 }
 
 function escapeHtml(s) {
