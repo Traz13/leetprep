@@ -1,0 +1,297 @@
+{
+  "id": "lru_cache",
+  "title": "LRU Cache",
+  "difficulty": "Medium",
+  "topic": "Design / Hash Table",
+  "tags": [
+    "design",
+    "hash-map",
+    "linked-list"
+  ],
+  "description_md": "Implement a cache with a fixed `capacity` that evicts its least-recently-used entry once full.\n\nYou're given `capacity` and a list of `operations`, each either `[\"put\", key, value]` or `[\"get\", key]`\n(every element is a string -- parse the numbers yourself). Apply them in order and return a list holding the\nresult of **each `get`**: the stored value, or `-1` if the key isn't present. A `get` that misses must not\ncreate an entry. Any `put` (insert or overwrite) and any successful `get` counts as *using* that key, making\nit the most recently used; when a `put` grows the cache past `capacity`, drop the least recently used key.\n\n**Follow-up they'll ask:** both `get` and `put` need to be O(1) -- a hash map from key to a node in a\ndoubly-linked list kept in usage order gets you there.",
+  "diagram_svg": "<svg viewBox=\"0 0 300 132\" width=\"300\" height=\"132\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"SF Mono, Cascadia Code, Consolas, monospace\"><text x=\"6\" y=\"14\" font-size=\"10.5\" fill=\"var(--text-2)\">capacity 2 - most-recently-used on the left</text><text x=\"6\" y=\"42\" font-size=\"10\" fill=\"var(--text-1)\">after get(1)</text><rect x=\"88\" y=\"26\" width=\"40\" height=\"26\" rx=\"4\" fill=\"#6ee7b7\" fill-opacity=\"0.85\" stroke=\"#6ee7b7\" stroke-width=\"1.5\"/><text x=\"108\" y=\"44\" text-anchor=\"middle\" font-size=\"12\" fill=\"#0a0a0a\" font-weight=\"700\">1</text><rect x=\"132\" y=\"26\" width=\"40\" height=\"26\" rx=\"4\" fill=\"var(--bg-3)\" stroke=\"var(--line)\" stroke-width=\"1.5\"/><text x=\"152\" y=\"44\" text-anchor=\"middle\" font-size=\"12\" fill=\"var(--text-0)\" font-weight=\"600\">2</text><text x=\"180\" y=\"44\" font-size=\"9\" fill=\"var(--text-2)\">&lt;- LRU</text><text x=\"6\" y=\"96\" font-size=\"10\" fill=\"var(--text-1)\">then put(3,3)</text><rect x=\"88\" y=\"80\" width=\"40\" height=\"26\" rx=\"4\" fill=\"#6ee7b7\" fill-opacity=\"0.85\" stroke=\"#6ee7b7\" stroke-width=\"1.5\"/><text x=\"108\" y=\"98\" text-anchor=\"middle\" font-size=\"12\" fill=\"#0a0a0a\" font-weight=\"700\">3</text><rect x=\"132\" y=\"80\" width=\"40\" height=\"26\" rx=\"4\" fill=\"var(--bg-3)\" stroke=\"var(--line)\" stroke-width=\"1.5\"/><text x=\"152\" y=\"98\" text-anchor=\"middle\" font-size=\"12\" fill=\"var(--text-0)\" font-weight=\"600\">1</text><rect x=\"216\" y=\"80\" width=\"40\" height=\"26\" rx=\"4\" fill=\"#f87171\" fill-opacity=\"0.18\" stroke=\"#f87171\" stroke-width=\"1.5\" stroke-dasharray=\"4,2\"/><text x=\"236\" y=\"98\" text-anchor=\"middle\" font-size=\"12\" fill=\"#f87171\" font-weight=\"700\">2</text><text x=\"216\" y=\"122\" font-size=\"9\" fill=\"#f87171\">evicted</text></svg>",
+  "function_name": "lruCache",
+  "params": [
+    {
+      "name": "capacity",
+      "type": "int"
+    },
+    {
+      "name": "operations",
+      "type": "vector<vector<string>>"
+    }
+  ],
+  "return_type": "vector<int>",
+  "starter_code": {
+    "python": "def lruCache(capacity, operations):\n    # operations: list of [\"put\", key, value] or [\"get\", key] (all strings)\n    # return the result of each \"get\": the value, or -1 if absent\n    pass\n",
+    "cpp": "vector<int> lruCache(int capacity, vector<vector<string>> operations) {\n    // operations: {\"put\", key, value} or {\"get\", key} (all strings)\n    // return the result of each \"get\": the value, or -1 if absent\n    return {};\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        2,
+        [
+          [
+            "put",
+            "1",
+            "1"
+          ],
+          [
+            "put",
+            "2",
+            "2"
+          ],
+          [
+            "get",
+            "1"
+          ],
+          [
+            "put",
+            "3",
+            "3"
+          ],
+          [
+            "get",
+            "2"
+          ],
+          [
+            "put",
+            "4",
+            "4"
+          ],
+          [
+            "get",
+            "1"
+          ],
+          [
+            "get",
+            "3"
+          ],
+          [
+            "get",
+            "4"
+          ]
+        ]
+      ],
+      "expected": [
+        1,
+        -1,
+        -1,
+        3,
+        4
+      ],
+      "input_display": "capacity=2, ops: put(1,1) put(2,2) get(1) put(3,3) get(2) put(4,4) get(1) get(3) get(4)",
+      "explanation": "get(1) makes key 1 most-recently-used, so put(3,3) evicts key 2 -- get(2) returns -1. put(4,4) then evicts key 1 (now least recent) -- get(1) returns -1. Keys 3 and 4 survive."
+    },
+    {
+      "inputs": [
+        1,
+        [
+          [
+            "put",
+            "1",
+            "1"
+          ],
+          [
+            "put",
+            "2",
+            "2"
+          ],
+          [
+            "get",
+            "1"
+          ],
+          [
+            "get",
+            "2"
+          ]
+        ]
+      ],
+      "expected": [
+        -1,
+        2
+      ],
+      "input_display": "capacity=1, ops: put(1,1) put(2,2) get(1) get(2)",
+      "explanation": "With room for only one entry, put(2,2) immediately evicts key 1."
+    },
+    {
+      "inputs": [
+        2,
+        [
+          [
+            "put",
+            "2",
+            "1"
+          ],
+          [
+            "put",
+            "2",
+            "2"
+          ],
+          [
+            "get",
+            "2"
+          ],
+          [
+            "put",
+            "1",
+            "1"
+          ],
+          [
+            "put",
+            "4",
+            "1"
+          ],
+          [
+            "get",
+            "2"
+          ]
+        ]
+      ],
+      "expected": [
+        2,
+        -1
+      ],
+      "input_display": "capacity=2, ops: put(2,1) put(2,2) get(2) put(1,1) put(4,1) get(2)",
+      "explanation": "put(2,2) overwrites key 2's value and refreshes it; get(2) keeps it fresh; put(1,1) fills the cache; put(4,1) evicts the least recent, which is key 2."
+    },
+    {
+      "inputs": [
+        2,
+        [
+          [
+            "put",
+            "1",
+            "1"
+          ],
+          [
+            "put",
+            "2",
+            "2"
+          ],
+          [
+            "put",
+            "1",
+            "10"
+          ],
+          [
+            "put",
+            "3",
+            "3"
+          ],
+          [
+            "get",
+            "2"
+          ],
+          [
+            "get",
+            "1"
+          ],
+          [
+            "get",
+            "3"
+          ]
+        ]
+      ],
+      "expected": [
+        -1,
+        10,
+        3
+      ],
+      "hidden": true,
+      "input_display": "capacity=2, ops: put(1,1) put(2,2) put(1,10) put(3,3) get(2) get(1) get(3)"
+    },
+    {
+      "inputs": [
+        2,
+        [
+          [
+            "put",
+            "1",
+            "1"
+          ],
+          [
+            "put",
+            "2",
+            "2"
+          ],
+          [
+            "get",
+            "1"
+          ],
+          [
+            "put",
+            "3",
+            "3"
+          ],
+          [
+            "get",
+            "1"
+          ],
+          [
+            "get",
+            "2"
+          ],
+          [
+            "get",
+            "3"
+          ]
+        ]
+      ],
+      "expected": [
+        1,
+        1,
+        -1,
+        3
+      ],
+      "hidden": true,
+      "input_display": "capacity=2, ops: put(1,1) put(2,2) get(1) put(3,3) get(1) get(2) get(3)"
+    },
+    {
+      "inputs": [
+        2,
+        [
+          [
+            "get",
+            "2"
+          ],
+          [
+            "put",
+            "2",
+            "6"
+          ],
+          [
+            "get",
+            "1"
+          ],
+          [
+            "put",
+            "1",
+            "5"
+          ],
+          [
+            "put",
+            "1",
+            "2"
+          ],
+          [
+            "get",
+            "1"
+          ],
+          [
+            "get",
+            "2"
+          ]
+        ]
+      ],
+      "expected": [
+        -1,
+        -1,
+        2,
+        6
+      ],
+      "hidden": true,
+      "input_display": "capacity=2, ops: get(2) put(2,6) get(1) put(1,5) put(1,2) get(1) get(2)"
+    }
+  ]
+}

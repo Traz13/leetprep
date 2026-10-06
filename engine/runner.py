@@ -83,12 +83,41 @@ def build_tree(vals):
             node.right = TreeNode(rv)
             queue.append(node.right)
     return root
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def build_list(vals):
+    """Builds a singly-linked list from a plain list of values, in order."""
+    head = None
+    tail = None
+    for v in vals:
+        node = ListNode(v)
+        if head is None:
+            head = node
+        else:
+            tail.next = node
+        tail = node
+    return head
+
+def list_to_vals(node):
+    out = []
+    while node is not None:
+        out.append(node.val)
+        node = node.next
+    return out
 '''
 
 
 def _py_prep_arg(param_type, value):
     if param_type == "tree":
         return f"build_tree({value!r})"
+    if param_type == "list":
+        return f"build_list({value!r})"
+    if param_type == "vector<list>":
+        return f"[build_list(x) for x in {value!r}]"
     return json.dumps(value)
 
 
@@ -96,15 +125,17 @@ def run_python(user_code, problem):
     fn = problem["function_name"]
     params = problem["params"]
     cases = problem["test_cases"]
+    ret_type = problem.get("return_type")
 
     lines = [PY_PRELUDE, "\n# ---- USER CODE ----\n", user_code, "\n# ---- DRIVER ----\n"]
     lines.append("__results = []")
     for i, tc in enumerate(cases):
         args = [ _py_prep_arg(p["type"], v) for p, v in zip(params, tc["inputs"]) ]
         call = f"{fn}({', '.join(args)})"
+        post = "\n    __r = list_to_vals(__r)" if ret_type == "list" else ""
         lines.append(f"""
 try:
-    __r = {call}
+    __r = {call}{post}
     if isinstance(__r, tuple):
         __r = list(__r)
     __results.append({{"ok": True, "value": __r}})
@@ -230,6 +261,31 @@ TreeNode* buildTree(vector<int> vals, vector<bool> present) {
     return root;
 }
 
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode(int x) : val(x), next(nullptr) {}
+};
+
+ListNode* buildList(vector<int> vals) {
+    ListNode dummy(0);
+    ListNode* tail = &dummy;
+    for (int v : vals) { tail->next = new ListNode(v); tail = tail->next; }
+    return dummy.next;
+}
+
+string __toJson(ListNode* node) {
+    string out = "[";
+    bool first = true;
+    while (node) {
+        if (!first) out += ",";
+        out += to_string(node->val);
+        first = false;
+        node = node->next;
+    }
+    return out + "]";
+}
+
 string __toJson(int v) { return to_string(v); }
 string __toJson(bool v) { return v ? "true" : "false"; }
 string __toJson(const string &v) {
@@ -280,6 +336,11 @@ def _cpp_literal(param_type, value):
         vals = [x if x is not None else 0 for x in value]
         present = ["true" if x is not None else "false" for x in value]
         return f"buildTree({{{','.join(str(v) for v in vals)}}}, {{{','.join(present)}}})"
+    if param_type == "list":
+        return f"buildList({{{','.join(str(x) for x in value)}}})"
+    if param_type == "vector<list>":
+        inner = ",".join(f"buildList({{{','.join(str(x) for x in sub)}}})" for sub in value)
+        return f"vector<ListNode*>{{{inner}}}"
     raise ValueError(f"unsupported cpp param type: {param_type}")
 
 
@@ -293,6 +354,8 @@ def _cpp_arg_decl(param_type):
         "vector<string>": "vector<string>",
         "vector<vector<string>>": "vector<vector<string>>",
         "tree": "TreeNode*",
+        "list": "ListNode*",
+        "vector<list>": "vector<ListNode*>",
     }[param_type]
 
 
@@ -352,7 +415,7 @@ def _describe_crash(returncode):
 def run_cpp(user_code, problem):
     fn = problem["function_name"]
     params = problem["params"]
-    ret_type = problem["return_type"]
+    ret_type = _cpp_arg_decl(problem["return_type"])
     cases = problem["test_cases"]
 
     driver = [CPP_PRELUDE, "\n// ---- USER CODE ----\n", user_code, "\n// ---- DRIVER ----\n", "int main(){\n"]

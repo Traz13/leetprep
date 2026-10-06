@@ -9,13 +9,14 @@ Built around the topics that show up in Anduril's actual technical screens: grap
 traversal, Dijkstra's shortest path, arrays, DP, trees, and general algorithmic
 efficiency — with a C++ track since that's their preferred language.
 
-Currently 63 problems, covering all but 5 of a 40-question Anduril-tagged list plus a
-second batch pulled from a general LeetCode practice list. 4 from the Anduril list
-overlapped with problems already in the set (Two Sum, Valid Parentheses, Number of
-Islands, Merge Intervals), and 5 don't fit the judge's current type system, so they
-were skipped rather than faked:
-- **Insert into a Sorted Circular Linked List**, **Merge k Sorted Lists** — need a
-  linked-list type (the judge currently supports int/bool/string/array/tree, no list)
+Currently 83 problems, covering all but 4 of a 40-question Anduril-tagged list plus
+further batches pulled from general LeetCode practice lists and a Snap-tagged list.
+4 from the Anduril list overlapped with problems already in the set (Two Sum, Valid
+Parentheses, Number of Islands, Merge Intervals), and 4 don't fit the judge's current
+type system, so they were skipped rather than faked:
+- **Insert into a Sorted Circular Linked List** — needs a *circular* list, one step
+  further than the plain singly-linked list the judge grew for the fourth batch below
+  (Merge K Sorted Lists needed only a list-of-lists on top of that, so it made it in).
 - **Maximum Number of Visible Points** — needs floating-point/trig support (angles),
   which the judge doesn't have
 - **Accounts Merge** — its output has positional meaning (`[name, email, email...]`)
@@ -44,6 +45,47 @@ than added again under a new title:
 
 Ask if you want any of these added — the linked-list type in particular is a
 reasonable follow-up if you want it.
+
+A third batch of 6 classic interview problems was added: **LRU Cache**, **Minimum
+Window Substring**, **Word Ladder**, **Word Search**, **K Closest Points to Origin**,
+and **Lowest Common Ancestor of a Binary Tree**. Two needed adapting to the judge's
+type system: LRU Cache takes an array of `["put", k, v]` / `["get", k]` string
+operations and returns the result of each `get` (the same shape as the existing
+`time_based_key_value_store`); LCA takes the two target node values and returns the
+ancestor's value rather than a node. K Closest Points returns its result sorted by
+`(squared distance, x, y)` so the judge can compare it exactly.
+
+A fourth batch of 4 more was added: **Reverse Linked List**, **Clone Graph**, **Basic
+Calculator**, and **Design HashMap**. Reverse Linked List is what finally justified
+adding the linked-list type mentioned above — the judge now builds a real
+singly-linked `ListNode` chain from the input array (both in Python and C++) and
+walks the returned head back into an array for comparison, the same way it already
+did for `tree`. Clone Graph is adapted like LCA: instead of a `Node` with a
+`List[Node]` neighbors field, the graph comes in (and goes back out) as an adjacency
+list keyed by node label, so the judge can compare it structurally — the actual point
+of the exercise, a real deep copy keyed off the originals by a visited map, still has
+to happen internally, it's just not directly observable from the outside, the same
+limitation LeetCode's own checker has. Basic Calculator and Design HashMap needed no
+adaptation; they fit the existing type system as-is.
+
+A fifth batch of 8 was added, cross-referenced against a Snap-tagged interview question
+list: **Kth Largest Element in an Array**, **Pacific Atlantic Water Flow**, **Max Area
+of Island**, **Merge K Sorted Lists**, **Word Break**, **Implement Trie (Prefix
+Tree)**, **Design Hit Counter**, and **Detect Cycle in an Undirected Graph** (the last
+one isn't a named LeetCode problem -- it rounds out graph-cycle coverage with the
+Union-Find/parent-tracking technique, as a DFS-cycle-in-a-directed-graph counterpart to
+the existing Course Schedule / Course Schedule II). Merge K Sorted Lists is what
+finally justified a `vector<list>` param type: the judge builds a separate `ListNode`
+chain per input array and hands the user's code a vector of their heads, the same
+pattern as `vector<vector<int>>` but one level re-typed. Implement Trie and Design Hit
+Counter follow the LRU Cache / Design HashMap operations-array pattern (`["insert",
+word]`, `["hit", timestamp]`, etc.), returning results only for the query-type
+operations. Pacific Atlantic Water Flow needed the same treatment as K Closest Points:
+its output is a set of positions with no natural order, so the problem statement
+requires returning them sorted by `(row, col)` rather than marking the comparison
+unordered -- unlike Group Anagrams or Top K Frequent Elements, the inner `[row, col]`
+pairs have positional meaning, so the judge's unordered-compare mode (which recursively
+sorts nested lists) would silently corrupt them.
 
 ## Requirements
 
@@ -114,7 +156,8 @@ You'll also need a firewall rule allowing inbound traffic on port 8420:
 
 Open `problems/_generate.py`, copy one of the existing problem dicts, fill in your own
 `description_md`, `function_name`, `params` (supported types: `int`, `bool`, `string`,
-`vector<int>`, `vector<vector<int>>`, `tree`), `return_type`, starter code for both
+`vector<int>`, `vector<vector<int>>`, `vector<string>`, `vector<vector<string>>`,
+`tree`, `list`, `vector<list>`), `return_type`, starter code for both
 languages, and test cases. Then re-run:
 
 ```

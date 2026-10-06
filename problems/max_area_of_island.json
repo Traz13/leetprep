@@ -1,0 +1,251 @@
+{
+  "id": "max_area_of_island",
+  "title": "Max Area of Island",
+  "difficulty": "Medium",
+  "topic": "Graphs / Grid DFS",
+  "tags": [
+    "graph",
+    "dfs",
+    "grid"
+  ],
+  "description_md": "Given a binary `grid` where `1` is land and `0` is water, return the area (cell count) of\nthe largest island -- a maximal group of `1`s connected 4-directionally. Return `0` if the grid has no land\nat all.\n\n**Follow-up they'll ask:** flood-fill (DFS or BFS) each unvisited land cell, counting the size of the\ncomponent as you fill it, and keep a running max. What's the time and space complexity, and how would an\niterative DFS with an explicit stack avoid a recursion-depth blowup on a huge grid?",
+  "diagram_svg": "<svg viewBox=\"0 0 274 206\" width=\"274\" height=\"206\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"SF Mono, Cascadia Code, Consolas, monospace\"><rect x=\"6\" y=\"6\" width=\"40\" height=\"40\" rx=\"4\" fill=\"var(--bg-2)\" stroke=\"var(--line)\" stroke-width=\"1\"/><text x=\"26.0\" y=\"32.0\" text-anchor=\"middle\" font-size=\"14\" fill=\"var(--text-2)\">0</text><rect x=\"48\" y=\"6\" width=\"40\" height=\"40\" rx=\"4\" fill=\"#6ee7b7\" fill-opacity=\"0.85\" stroke=\"#6ee7b7\" stroke-width=\"1.5\"/><text x=\"68.0\" y=\"32.0\" text-anchor=\"middle\" font-size=\"14\" fill=\"#0a0a0a\" font-weight=\"600\">1</text><rect x=\"90\" y=\"6\" width=\"40\" height=\"40\" rx=\"4\" fill=\"var(--bg-2)\" stroke=\"var(--line)\" stroke-width=\"1\"/><text x=\"110.0\" y=\"32.0\" text-anchor=\"middle\" font-size=\"14\" fill=\"var(--text-2)\">0</text><rect x=\"132\" y=\"6\" width=\"40\" height=\"40\" rx=\"4\" fill=\"var(--bg-2)\" stroke=\"var(--line)\" stroke-width=\"1\"/><text x=\"152.0\" y=\"32.0\" text-anchor=\"middle\" font-size=\"14\" fill=\"var(--text-2)\">0</text><rect x=\"6\" y=\"48\" width=\"40\" height=\"40\" rx=\"4\" fill=\"var(--bg-2)\" stroke=\"var(--line)\" stroke-width=\"1\"/><text x=\"26.0\" y=\"74.0\" text-anchor=\"middle\" font-size=\"14\" fill=\"var(--text-2)\">0</text><rect x=\"48\" y=\"48\" width=\"40\" height=\"40\" rx=\"4\" fill=\"#6ee7b7\" fill-opacity=\"0.85\" stroke=\"#6ee7b7\" stroke-width=\"1.5\"/><text x=\"68.0\" y=\"74.0\" text-anchor=\"middle\" font-size=\"14\" fill=\"#0a0a0a\" font-weight=\"600\">1</text><rect x=\"90\" y=\"48\" width=\"40\" height=\"40\" rx=\"4\" fill=\"#6ee7b7\" fill-opacity=\"0.85\" stroke=\"#6ee7b7\" stroke-width=\"1.5\"/><text x=\"110.0\" y=\"74.0\" text-anchor=\"middle\" font-size=\"14\" fill=\"#0a0a0a\" font-weight=\"600\">1</text><rect x=\"132\" y=\"48\" width=\"40\" height=\"40\" rx=\"4\" fill=\"var(--bg-2)\" stroke=\"var(--line)\" stroke-width=\"1\"/><text x=\"152.0\" y=\"74.0\" text-anchor=\"middle\" font-size=\"14\" fill=\"var(--text-2)\">0</text><rect x=\"6\" y=\"90\" width=\"40\" height=\"40\" rx=\"4\" fill=\"var(--bg-2)\" stroke=\"var(--line)\" stroke-width=\"1\"/><text x=\"26.0\" y=\"116.0\" text-anchor=\"middle\" font-size=\"14\" fill=\"var(--text-2)\">0</text><rect x=\"48\" y=\"90\" width=\"40\" height=\"40\" rx=\"4\" fill=\"var(--bg-2)\" stroke=\"var(--line)\" stroke-width=\"1\"/><text x=\"68.0\" y=\"116.0\" text-anchor=\"middle\" font-size=\"14\" fill=\"var(--text-2)\">0</text><rect x=\"90\" y=\"90\" width=\"40\" height=\"40\" rx=\"4\" fill=\"var(--bg-2)\" stroke=\"var(--line)\" stroke-width=\"1\"/><text x=\"110.0\" y=\"116.0\" text-anchor=\"middle\" font-size=\"14\" fill=\"var(--text-2)\">0</text><rect x=\"132\" y=\"90\" width=\"40\" height=\"40\" rx=\"4\" fill=\"#93c5fd\" fill-opacity=\"0.85\" stroke=\"#93c5fd\" stroke-width=\"1.5\"/><text x=\"152.0\" y=\"116.0\" text-anchor=\"middle\" font-size=\"14\" fill=\"#0a0a0a\" font-weight=\"600\">1</text><rect x=\"6\" y=\"132\" width=\"40\" height=\"40\" rx=\"4\" fill=\"var(--bg-2)\" stroke=\"var(--line)\" stroke-width=\"1\"/><text x=\"26.0\" y=\"158.0\" text-anchor=\"middle\" font-size=\"14\" fill=\"var(--text-2)\">0</text><rect x=\"48\" y=\"132\" width=\"40\" height=\"40\" rx=\"4\" fill=\"var(--bg-2)\" stroke=\"var(--line)\" stroke-width=\"1\"/><text x=\"68.0\" y=\"158.0\" text-anchor=\"middle\" font-size=\"14\" fill=\"var(--text-2)\">0</text><rect x=\"90\" y=\"132\" width=\"40\" height=\"40\" rx=\"4\" fill=\"var(--bg-2)\" stroke=\"var(--line)\" stroke-width=\"1\"/><text x=\"110.0\" y=\"158.0\" text-anchor=\"middle\" font-size=\"14\" fill=\"var(--text-2)\">0</text><rect x=\"132\" y=\"132\" width=\"40\" height=\"40\" rx=\"4\" fill=\"#93c5fd\" fill-opacity=\"0.85\" stroke=\"#93c5fd\" stroke-width=\"1.5\"/><text x=\"152.0\" y=\"158.0\" text-anchor=\"middle\" font-size=\"14\" fill=\"#0a0a0a\" font-weight=\"600\">1</text><text x=\"6\" y=\"190\" font-size=\"11\" fill=\"#6ee7b7\">green island, area 3  --  bigger than the blue one, area 2</text></svg>",
+  "function_name": "maxAreaOfIsland",
+  "params": [
+    {
+      "name": "grid",
+      "type": "vector<vector<int>>"
+    }
+  ],
+  "return_type": "int",
+  "starter_code": {
+    "python": "def maxAreaOfIsland(grid):\n    # your code here -- flood-fill each island, track the largest area seen\n    pass\n",
+    "cpp": "int maxAreaOfIsland(vector<vector<int>> grid) {\n    // your code here -- flood-fill each island, track the largest area seen\n    return 0;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          [
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            0,
+            0
+          ]
+        ]
+      ],
+      "expected": 3,
+      "input_display": "grid=[[0,0,1,0,0],[0,0,0,0,0],[0,1,1,0,0],[0,1,0,0,0]]"
+    },
+    {
+      "inputs": [
+        [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      ],
+      "expected": 0,
+      "input_display": "grid=[[0,0,0,0,0,0,0,0]] (all water)"
+    },
+    {
+      "inputs": [
+        [
+          [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            1
+          ]
+        ]
+      ],
+      "expected": 4,
+      "input_display": "grid=[[1,1,0,0,0],[1,1,0,0,0],[0,0,0,1,1]] (2x2 square beats the 2-cell pair)"
+    },
+    {
+      "inputs": [
+        [
+          [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      ],
+      "expected": 6,
+      "hidden": true,
+      "input_display": "classic 8x13 grid"
+    },
+    {
+      "inputs": [
+        [
+          [
+            1
+          ]
+        ]
+      ],
+      "expected": 1,
+      "hidden": true,
+      "input_display": "grid=[[1]]"
+    }
+  ]
+}

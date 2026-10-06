@@ -1715,6 +1715,637 @@ in the input array.""",
             {"inputs": [[0, 1]], "expected": [[0, 1], [1, 0]], "input_display": "nums=[0,1]", "hidden": True},
         ],
     },
+    {
+        "id": "lru_cache",
+        "title": "LRU Cache",
+        "difficulty": "Medium",
+        "topic": "Design / Hash Table",
+        "tags": ["design", "hash-map", "linked-list"],
+        "description_md": """Implement a cache with a fixed `capacity` that evicts its least-recently-used entry once full.
+
+You're given `capacity` and a list of `operations`, each either `["put", key, value]` or `["get", key]`
+(every element is a string -- parse the numbers yourself). Apply them in order and return a list holding the
+result of **each `get`**: the stored value, or `-1` if the key isn't present. A `get` that misses must not
+create an entry. Any `put` (insert or overwrite) and any successful `get` counts as *using* that key, making
+it the most recently used; when a `put` grows the cache past `capacity`, drop the least recently used key.
+
+**Follow-up they'll ask:** both `get` and `put` need to be O(1) -- a hash map from key to a node in a
+doubly-linked list kept in usage order gets you there.""",
+        "diagram_svg": """<svg viewBox="0 0 300 132" width="300" height="132" xmlns="http://www.w3.org/2000/svg" font-family="SF Mono, Cascadia Code, Consolas, monospace"><text x="6" y="14" font-size="10.5" fill="var(--text-2)">capacity 2 - most-recently-used on the left</text><text x="6" y="42" font-size="10" fill="var(--text-1)">after get(1)</text><rect x="88" y="26" width="40" height="26" rx="4" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="1.5"/><text x="108" y="44" text-anchor="middle" font-size="12" fill="#0a0a0a" font-weight="700">1</text><rect x="132" y="26" width="40" height="26" rx="4" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="152" y="44" text-anchor="middle" font-size="12" fill="var(--text-0)" font-weight="600">2</text><text x="180" y="44" font-size="9" fill="var(--text-2)">&lt;- LRU</text><text x="6" y="96" font-size="10" fill="var(--text-1)">then put(3,3)</text><rect x="88" y="80" width="40" height="26" rx="4" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="1.5"/><text x="108" y="98" text-anchor="middle" font-size="12" fill="#0a0a0a" font-weight="700">3</text><rect x="132" y="80" width="40" height="26" rx="4" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="152" y="98" text-anchor="middle" font-size="12" fill="var(--text-0)" font-weight="600">1</text><rect x="216" y="80" width="40" height="26" rx="4" fill="#f87171" fill-opacity="0.18" stroke="#f87171" stroke-width="1.5" stroke-dasharray="4,2"/><text x="236" y="98" text-anchor="middle" font-size="12" fill="#f87171" font-weight="700">2</text><text x="216" y="122" font-size="9" fill="#f87171">evicted</text></svg>""",
+        "function_name": "lruCache",
+        "params": [{"name": "capacity", "type": "int"}, {"name": "operations", "type": "vector<vector<string>>"}],
+        "return_type": "vector<int>",
+        "starter_code": {
+            "python": "def lruCache(capacity, operations):\n    # operations: list of [\"put\", key, value] or [\"get\", key] (all strings)\n    # return the result of each \"get\": the value, or -1 if absent\n    pass\n",
+            "cpp": "vector<int> lruCache(int capacity, vector<vector<string>> operations) {\n    // operations: {\"put\", key, value} or {\"get\", key} (all strings)\n    // return the result of each \"get\": the value, or -1 if absent\n    return {};\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [2, [["put", "1", "1"], ["put", "2", "2"], ["get", "1"], ["put", "3", "3"], ["get", "2"], ["put", "4", "4"], ["get", "1"], ["get", "3"], ["get", "4"]]],
+             "expected": [1, -1, -1, 3, 4],
+             "input_display": "capacity=2, ops: put(1,1) put(2,2) get(1) put(3,3) get(2) put(4,4) get(1) get(3) get(4)",
+             "explanation": "get(1) makes key 1 most-recently-used, so put(3,3) evicts key 2 -- get(2) returns -1. put(4,4) then evicts key 1 (now least recent) -- get(1) returns -1. Keys 3 and 4 survive."},
+            {"inputs": [1, [["put", "1", "1"], ["put", "2", "2"], ["get", "1"], ["get", "2"]]],
+             "expected": [-1, 2],
+             "input_display": "capacity=1, ops: put(1,1) put(2,2) get(1) get(2)",
+             "explanation": "With room for only one entry, put(2,2) immediately evicts key 1."},
+            {"inputs": [2, [["put", "2", "1"], ["put", "2", "2"], ["get", "2"], ["put", "1", "1"], ["put", "4", "1"], ["get", "2"]]],
+             "expected": [2, -1],
+             "input_display": "capacity=2, ops: put(2,1) put(2,2) get(2) put(1,1) put(4,1) get(2)",
+             "explanation": "put(2,2) overwrites key 2's value and refreshes it; get(2) keeps it fresh; put(1,1) fills the cache; put(4,1) evicts the least recent, which is key 2."},
+            {"inputs": [2, [["put", "1", "1"], ["put", "2", "2"], ["put", "1", "10"], ["put", "3", "3"], ["get", "2"], ["get", "1"], ["get", "3"]]],
+             "expected": [-1, 10, 3], "hidden": True,
+             "input_display": "capacity=2, ops: put(1,1) put(2,2) put(1,10) put(3,3) get(2) get(1) get(3)"},
+            {"inputs": [2, [["put", "1", "1"], ["put", "2", "2"], ["get", "1"], ["put", "3", "3"], ["get", "1"], ["get", "2"], ["get", "3"]]],
+             "expected": [1, 1, -1, 3], "hidden": True,
+             "input_display": "capacity=2, ops: put(1,1) put(2,2) get(1) put(3,3) get(1) get(2) get(3)"},
+            {"inputs": [2, [["get", "2"], ["put", "2", "6"], ["get", "1"], ["put", "1", "5"], ["put", "1", "2"], ["get", "1"], ["get", "2"]]],
+             "expected": [-1, -1, 2, 6], "hidden": True,
+             "input_display": "capacity=2, ops: get(2) put(2,6) get(1) put(1,5) put(1,2) get(1) get(2)"},
+        ],
+    },
+    {
+        "id": "minimum_window_substring",
+        "title": "Minimum Window Substring",
+        "difficulty": "Hard",
+        "topic": "Strings / Sliding Window",
+        "tags": ["string", "sliding-window", "hash-map", "two-pointers"],
+        "description_md": """Given strings `s` and `t`, return the shortest contiguous substring of `s` that contains every
+character of `t`, repeats included -- if `t` has two `c`s, the window needs at least two `c`s. Matching is
+case-sensitive. Return `""` if no such window exists; when one does, the test data guarantees it's unique.
+
+**Follow-up they'll ask:** O(|s| + |t|) with a sliding window and a running count of how many of `t`'s
+distinct characters are currently satisfied -- expand `right` until the window is valid, then contract
+`left` while it stays valid.""",
+        "diagram_svg": """<svg viewBox="0 0 324 92" width="324" height="92" xmlns="http://www.w3.org/2000/svg" font-family="SF Mono, Cascadia Code, Consolas, monospace"><text x="6" y="16" font-size="10.5" fill="var(--text-2)">s = "ADOBECODEBANC",  t = "ABC"</text><rect x="6" y="28" width="22" height="26" rx="3" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="17" y="45" text-anchor="middle" font-size="11" fill="var(--text-1)">A</text><rect x="30" y="28" width="22" height="26" rx="3" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="41" y="45" text-anchor="middle" font-size="11" fill="var(--text-1)">D</text><rect x="54" y="28" width="22" height="26" rx="3" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="65" y="45" text-anchor="middle" font-size="11" fill="var(--text-1)">O</text><rect x="78" y="28" width="22" height="26" rx="3" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="89" y="45" text-anchor="middle" font-size="11" fill="var(--text-1)">B</text><rect x="102" y="28" width="22" height="26" rx="3" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="113" y="45" text-anchor="middle" font-size="11" fill="var(--text-1)">E</text><rect x="126" y="28" width="22" height="26" rx="3" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="137" y="45" text-anchor="middle" font-size="11" fill="var(--text-1)">C</text><rect x="150" y="28" width="22" height="26" rx="3" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="161" y="45" text-anchor="middle" font-size="11" fill="var(--text-1)">O</text><rect x="174" y="28" width="22" height="26" rx="3" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="185" y="45" text-anchor="middle" font-size="11" fill="var(--text-1)">D</text><rect x="198" y="28" width="22" height="26" rx="3" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="209" y="45" text-anchor="middle" font-size="11" fill="var(--text-1)">E</text><rect x="222" y="28" width="22" height="26" rx="3" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="1.5"/><text x="233" y="45" text-anchor="middle" font-size="11" fill="#0a0a0a" font-weight="700">B</text><rect x="246" y="28" width="22" height="26" rx="3" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="1.5"/><text x="257" y="45" text-anchor="middle" font-size="11" fill="#0a0a0a" font-weight="700">A</text><rect x="270" y="28" width="22" height="26" rx="3" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="1.5"/><text x="281" y="45" text-anchor="middle" font-size="11" fill="#0a0a0a" font-weight="700">N</text><rect x="294" y="28" width="22" height="26" rx="3" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="1.5"/><text x="305" y="45" text-anchor="middle" font-size="11" fill="#0a0a0a" font-weight="700">C</text><text x="6" y="80" font-size="10.5" fill="#6ee7b7">"BANC" - shortest substring covering A, B and C</text></svg>""",
+        "function_name": "minWindow",
+        "params": [{"name": "s", "type": "string"}, {"name": "t", "type": "string"}],
+        "return_type": "string",
+        "starter_code": {
+            "python": "def minWindow(s, t):\n    # your code here -- return \"\" if no window contains all of t\n    pass\n",
+            "cpp": "string minWindow(string s, string t) {\n    // your code here -- return \"\" if no window contains all of t\n    return \"\";\n}\n",
+        },
+        "test_cases": [
+            {"inputs": ["ADOBECODEBANC", "ABC"], "expected": "BANC", "input_display": 's="ADOBECODEBANC", t="ABC"',
+             "explanation": "The substring at indices 9-12 contains A, B and C, and no shorter substring of s does."},
+            {"inputs": ["a", "a"], "expected": "a", "input_display": 's="a", t="a"'},
+            {"inputs": ["a", "aa"], "expected": "", "input_display": 's="a", t="aa"',
+             "explanation": "t needs two a's but s only has one, so no valid window exists."},
+            {"inputs": ["aa", "aa"], "expected": "aa", "hidden": True, "input_display": 's="aa", t="aa"'},
+            {"inputs": ["bba", "ab"], "expected": "ba", "hidden": True, "input_display": 's="bba", t="ab"'},
+            {"inputs": ["cabwefgewcwaefgcf", "cae"], "expected": "cwae", "hidden": True, "input_display": 's="cabwefgewcwaefgcf", t="cae"'},
+        ],
+    },
+    {
+        "id": "word_ladder",
+        "title": "Word Ladder",
+        "difficulty": "Hard",
+        "topic": "Graphs / BFS",
+        "tags": ["bfs", "graph", "hash-set", "string"],
+        "description_md": """Given `beginWord`, `endWord`, and a `wordList`, find the length of the shortest transformation
+sequence from `beginWord` to `endWord` where each step changes exactly one letter and every word after
+`beginWord` is in `wordList`. Count both endpoints in the length. Return `0` if no sequence exists -- in
+particular, if `endWord` isn't in `wordList`. `beginWord` itself need not be in the list.
+
+**Follow-up they'll ask:** BFS over the implicit graph whose nodes are words and whose edges join words
+differing by one letter; generate neighbors by trying all 26 letters at each position. Bidirectional BFS
+roughly square-roots the work.""",
+        "diagram_svg": """<svg viewBox="0 0 296 116" width="296" height="116" xmlns="http://www.w3.org/2000/svg" font-family="SF Mono, Cascadia Code, Consolas, monospace"><line x1="24" y1="58" x2="84" y2="58" stroke="#ffb454" stroke-width="2.5"/><line x1="84" y1="58" x2="144" y2="34" stroke="#ffb454" stroke-width="2.5"/><line x1="144" y1="34" x2="208" y2="34" stroke="#ffb454" stroke-width="2.5"/><line x1="208" y1="34" x2="268" y2="58" stroke="#ffb454" stroke-width="2.5"/><line x1="84" y1="58" x2="144" y2="86" stroke="var(--line)" stroke-width="1.5"/><line x1="144" y1="86" x2="208" y2="86" stroke="var(--line)" stroke-width="1.5"/><line x1="208" y1="86" x2="268" y2="58" stroke="var(--line)" stroke-width="1.5"/><circle cx="24" cy="58" r="15" fill="var(--bg-3)" stroke="#ffb454" stroke-width="2"/><text x="24" y="62" text-anchor="middle" font-size="10" fill="var(--text-0)" font-weight="600">hit</text><circle cx="84" cy="58" r="15" fill="var(--bg-3)" stroke="#ffb454" stroke-width="2"/><text x="84" y="62" text-anchor="middle" font-size="10" fill="var(--text-0)" font-weight="600">hot</text><circle cx="144" cy="34" r="15" fill="var(--bg-3)" stroke="#ffb454" stroke-width="2"/><text x="144" y="38" text-anchor="middle" font-size="10" fill="var(--text-0)" font-weight="600">dot</text><circle cx="208" cy="34" r="15" fill="var(--bg-3)" stroke="#ffb454" stroke-width="2"/><text x="208" y="38" text-anchor="middle" font-size="10" fill="var(--text-0)" font-weight="600">dog</text><circle cx="268" cy="58" r="15" fill="var(--bg-3)" stroke="#ffb454" stroke-width="2"/><text x="268" y="62" text-anchor="middle" font-size="10" fill="var(--text-0)" font-weight="600">cog</text><circle cx="144" cy="86" r="15" fill="var(--bg-3)" stroke="var(--text-2)" stroke-width="1.5"/><text x="144" y="90" text-anchor="middle" font-size="10" fill="var(--text-2)">lot</text><circle cx="208" cy="86" r="15" fill="var(--bg-3)" stroke="var(--text-2)" stroke-width="1.5"/><text x="208" y="90" text-anchor="middle" font-size="10" fill="var(--text-2)">log</text><text x="6" y="110" font-size="10" fill="#ffb454">hit -&gt; hot -&gt; dot -&gt; dog -&gt; cog   (5 words)</text></svg>""",
+        "function_name": "ladderLength",
+        "params": [{"name": "beginWord", "type": "string"}, {"name": "endWord", "type": "string"}, {"name": "wordList", "type": "vector<string>"}],
+        "return_type": "int",
+        "starter_code": {
+            "python": "def ladderLength(beginWord, endWord, wordList):\n    # your code here -- BFS; return 0 if endWord is unreachable\n    pass\n",
+            "cpp": "int ladderLength(string beginWord, string endWord, vector<string> wordList) {\n    // your code here -- BFS; return 0 if endWord is unreachable\n    return 0;\n}\n",
+        },
+        "test_cases": [
+            {"inputs": ["hit", "cog", ["hot", "dot", "dog", "lot", "log", "cog"]], "expected": 5,
+             "input_display": 'beginWord="hit", endWord="cog", wordList=["hot","dot","dog","lot","log","cog"]',
+             "explanation": "hit -> hot -> dot -> dog -> cog is 5 words, and no shorter chain reaches cog."},
+            {"inputs": ["hit", "cog", ["hot", "dot", "dog", "lot", "log"]], "expected": 0,
+             "input_display": 'beginWord="hit", endWord="cog", wordList=["hot","dot","dog","lot","log"]',
+             "explanation": "endWord \"cog\" is not in wordList, so no sequence can end on it."},
+            {"inputs": ["a", "c", ["a", "b", "c"]], "expected": 2,
+             "input_display": 'beginWord="a", endWord="c", wordList=["a","b","c"]',
+             "explanation": "\"a\" and \"c\" differ by one letter and \"c\" is in the list, so the sequence a -> c has length 2."},
+            {"inputs": ["hot", "dog", ["hot", "dog", "dot"]], "expected": 3, "hidden": True,
+             "input_display": 'beginWord="hot", endWord="dog", wordList=["hot","dog","dot"]'},
+            {"inputs": ["hot", "dog", ["hot", "dog"]], "expected": 0, "hidden": True,
+             "input_display": 'beginWord="hot", endWord="dog", wordList=["hot","dog"]'},
+            {"inputs": ["red", "tax", ["ted", "tex", "red", "tax", "tad", "den", "rex", "pee"]], "expected": 4, "hidden": True,
+             "input_display": 'beginWord="red", endWord="tax", wordList=["ted","tex","red","tax","tad","den","rex","pee"]'},
+        ],
+    },
+    {
+        "id": "word_search",
+        "title": "Word Search",
+        "difficulty": "Medium",
+        "topic": "Graphs / Backtracking",
+        "tags": ["backtracking", "dfs", "grid", "matrix"],
+        "description_md": """Given a grid `board` of single letters and a string `word`, return `true` if `word` can be traced
+through the grid moving only up, down, left, or right between adjacent cells, using each cell at most once.
+The path can start at any cell. Matching is case-sensitive.
+
+**Follow-up they'll ask:** DFS with backtracking from every cell that matches the first letter -- mark the
+current cell used before recursing into its four neighbors, then restore it on the way out. Worst case
+O(m * n * 3^L) for a word of length L.""",
+        "diagram_svg": """<svg viewBox="0 0 156 130" width="156" height="130" xmlns="http://www.w3.org/2000/svg" font-family="SF Mono, Cascadia Code, Consolas, monospace"><rect x="6" y="6" width="34" height="34" rx="4" fill="#ffb454" fill-opacity="0.9" stroke="#ffb454" stroke-width="1.5"/><text x="23" y="28" text-anchor="middle" font-size="13" fill="#1a1204" font-weight="700">A</text><rect x="42" y="6" width="34" height="34" rx="4" fill="#ffb454" fill-opacity="0.9" stroke="#ffb454" stroke-width="1.5"/><text x="59" y="28" text-anchor="middle" font-size="13" fill="#1a1204" font-weight="700">B</text><rect x="78" y="6" width="34" height="34" rx="4" fill="#ffb454" fill-opacity="0.9" stroke="#ffb454" stroke-width="1.5"/><text x="95" y="28" text-anchor="middle" font-size="13" fill="#1a1204" font-weight="700">C</text><rect x="114" y="6" width="34" height="34" rx="4" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="131" y="28" text-anchor="middle" font-size="13" fill="var(--text-1)">E</text><rect x="6" y="42" width="34" height="34" rx="4" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="23" y="64" text-anchor="middle" font-size="13" fill="var(--text-1)">S</text><rect x="42" y="42" width="34" height="34" rx="4" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="59" y="64" text-anchor="middle" font-size="13" fill="var(--text-1)">F</text><rect x="78" y="42" width="34" height="34" rx="4" fill="#ffb454" fill-opacity="0.9" stroke="#ffb454" stroke-width="1.5"/><text x="95" y="64" text-anchor="middle" font-size="13" fill="#1a1204" font-weight="700">C</text><rect x="114" y="42" width="34" height="34" rx="4" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="131" y="64" text-anchor="middle" font-size="13" fill="var(--text-1)">S</text><rect x="6" y="78" width="34" height="34" rx="4" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="23" y="100" text-anchor="middle" font-size="13" fill="var(--text-1)">A</text><rect x="42" y="78" width="34" height="34" rx="4" fill="#ffb454" fill-opacity="0.9" stroke="#ffb454" stroke-width="1.5"/><text x="59" y="100" text-anchor="middle" font-size="13" fill="#1a1204" font-weight="700">D</text><rect x="78" y="78" width="34" height="34" rx="4" fill="#ffb454" fill-opacity="0.9" stroke="#ffb454" stroke-width="1.5"/><text x="95" y="100" text-anchor="middle" font-size="13" fill="#1a1204" font-weight="700">E</text><rect x="114" y="78" width="34" height="34" rx="4" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="131" y="100" text-anchor="middle" font-size="13" fill="var(--text-1)">E</text><polyline points="23,23 59,23 95,23 95,59 95,95 59,95" fill="none" stroke="#0a0a0a" stroke-width="2" opacity="0.55"/><text x="6" y="126" font-size="10.5" fill="#ffb454">the path spells "ABCCED"</text></svg>""",
+        "function_name": "exist",
+        "params": [{"name": "board", "type": "vector<vector<string>>"}, {"name": "word", "type": "string"}],
+        "return_type": "bool",
+        "starter_code": {
+            "python": "def exist(board, word):\n    # your code here\n    pass\n",
+            "cpp": "bool exist(vector<vector<string>> board, string word) {\n    // your code here\n    return false;\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [[["A", "B", "C", "E"], ["S", "F", "C", "S"], ["A", "D", "E", "E"]], "ABCCED"], "expected": True,
+             "input_display": 'board=[["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word="ABCCED"',
+             "explanation": "A(0,0) -> B(0,1) -> C(0,2) -> C(1,2) -> E(2,2) -> D(2,1): six distinct cells, each move to an orthogonal neighbor."},
+            {"inputs": [[["A", "B", "C", "E"], ["S", "F", "C", "S"], ["A", "D", "E", "E"]], "SEE"], "expected": True,
+             "input_display": 'board=[["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word="SEE"',
+             "explanation": "S(1,3) -> E(2,3) -> E(2,2)."},
+            {"inputs": [[["A", "B", "C", "E"], ["S", "F", "C", "S"], ["A", "D", "E", "E"]], "ABCB"], "expected": False,
+             "input_display": 'board=[["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word="ABCB"',
+             "explanation": "After A(0,0) -> B(0,1) -> C(0,2), the only adjacent B is the cell (0,1) already used, and cells can't repeat."},
+            {"inputs": [[["a"]], "a"], "expected": True, "hidden": True, "input_display": 'board=[["a"]], word="a"'},
+            {"inputs": [[["a"]], "ab"], "expected": False, "hidden": True, "input_display": 'board=[["a"]], word="ab"'},
+            {"inputs": [[["a", "a"], ["a", "a"]], "aaaaa"], "expected": False, "hidden": True, "input_display": 'board=[["a","a"],["a","a"]], word="aaaaa"'},
+        ],
+    },
+    {
+        "id": "k_closest_points",
+        "title": "K Closest Points to Origin",
+        "difficulty": "Medium",
+        "topic": "Arrays / Heap",
+        "tags": ["array", "heap", "sorting", "quickselect"],
+        "description_md": """Given an array `points` where `points[i] = [x, y]` and an integer `k`, return the `k` points
+closest to the origin `(0, 0)` by Euclidean distance. Compare by **squared** distance `x*x + y*y` -- an
+integer, so no floating point needed. Return the `k` points ordered by that squared distance ascending,
+breaking ties by `x` then `y`. (That fixed order is only so the answer can be checked exactly; LeetCode
+itself accepts any order.)
+
+**Follow-up they'll ask:** a size-`k` max-heap gets you O(n log k); quickselect gets O(n) average.""",
+        "diagram_svg": """<svg viewBox="0 0 200 168" width="200" height="168" xmlns="http://www.w3.org/2000/svg" font-family="SF Mono, Cascadia Code, Consolas, monospace"><line x1="100" y1="8" x2="100" y2="150" stroke="var(--line)" stroke-width="1"/><line x1="8" y1="82" x2="192" y2="82" stroke="var(--line)" stroke-width="1"/><circle cx="100" cy="82" r="49" fill="none" stroke="var(--text-2)" stroke-width="1" stroke-dasharray="4,3"/><circle cx="100" cy="82" r="2.5" fill="var(--text-1)"/><text x="104" y="94" font-size="8.5" fill="var(--text-2)">origin</text><circle cx="133" cy="49" r="5" fill="#6ee7b7" stroke="#6ee7b7" stroke-width="1.5"/><text x="139" y="46" font-size="9" fill="var(--text-1)">(3,3)</text><circle cx="78" cy="38" r="5" fill="#6ee7b7" stroke="#6ee7b7" stroke-width="1.5"/><text x="40" y="35" font-size="9" fill="var(--text-1)">(-2,4)</text><circle cx="155" cy="93" r="5" fill="var(--bg-3)" stroke="var(--text-2)" stroke-width="1.5"/><text x="161" y="97" font-size="9" fill="var(--text-2)">(5,-1)</text><text x="6" y="163" font-size="10" fill="#6ee7b7">k=2 closest to the origin, highlighted</text></svg>""",
+        "function_name": "kClosest",
+        "params": [{"name": "points", "type": "vector<vector<int>>"}, {"name": "k", "type": "int"}],
+        "return_type": "vector<vector<int>>",
+        "starter_code": {
+            "python": "def kClosest(points, k):\n    # your code here -- return the k closest, sorted by (dist^2, x, y)\n    pass\n",
+            "cpp": "vector<vector<int>> kClosest(vector<vector<int>> points, int k) {\n    // your code here -- return the k closest, sorted by (dist^2, x, y)\n    return {};\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [[[1, 3], [-2, 2]], 1], "expected": [[-2, 2]], "input_display": "points=[[1,3],[-2,2]], k=1",
+             "explanation": "Squared distances are 10 and 8, so [-2,2] is closer."},
+            {"inputs": [[[3, 3], [5, -1], [-2, 4]], 2], "expected": [[3, 3], [-2, 4]], "input_display": "points=[[3,3],[5,-1],[-2,4]], k=2",
+             "explanation": "Squared distances are 18, 26, 20; the two smallest are 18 ([3,3]) and 20 ([-2,4]), returned in that order."},
+            {"inputs": [[[1, 1]], 1], "expected": [[1, 1]], "input_display": "points=[[1,1]], k=1"},
+            {"inputs": [[[1, 1], [2, 2], [3, 3]], 3], "expected": [[1, 1], [2, 2], [3, 3]], "hidden": True,
+             "input_display": "points=[[1,1],[2,2],[3,3]], k=3"},
+            {"inputs": [[[1, 0], [0, 1], [0, -1], [2, 0]], 2], "expected": [[0, -1], [0, 1]], "hidden": True,
+             "input_display": "points=[[1,0],[0,1],[0,-1],[2,0]], k=2"},
+            {"inputs": [[[-1, 0], [0, 0], [3, 4]], 2], "expected": [[0, 0], [-1, 0]], "hidden": True,
+             "input_display": "points=[[-1,0],[0,0],[3,4]], k=2"},
+        ],
+    },
+    {
+        "id": "lowest_common_ancestor",
+        "title": "Lowest Common Ancestor of a Binary Tree",
+        "difficulty": "Medium",
+        "topic": "Trees / DFS",
+        "tags": ["tree", "dfs", "recursion", "binary-tree"],
+        "description_md": """Given the `root` of a binary tree (built for you from a level-order array, `null` marks a missing
+child) and two distinct values `p` and `q` that are both guaranteed to be in the tree, return the value of
+their lowest common ancestor -- the deepest node that has both as descendants. A node is a descendant of
+itself, so if `p` lies on the path from the root to `q`, the answer is `p`. This is a plain binary tree, not
+a BST -- there's no ordering to lean on. All node values are unique.
+
+**Follow-up they'll ask:** one post-order pass -- a node whose left and right subtrees each turn up one of
+the targets is the LCA; otherwise bubble up whichever side found something.""",
+        "diagram_svg": """<svg viewBox="0 0 290 166" width="290" height="166" xmlns="http://www.w3.org/2000/svg" font-family="SF Mono, Cascadia Code, Consolas, monospace"><line x1="150" y1="22" x2="96" y2="60" stroke="var(--line)" stroke-width="2"/><line x1="150" y1="22" x2="204" y2="60" stroke="var(--line)" stroke-width="2"/><line x1="96" y1="60" x2="66" y2="100" stroke="var(--line)" stroke-width="2"/><line x1="96" y1="60" x2="126" y2="100" stroke="var(--line)" stroke-width="2"/><line x1="204" y1="60" x2="180" y2="100" stroke="var(--line)" stroke-width="2"/><line x1="204" y1="60" x2="240" y2="100" stroke="var(--line)" stroke-width="2"/><line x1="126" y1="100" x2="108" y2="140" stroke="var(--line)" stroke-width="2"/><line x1="126" y1="100" x2="144" y2="140" stroke="var(--line)" stroke-width="2"/><circle cx="150" cy="22" r="15" fill="var(--bg-3)" stroke="#ffb454" stroke-width="3"/><text x="150" y="27" text-anchor="middle" font-size="12" fill="var(--text-0)" font-weight="600">3</text><circle cx="96" cy="60" r="15" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="2"/><text x="96" y="65" text-anchor="middle" font-size="12" fill="#0a0a0a" font-weight="700">5</text><circle cx="204" cy="60" r="15" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="2"/><text x="204" y="65" text-anchor="middle" font-size="12" fill="#0a0a0a" font-weight="700">1</text><circle cx="66" cy="100" r="13" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="66" y="105" text-anchor="middle" font-size="11" fill="var(--text-1)">6</text><circle cx="126" cy="100" r="13" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="126" y="105" text-anchor="middle" font-size="11" fill="var(--text-1)">2</text><circle cx="180" cy="100" r="13" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="180" y="105" text-anchor="middle" font-size="11" fill="var(--text-1)">0</text><circle cx="240" cy="100" r="13" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="240" y="105" text-anchor="middle" font-size="11" fill="var(--text-1)">8</text><circle cx="108" cy="140" r="13" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="108" y="145" text-anchor="middle" font-size="11" fill="var(--text-1)">7</text><circle cx="144" cy="140" r="13" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="144" y="145" text-anchor="middle" font-size="11" fill="var(--text-1)">4</text><text x="6" y="162" font-size="10" fill="#ffb454">LCA(5, 1) = 3   -   targets green, ancestor ringed</text></svg>""",
+        "function_name": "lowestCommonAncestor",
+        "params": [{"name": "root", "type": "tree"}, {"name": "p", "type": "int"}, {"name": "q", "type": "int"}],
+        "return_type": "int",
+        "starter_code": {
+            "python": "# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None): ...\n\ndef lowestCommonAncestor(root, p, q):\n    # p and q are node values, both guaranteed present; return the LCA's value\n    pass\n",
+            "cpp": "// struct TreeNode { int val; TreeNode *left, *right; };\n\nint lowestCommonAncestor(TreeNode* root, int p, int q) {\n    // p and q are node values, both guaranteed present; return the LCA's value\n    return 0;\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [[3, 5, 1, 6, 2, 0, 8, None, None, 7, 4], 5, 1], "expected": 3,
+             "input_display": "tree=[3,5,1,6,2,0,8,null,null,7,4], p=5, q=1",
+             "explanation": "5 is in the left subtree and 1 in the right, so only the root has both as descendants."},
+            {"inputs": [[3, 5, 1, 6, 2, 0, 8, None, None, 7, 4], 5, 4], "expected": 5,
+             "input_display": "tree=[3,5,1,6,2,0,8,null,null,7,4], p=5, q=4",
+             "explanation": "4 sits below 5 (5 -> 2 -> 4); since a node is its own descendant, 5 is the lowest common ancestor."},
+            {"inputs": [[3, 5, 1, 6, 2, 0, 8, None, None, 7, 4], 6, 4], "expected": 5,
+             "input_display": "tree=[3,5,1,6,2,0,8,null,null,7,4], p=6, q=4",
+             "explanation": "6 is 5's left child; 4 is under 5's right child (2 -> 4). The deepest node covering both is 5."},
+            {"inputs": [[3, 5, 1, 6, 2, 0, 8, None, None, 7, 4], 7, 8], "expected": 3, "hidden": True,
+             "input_display": "tree=[3,5,1,6,2,0,8,null,null,7,4], p=7, q=8"},
+            {"inputs": [[3, 5, 1, 6, 2, 0, 8, None, None, 7, 4], 7, 4], "expected": 2, "hidden": True,
+             "input_display": "tree=[3,5,1,6,2,0,8,null,null,7,4], p=7, q=4"},
+            {"inputs": [[3, 5, 1, 6, 2, 0, 8, None, None, 7, 4], 3, 5], "expected": 3, "hidden": True,
+             "input_display": "tree=[3,5,1,6,2,0,8,null,null,7,4], p=3, q=5"},
+        ],
+    },
+    {
+        "id": "reverse_linked_list",
+        "title": "Reverse Linked List",
+        "difficulty": "Easy",
+        "topic": "Linked List",
+        "tags": ["linked-list", "two-pointers"],
+        "description_md": """Given the `head` of a singly linked list (built for you from an array of values, in order),
+reverse the list and return the new head.
+
+**Follow-up they'll ask:** can you do it iteratively in O(1) extra space (three pointers: `prev`, `cur`,
+`next`), and also recursively -- and what changes if it's a doubly linked list instead?""",
+        "diagram_svg": """<svg viewBox="0 0 190 110" width="190" height="110" xmlns="http://www.w3.org/2000/svg" font-family="SF Mono, Cascadia Code, Consolas, monospace"><text x="6" y="14" font-size="10.5" fill="var(--text-2)">before</text><rect x="6" y="20" width="30" height="26" rx="4" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="21" y="38" text-anchor="middle" font-size="12" fill="var(--text-0)" font-weight="600">1</text><text x="40" y="38" font-size="13" fill="var(--text-2)">&#8594;</text><rect x="54" y="20" width="30" height="26" rx="4" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="69" y="38" text-anchor="middle" font-size="12" fill="var(--text-0)" font-weight="600">2</text><text x="88" y="38" font-size="13" fill="var(--text-2)">&#8594;</text><rect x="102" y="20" width="30" height="26" rx="4" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="117" y="38" text-anchor="middle" font-size="12" fill="var(--text-0)" font-weight="600">3</text><text x="136" y="38" font-size="12" fill="var(--text-2)">&#8594; null</text><text x="6" y="70" font-size="10.5" fill="#6ee7b7">after reverseList</text><rect x="6" y="76" width="30" height="26" rx="4" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="1.5"/><text x="21" y="94" text-anchor="middle" font-size="12" fill="#0a0a0a" font-weight="700">3</text><text x="40" y="94" font-size="13" fill="#6ee7b7">&#8594;</text><rect x="54" y="76" width="30" height="26" rx="4" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="1.5"/><text x="69" y="94" text-anchor="middle" font-size="12" fill="#0a0a0a" font-weight="700">2</text><text x="88" y="94" font-size="13" fill="#6ee7b7">&#8594;</text><rect x="102" y="76" width="30" height="26" rx="4" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="1.5"/><text x="117" y="94" text-anchor="middle" font-size="12" fill="#0a0a0a" font-weight="700">1</text><text x="136" y="94" font-size="12" fill="#6ee7b7">&#8594; null</text></svg>""",
+        "function_name": "reverseList",
+        "params": [{"name": "head", "type": "list"}],
+        "return_type": "list",
+        "starter_code": {
+            "python": "# class ListNode:\n#     def __init__(self, val=0, next=None): ...\n\ndef reverseList(head):\n    # reverse the list in place and return the new head\n    pass\n",
+            "cpp": "// struct ListNode { int val; ListNode *next; };\n\nListNode* reverseList(ListNode* head) {\n    // reverse the list in place and return the new head\n    return nullptr;\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [[1, 2, 3, 4, 5]], "expected": [5, 4, 3, 2, 1], "input_display": "list=[1,2,3,4,5]"},
+            {"inputs": [[]], "expected": [], "input_display": "list=[] (empty)"},
+            {"inputs": [[1, 2]], "expected": [2, 1], "input_display": "list=[1,2]"},
+            {"inputs": [[1]], "expected": [1], "hidden": True},
+            {"inputs": [[1, 2, 3]], "expected": [3, 2, 1], "hidden": True},
+        ],
+    },
+    {
+        "id": "clone_graph",
+        "title": "Clone Graph",
+        "difficulty": "Medium",
+        "topic": "Graphs / DFS-BFS",
+        "tags": ["graph", "dfs", "bfs", "hash-map"],
+        "description_md": """Given a connected undirected graph of `n` nodes labeled `1` to `n`, return a deep copy of it.
+
+The graph is given (and should be returned) as an adjacency list `graph` where `graph[i]` is the sorted
+list of neighbors of node `i+1` -- since it's undirected, `j` appears in `graph[i]` exactly when `i+1`
+appears in `graph[j-1]`. Node values are just their labels `1..n`, so an adjacency list in the same
+node-index order fully describes the (cloned) graph -- the point of the exercise is the traversal itself:
+build a genuinely new set of node objects, keyed off the originals with a hash map so a node with a cycle
+back to itself (or to an ancestor) doesn't get cloned twice or recurse forever.
+
+**Follow-up they'll ask:** DFS or BFS both work -- which one avoids a stack overflow on a graph with a long
+path, and why does the visited map need to be keyed by the *original* node rather than the clone?""",
+        "diagram_svg": """<svg viewBox="0 0 300 110" width="300" height="110" xmlns="http://www.w3.org/2000/svg" font-family="SF Mono, Cascadia Code, Consolas, monospace"><line x1="30" y1="20" x2="90" y2="20" stroke="var(--line)" stroke-width="2"/><line x1="90" y1="20" x2="90" y2="80" stroke="var(--line)" stroke-width="2"/><line x1="90" y1="80" x2="30" y2="80" stroke="var(--line)" stroke-width="2"/><line x1="30" y1="80" x2="30" y2="20" stroke="var(--line)" stroke-width="2"/><circle cx="30" cy="20" r="13" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="30" y="25" text-anchor="middle" font-size="11" fill="var(--text-0)" font-weight="600">1</text><circle cx="90" cy="20" r="13" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="90" y="25" text-anchor="middle" font-size="11" fill="var(--text-0)" font-weight="600">2</text><circle cx="90" cy="80" r="13" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="90" y="85" text-anchor="middle" font-size="11" fill="var(--text-0)" font-weight="600">3</text><circle cx="30" cy="80" r="13" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="30" y="85" text-anchor="middle" font-size="11" fill="var(--text-0)" font-weight="600">4</text><text x="118" y="54" font-size="12" fill="#ffb454">clone &#8594;</text><line x1="180" y1="20" x2="240" y2="20" stroke="#6ee7b7" stroke-width="2" opacity="0.8"/><line x1="240" y1="20" x2="240" y2="80" stroke="#6ee7b7" stroke-width="2" opacity="0.8"/><line x1="240" y1="80" x2="180" y2="80" stroke="#6ee7b7" stroke-width="2" opacity="0.8"/><line x1="180" y1="80" x2="180" y2="20" stroke="#6ee7b7" stroke-width="2" opacity="0.8"/><circle cx="180" cy="20" r="13" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="1.5"/><text x="180" y="25" text-anchor="middle" font-size="11" fill="#0a0a0a" font-weight="700">1</text><circle cx="240" cy="20" r="13" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="1.5"/><text x="240" y="25" text-anchor="middle" font-size="11" fill="#0a0a0a" font-weight="700">2</text><circle cx="240" cy="80" r="13" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="1.5"/><text x="240" y="85" text-anchor="middle" font-size="11" fill="#0a0a0a" font-weight="700">3</text><circle cx="180" cy="80" r="13" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="1.5"/><text x="180" y="85" text-anchor="middle" font-size="11" fill="#0a0a0a" font-weight="700">4</text><text x="6" y="106" font-size="10" fill="var(--text-2)">same structure, new node objects (green)</text></svg>""",
+        "function_name": "cloneGraph",
+        "params": [{"name": "graph", "type": "vector<vector<int>>"}],
+        "return_type": "vector<vector<int>>",
+        "starter_code": {
+            "python": "def cloneGraph(graph):\n    # graph[i] = sorted neighbor labels of node i+1; return a deep-cloned copy in the same shape\n    pass\n",
+            "cpp": "vector<vector<int>> cloneGraph(vector<vector<int>> graph) {\n    // graph[i] = sorted neighbor labels of node i+1; return a deep-cloned copy in the same shape\n    return {};\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [[[2, 4], [1, 3], [2, 4], [1, 3]]], "expected": [[2, 4], [1, 3], [2, 4], [1, 3]],
+             "input_display": "graph=[[2,4],[1,3],[2,4],[1,3]] (a 4-cycle: 1-2-3-4-1)"},
+            {"inputs": [[[]]], "expected": [[]], "input_display": "graph=[[]] (single node, no neighbors)"},
+            {"inputs": [[]], "expected": [], "input_display": "graph=[] (empty graph)"},
+            {"inputs": [[[2], [1]]], "expected": [[2], [1]], "hidden": True,
+             "input_display": "graph=[[2],[1]] (two nodes, one edge)"},
+            {"inputs": [[[2, 3], [1, 3], [1, 2]]], "expected": [[2, 3], [1, 3], [1, 2]], "hidden": True,
+             "input_display": "graph=[[2,3],[1,3],[1,2]] (triangle)"},
+        ],
+    },
+    {
+        "id": "basic_calculator",
+        "title": "Basic Calculator",
+        "difficulty": "Hard",
+        "topic": "Strings / Stack",
+        "tags": ["string", "stack", "math", "recursion"],
+        "description_md": """Given a string `s` representing a valid math expression, evaluate it and return the result.
+
+`s` contains only digits, `+`, `-`, `(`, `)`, and spaces -- no `*` or `/`, and no need to handle those.
+Numbers can be multi-digit and non-negative, but the expression itself can have a leading unary minus and
+minus signs directly in front of a parenthesized group, e.g. `"-(2-3)"` or `"1-(2+3)"`.
+
+**Follow-up they'll ask:** a stack of `(sign, running_total)` pairs, pushed on `(` and popped on `)`, handles
+arbitrary nesting without recursion -- why does the sign in front of a `(` need to be applied to everything
+inside it, not just the first term?""",
+        "diagram_svg": """<svg viewBox="0 0 220 74" width="220" height="74" xmlns="http://www.w3.org/2000/svg" font-family="SF Mono, Cascadia Code, Consolas, monospace"><rect x="6" y="14" width="24" height="26" rx="3" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="18" y="32" text-anchor="middle" font-size="13" fill="var(--text-0)" font-weight="600">2</text><rect x="30" y="14" width="24" height="26" rx="3" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="42" y="32" text-anchor="middle" font-size="13" fill="var(--text-0)" font-weight="600">-</text><rect x="54" y="14" width="24" height="26" rx="3" fill="#ffb454" fill-opacity="0.25" stroke="#ffb454" stroke-width="1.5"/><text x="66" y="32" text-anchor="middle" font-size="13" fill="var(--text-0)" font-weight="600">(</text><rect x="78" y="14" width="24" height="26" rx="3" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="90" y="32" text-anchor="middle" font-size="13" fill="var(--text-0)" font-weight="600">5</text><rect x="102" y="14" width="24" height="26" rx="3" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="114" y="32" text-anchor="middle" font-size="13" fill="var(--text-0)" font-weight="600">-</text><rect x="126" y="14" width="24" height="26" rx="3" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="138" y="32" text-anchor="middle" font-size="13" fill="var(--text-0)" font-weight="600">6</text><rect x="150" y="14" width="24" height="26" rx="3" fill="#ffb454" fill-opacity="0.25" stroke="#ffb454" stroke-width="1.5"/><text x="162" y="32" text-anchor="middle" font-size="13" fill="var(--text-0)" font-weight="600">)</text><text x="6" y="62" font-size="10.5" fill="#ffb454">2-(5-6) = 2-(-1) = 3 -- the '-' flips everything in the parens</text></svg>""",
+        "function_name": "calculate",
+        "params": [{"name": "s", "type": "string"}],
+        "return_type": "int",
+        "starter_code": {
+            "python": "def calculate(s):\n    # your code here -- stack of (sign, running_total), push on '(', pop on ')'\n    pass\n",
+            "cpp": "int calculate(string s) {\n    // your code here -- stack of (sign, running_total), push on '(', pop on ')'\n    return 0;\n}\n",
+        },
+        "test_cases": [
+            {"inputs": ["1 + 1"], "expected": 2, "input_display": 's="1 + 1"'},
+            {"inputs": [" 2-1 + 2 "], "expected": 3, "input_display": 's=" 2-1 + 2 "'},
+            {"inputs": ["(1+(4+5+2)-3)+(6+8)"], "expected": 23, "input_display": 's="(1+(4+5+2)-3)+(6+8)"'},
+            {"inputs": ["2-(5-6)"], "expected": 3, "hidden": True, "input_display": 's="2-(5-6)"'},
+            {"inputs": ["-(2+3)"], "expected": -5, "hidden": True, "input_display": 's="-(2+3)"'},
+            {"inputs": ["0"], "expected": 0, "hidden": True, "input_display": 's="0"'},
+        ],
+    },
+    {
+        "id": "design_hashmap",
+        "title": "Design HashMap",
+        "difficulty": "Easy",
+        "topic": "Design / Hash Table",
+        "tags": ["design", "hash-map", "array"],
+        "description_md": """Design a key-value map without reaching for a built-in hash table (`dict` / `unordered_map`) --
+the point is the array-plus-collision-handling underneath one.
+
+You're given a list of `operations`, each `["put", key, value]`, `["get", key]`, or `["remove", key]` (every
+element is a string -- parse the numbers yourself). Apply them in order and return a list holding the result
+of **each `get`**: the stored value, or `-1` if the key isn't present (never set, or since removed). A `put`
+on an existing key overwrites its value; `remove` on a missing key is a no-op.
+
+**Follow-up they'll ask:** fixed-size bucket array, hash the key down to an index, then chain (linked list or
+small vector) within a bucket to handle collisions -- when would you resize the array?""",
+        "diagram_svg": """<svg viewBox="0 0 230 118" width="230" height="118" xmlns="http://www.w3.org/2000/svg" font-family="SF Mono, Cascadia Code, Consolas, monospace"><text x="6" y="14" font-size="10.5" fill="var(--text-2)">key % 4 selects a bucket</text><rect x="6" y="20" width="50" height="24" rx="4" fill="var(--bg-2)" stroke="var(--line)" stroke-width="1.5"/><text x="31" y="36" text-anchor="middle" font-size="11" fill="var(--text-2)">0</text><rect x="62" y="20" width="50" height="24" rx="4" fill="#ffb454" fill-opacity="0.2" stroke="#ffb454" stroke-width="1.5"/><text x="87" y="36" text-anchor="middle" font-size="11" fill="var(--text-0)" font-weight="600">1</text><rect x="118" y="20" width="50" height="24" rx="4" fill="var(--bg-2)" stroke="var(--line)" stroke-width="1.5"/><text x="143" y="36" text-anchor="middle" font-size="11" fill="var(--text-2)">2</text><rect x="174" y="20" width="50" height="24" rx="4" fill="var(--bg-2)" stroke="var(--line)" stroke-width="1.5"/><text x="199" y="36" text-anchor="middle" font-size="11" fill="var(--text-2)">3</text><line x1="87" y1="44" x2="87" y2="58" stroke="var(--line)" stroke-width="1.5"/><rect x="62" y="58" width="50" height="22" rx="4" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="1.5"/><text x="87" y="73" text-anchor="middle" font-size="10.5" fill="#0a0a0a" font-weight="700">(1,1)</text><line x1="87" y1="80" x2="87" y2="88" stroke="var(--line)" stroke-width="1.5"/><rect x="62" y="88" width="50" height="22" rx="4" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="1.5"/><text x="87" y="103" text-anchor="middle" font-size="10.5" fill="#0a0a0a" font-weight="700">(5,9)</text></svg>""",
+        "function_name": "designHashMap",
+        "params": [{"name": "operations", "type": "vector<vector<string>>"}],
+        "return_type": "vector<int>",
+        "starter_code": {
+            "python": "def designHashMap(operations):\n    # operations: [\"put\", key, value], [\"get\", key], or [\"remove\", key] (all strings)\n    # return the result of each \"get\": the value, or -1 if absent\n    pass\n",
+            "cpp": "vector<int> designHashMap(vector<vector<string>> operations) {\n    // operations: {\"put\", key, value}, {\"get\", key}, or {\"remove\", key} (all strings)\n    // return the result of each \"get\": the value, or -1 if absent\n    return {};\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [[["put", "1", "1"], ["put", "2", "2"], ["get", "1"], ["get", "3"], ["put", "2", "1"], ["get", "2"], ["remove", "2"], ["get", "2"]]],
+             "expected": [1, -1, 1, -1],
+             "input_display": "ops: put(1,1) put(2,2) get(1) get(3) put(2,1) get(2) remove(2) get(2)",
+             "explanation": "get(1)=1 and get(3)=-1 (never set). put(2,1) overwrites key 2's value, so get(2)=1. remove(2) deletes it, so the final get(2)=-1."},
+            {"inputs": [[["put", "0", "0"], ["get", "0"]]], "expected": [0], "input_display": "ops: put(0,0) get(0)"},
+            {"inputs": [[["remove", "5"], ["get", "5"]]], "expected": [-1], "hidden": True,
+             "input_display": "ops: remove(5) get(5) (removing a key that was never set is a no-op)"},
+            {"inputs": [[["put", "1", "1"], ["put", "1", "2"], ["get", "1"]]], "expected": [2], "hidden": True,
+             "input_display": "ops: put(1,1) put(1,2) get(1)"},
+        ],
+    },
+    {
+        "id": "kth_largest_element",
+        "title": "Kth Largest Element in an Array",
+        "difficulty": "Medium",
+        "topic": "Heaps / Quickselect",
+        "tags": ["heap", "quickselect", "array"],
+        "description_md": """Given an integer array `nums` and an integer `k`, return the `k`th largest element in the
+array -- not the kth *distinct* value, duplicates each count toward their own rank.
+
+**Follow-up they'll ask:** a min-heap of size `k` (push everything, pop when size exceeds `k`) gives O(n log k).
+Quickselect -- partition like quicksort, then recurse into only the side that contains the answer -- gets you
+expected O(n). What's quickselect's worst case, and how does picking a random pivot avoid it?""",
+        "diagram_svg": """<svg viewBox="0 0 268 72" width="268" height="72" xmlns="http://www.w3.org/2000/svg" font-family="SF Mono, Cascadia Code, Consolas, monospace"><rect x="6" y="14" width="30" height="28" rx="4" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="21" y="33" text-anchor="middle" font-size="13" fill="var(--text-0)" font-weight="600">3</text><rect x="40" y="14" width="30" height="28" rx="4" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="55" y="33" text-anchor="middle" font-size="13" fill="var(--text-0)" font-weight="600">2</text><rect x="74" y="14" width="30" height="28" rx="4" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="89" y="33" text-anchor="middle" font-size="13" fill="var(--text-0)" font-weight="600">1</text><rect x="108" y="14" width="30" height="28" rx="4" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="1.5"/><text x="123" y="33" text-anchor="middle" font-size="13" fill="#0a0a0a" font-weight="700">5</text><rect x="142" y="14" width="30" height="28" rx="4" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="157" y="33" text-anchor="middle" font-size="13" fill="var(--text-0)" font-weight="600">6</text><rect x="176" y="14" width="30" height="28" rx="4" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="191" y="33" text-anchor="middle" font-size="13" fill="var(--text-0)" font-weight="600">4</text><text x="6" y="64" font-size="10.5" fill="#6ee7b7">nums=[3,2,1,5,6,4], k=2 -- sorted desc [6,5,4,3,2,1], 2nd largest = 5</text></svg>""",
+        "function_name": "findKthLargest",
+        "params": [{"name": "nums", "type": "vector<int>"}, {"name": "k", "type": "int"}],
+        "return_type": "int",
+        "starter_code": {
+            "python": "def findKthLargest(nums, k):\n    # your code here -- heap of size k, or quickselect\n    pass\n",
+            "cpp": "int findKthLargest(vector<int> nums, int k) {\n    // your code here -- heap of size k, or quickselect\n    return 0;\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [[3, 2, 1, 5, 6, 4], 2], "expected": 5, "input_display": "nums=[3,2,1,5,6,4], k=2"},
+            {"inputs": [[3, 2, 3, 1, 2, 4, 5, 5, 6], 4], "expected": 4, "input_display": "nums=[3,2,3,1,2,4,5,5,6], k=4"},
+            {"inputs": [[1], 1], "expected": 1, "input_display": "nums=[1], k=1"},
+            {"inputs": [[7, 6, 5, 4, 3, 2, 1], 1], "expected": 7, "hidden": True, "input_display": "nums=[7,6,5,4,3,2,1], k=1 (largest)"},
+            {"inputs": [[2, 2, 2], 2], "expected": 2, "hidden": True, "input_display": "nums=[2,2,2], k=2 (duplicates count individually)"},
+        ],
+    },
+    {
+        "id": "pacific_atlantic_water_flow",
+        "title": "Pacific Atlantic Water Flow",
+        "difficulty": "Medium",
+        "topic": "Graphs / Grid DFS",
+        "tags": ["graph", "dfs", "bfs", "grid", "multi-source"],
+        "description_md": """There's an `m x n` grid of island `heights`. The Pacific Ocean touches the top and left
+edges; the Atlantic touches the bottom and right edges. Water flows from a cell to a 4-directionally
+adjacent cell only if that neighbor's height is less than or equal to the current cell's.
+
+Return every cell from which water can reach **both** oceans, each as `[row, col]`, sorted by row then
+column so the judge can compare the result exactly.
+
+**Follow-up they'll ask:** simulating water flowing downhill from every single cell toward two oceans is
+O((mn)^2) in the worst case. Flip it: run a multi-source BFS/DFS *uphill* starting from all cells adjacent
+to the Pacific, separately from all cells adjacent to the Atlantic, and intersect the two reachable sets --
+why does reversing the direction of travel make this linear in grid size instead of quadratic?""",
+        "diagram_svg": """<svg viewBox="0 0 230 190" width="230" height="190" xmlns="http://www.w3.org/2000/svg" font-family="SF Mono, Cascadia Code, Consolas, monospace"><text x="40" y="14" font-size="10.5" fill="#93c5fd" font-weight="600">Pacific</text><text x="40" y="26" font-size="13" fill="#93c5fd">&#8595; &#8595; &#8595; &#8595;</text><text x="4" y="55" font-size="13" fill="#93c5fd" transform="rotate(-90 14 55)">&#8594;</text><g transform="translate(40,34)"><rect x="0" y="0" width="36" height="36" fill="var(--bg-2)" stroke="var(--line)" stroke-width="1.5"/><rect x="36" y="0" width="36" height="36" fill="var(--bg-2)" stroke="var(--line)" stroke-width="1.5"/><rect x="72" y="0" width="36" height="36" fill="#f0abfc" fill-opacity="0.85" stroke="#f0abfc" stroke-width="1.5"/><rect x="0" y="36" width="36" height="36" fill="var(--bg-2)" stroke="var(--line)" stroke-width="1.5"/><rect x="36" y="36" width="36" height="36" fill="var(--bg-2)" stroke="var(--line)" stroke-width="1.5"/><rect x="72" y="36" width="36" height="36" fill="var(--bg-2)" stroke="var(--line)" stroke-width="1.5"/><rect x="0" y="72" width="36" height="36" fill="#f0abfc" fill-opacity="0.85" stroke="#f0abfc" stroke-width="1.5"/><rect x="36" y="72" width="36" height="36" fill="var(--bg-2)" stroke="var(--line)" stroke-width="1.5"/><rect x="72" y="72" width="36" height="36" fill="var(--bg-2)" stroke="var(--line)" stroke-width="1.5"/></g><text x="150" y="146" font-size="13" fill="#f87171">&#8593; &#8593; &#8593; &#8593;</text><text x="150" y="158" font-size="10.5" fill="#f87171" font-weight="600">Atlantic</text><text x="6" y="182" font-size="10" fill="var(--text-2)">purple cells reach both oceans</text></svg>""",
+        "function_name": "pacificAtlantic",
+        "params": [{"name": "heights", "type": "vector<vector<int>>"}],
+        "return_type": "vector<vector<int>>",
+        "starter_code": {
+            "python": "def pacificAtlantic(heights):\n    # your code here -- multi-source BFS/DFS uphill from each ocean's border, then intersect\n    # return cells sorted by (row, col)\n    pass\n",
+            "cpp": "vector<vector<int>> pacificAtlantic(vector<vector<int>> heights) {\n    // your code here -- multi-source BFS/DFS uphill from each ocean's border, then intersect\n    // return cells sorted by (row, col)\n    return {};\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [[[1, 2, 2, 3, 5], [3, 2, 3, 4, 4], [2, 4, 5, 3, 1], [6, 7, 1, 4, 5], [5, 1, 1, 2, 4]]],
+             "expected": [[0, 4], [1, 3], [1, 4], [2, 2], [3, 0], [3, 1], [4, 0]],
+             "input_display": "heights=[[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]]"},
+            {"inputs": [[[1]]], "expected": [[0, 0]], "input_display": "heights=[[1]] (single cell touches both edges)"},
+            {"inputs": [[[1, 2], [4, 3]]], "expected": [[0, 1], [1, 0], [1, 1]], "input_display": "heights=[[1,2],[4,3]]",
+             "explanation": "(0,0)=1 can't flow anywhere (both neighbors are higher) and isn't adjacent to the Atlantic, so it's excluded even though it touches the Pacific directly."},
+            {"inputs": [[[1, 1], [1, 1]]], "expected": [[0, 0], [0, 1], [1, 0], [1, 1]], "hidden": True,
+             "input_display": "heights=[[1,1],[1,1]] (flat grid -- equal-height flow counts, so every cell reaches both)"},
+            {"inputs": [[[1, 2, 3, 4]]], "expected": [[0, 0], [0, 1], [0, 2], [0, 3]], "hidden": True,
+             "input_display": "heights=[[1,2,3,4]] (a single row is simultaneously the top and bottom edge)"},
+        ],
+    },
+    {
+        "id": "max_area_of_island",
+        "title": "Max Area of Island",
+        "difficulty": "Medium",
+        "topic": "Graphs / Grid DFS",
+        "tags": ["graph", "dfs", "grid"],
+        "description_md": """Given a binary `grid` where `1` is land and `0` is water, return the area (cell count) of
+the largest island -- a maximal group of `1`s connected 4-directionally. Return `0` if the grid has no land
+at all.
+
+**Follow-up they'll ask:** flood-fill (DFS or BFS) each unvisited land cell, counting the size of the
+component as you fill it, and keep a running max. What's the time and space complexity, and how would an
+iterative DFS with an explicit stack avoid a recursion-depth blowup on a huge grid?""",
+        "diagram_svg": """<svg viewBox="0 0 274 206" width="274" height="206" xmlns="http://www.w3.org/2000/svg" font-family="SF Mono, Cascadia Code, Consolas, monospace"><rect x="6" y="6" width="40" height="40" rx="4" fill="var(--bg-2)" stroke="var(--line)" stroke-width="1"/><text x="26.0" y="32.0" text-anchor="middle" font-size="14" fill="var(--text-2)">0</text><rect x="48" y="6" width="40" height="40" rx="4" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="1.5"/><text x="68.0" y="32.0" text-anchor="middle" font-size="14" fill="#0a0a0a" font-weight="600">1</text><rect x="90" y="6" width="40" height="40" rx="4" fill="var(--bg-2)" stroke="var(--line)" stroke-width="1"/><text x="110.0" y="32.0" text-anchor="middle" font-size="14" fill="var(--text-2)">0</text><rect x="132" y="6" width="40" height="40" rx="4" fill="var(--bg-2)" stroke="var(--line)" stroke-width="1"/><text x="152.0" y="32.0" text-anchor="middle" font-size="14" fill="var(--text-2)">0</text><rect x="6" y="48" width="40" height="40" rx="4" fill="var(--bg-2)" stroke="var(--line)" stroke-width="1"/><text x="26.0" y="74.0" text-anchor="middle" font-size="14" fill="var(--text-2)">0</text><rect x="48" y="48" width="40" height="40" rx="4" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="1.5"/><text x="68.0" y="74.0" text-anchor="middle" font-size="14" fill="#0a0a0a" font-weight="600">1</text><rect x="90" y="48" width="40" height="40" rx="4" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="1.5"/><text x="110.0" y="74.0" text-anchor="middle" font-size="14" fill="#0a0a0a" font-weight="600">1</text><rect x="132" y="48" width="40" height="40" rx="4" fill="var(--bg-2)" stroke="var(--line)" stroke-width="1"/><text x="152.0" y="74.0" text-anchor="middle" font-size="14" fill="var(--text-2)">0</text><rect x="6" y="90" width="40" height="40" rx="4" fill="var(--bg-2)" stroke="var(--line)" stroke-width="1"/><text x="26.0" y="116.0" text-anchor="middle" font-size="14" fill="var(--text-2)">0</text><rect x="48" y="90" width="40" height="40" rx="4" fill="var(--bg-2)" stroke="var(--line)" stroke-width="1"/><text x="68.0" y="116.0" text-anchor="middle" font-size="14" fill="var(--text-2)">0</text><rect x="90" y="90" width="40" height="40" rx="4" fill="var(--bg-2)" stroke="var(--line)" stroke-width="1"/><text x="110.0" y="116.0" text-anchor="middle" font-size="14" fill="var(--text-2)">0</text><rect x="132" y="90" width="40" height="40" rx="4" fill="#93c5fd" fill-opacity="0.85" stroke="#93c5fd" stroke-width="1.5"/><text x="152.0" y="116.0" text-anchor="middle" font-size="14" fill="#0a0a0a" font-weight="600">1</text><rect x="6" y="132" width="40" height="40" rx="4" fill="var(--bg-2)" stroke="var(--line)" stroke-width="1"/><text x="26.0" y="158.0" text-anchor="middle" font-size="14" fill="var(--text-2)">0</text><rect x="48" y="132" width="40" height="40" rx="4" fill="var(--bg-2)" stroke="var(--line)" stroke-width="1"/><text x="68.0" y="158.0" text-anchor="middle" font-size="14" fill="var(--text-2)">0</text><rect x="90" y="132" width="40" height="40" rx="4" fill="var(--bg-2)" stroke="var(--line)" stroke-width="1"/><text x="110.0" y="158.0" text-anchor="middle" font-size="14" fill="var(--text-2)">0</text><rect x="132" y="132" width="40" height="40" rx="4" fill="#93c5fd" fill-opacity="0.85" stroke="#93c5fd" stroke-width="1.5"/><text x="152.0" y="158.0" text-anchor="middle" font-size="14" fill="#0a0a0a" font-weight="600">1</text><text x="6" y="190" font-size="11" fill="#6ee7b7">green island, area 3  --  bigger than the blue one, area 2</text></svg>""",
+        "function_name": "maxAreaOfIsland",
+        "params": [{"name": "grid", "type": "vector<vector<int>>"}],
+        "return_type": "int",
+        "starter_code": {
+            "python": "def maxAreaOfIsland(grid):\n    # your code here -- flood-fill each island, track the largest area seen\n    pass\n",
+            "cpp": "int maxAreaOfIsland(vector<vector<int>> grid) {\n    // your code here -- flood-fill each island, track the largest area seen\n    return 0;\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [[[0, 0, 1, 0, 0], [0, 0, 0, 0, 0], [0, 1, 1, 0, 0], [0, 1, 0, 0, 0]]], "expected": 3,
+             "input_display": "grid=[[0,0,1,0,0],[0,0,0,0,0],[0,1,1,0,0],[0,1,0,0,0]]"},
+            {"inputs": [[[0, 0, 0, 0, 0, 0, 0, 0]]], "expected": 0, "input_display": "grid=[[0,0,0,0,0,0,0,0]] (all water)"},
+            {"inputs": [[[1, 1, 0, 0, 0], [1, 1, 0, 0, 0], [0, 0, 0, 1, 1]]], "expected": 4,
+             "input_display": "grid=[[1,1,0,0,0],[1,1,0,0,0],[0,0,0,1,1]] (2x2 square beats the 2-cell pair)"},
+            {"inputs": [[[0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+                         [0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0],
+                         [0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+                         [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0]]],
+             "expected": 6, "hidden": True, "input_display": "classic 8x13 grid"},
+            {"inputs": [[[1]]], "expected": 1, "hidden": True, "input_display": "grid=[[1]]"},
+        ],
+    },
+    {
+        "id": "merge_k_sorted_lists",
+        "title": "Merge K Sorted Lists",
+        "difficulty": "Hard",
+        "topic": "Linked List / Heap",
+        "tags": ["linked-list", "heap", "divide-and-conquer"],
+        "description_md": """You're given `k` singly linked lists (built for you from arrays of values, each already
+sorted ascending). Merge them all into one sorted list and return its head.
+
+**Follow-up they'll ask:** a min-heap holding the current front node of each list gives O(N log k), where N
+is the total node count across all lists. How does that compare to merging the lists two at a time,
+sequentially versus in pairs (divide and conquer, like merge sort)? Which is faster, and why?""",
+        "diagram_svg": """<svg viewBox="0 0 220 130" width="220" height="130" xmlns="http://www.w3.org/2000/svg" font-family="SF Mono, Cascadia Code, Consolas, monospace"><text x="6" y="12" font-size="10" fill="var(--text-2)">1&#8594;4&#8594;5</text><text x="6" y="26" font-size="10" fill="var(--text-2)">1&#8594;3&#8594;4</text><text x="6" y="40" font-size="10" fill="var(--text-2)">2&#8594;6</text><text x="66" y="28" font-size="13" fill="#ffb454">merge &#8594;</text><rect x="118" y="14" width="24" height="24" rx="4" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="1.5"/><text x="130" y="30" text-anchor="middle" font-size="11" fill="#0a0a0a" font-weight="700">1</text><rect x="146" y="14" width="24" height="24" rx="4" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="1.5"/><text x="158" y="30" text-anchor="middle" font-size="11" fill="#0a0a0a" font-weight="700">1</text><rect x="174" y="14" width="24" height="24" rx="4" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="1.5"/><text x="186" y="30" text-anchor="middle" font-size="11" fill="#0a0a0a" font-weight="700">2</text><rect x="118" y="42" width="24" height="24" rx="4" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="1.5"/><text x="130" y="58" text-anchor="middle" font-size="11" fill="#0a0a0a" font-weight="700">3</text><rect x="146" y="42" width="24" height="24" rx="4" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="1.5"/><text x="158" y="58" text-anchor="middle" font-size="11" fill="#0a0a0a" font-weight="700">4</text><rect x="174" y="42" width="24" height="24" rx="4" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="1.5"/><text x="186" y="58" text-anchor="middle" font-size="11" fill="#0a0a0a" font-weight="700">4</text><rect x="118" y="70" width="24" height="24" rx="4" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="1.5"/><text x="130" y="86" text-anchor="middle" font-size="11" fill="#0a0a0a" font-weight="700">5</text><rect x="146" y="70" width="24" height="24" rx="4" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="1.5"/><text x="158" y="86" text-anchor="middle" font-size="11" fill="#0a0a0a" font-weight="700">6</text><text x="6" y="118" font-size="10" fill="var(--text-2)">merged: 1,1,2,3,4,4,5,6</text></svg>""",
+        "function_name": "mergeKLists",
+        "params": [{"name": "lists", "type": "vector<list>"}],
+        "return_type": "list",
+        "starter_code": {
+            "python": "# class ListNode:\n#     def __init__(self, val=0, next=None): ...\n\ndef mergeKLists(lists):\n    # lists is a list of ListNode heads, each already sorted ascending\n    pass\n",
+            "cpp": "// struct ListNode { int val; ListNode *next; };\n\nListNode* mergeKLists(vector<ListNode*> lists) {\n    // each list is already sorted ascending\n    return nullptr;\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [[[1, 4, 5], [1, 3, 4], [2, 6]]], "expected": [1, 1, 2, 3, 4, 4, 5, 6],
+             "input_display": "lists=[[1,4,5],[1,3,4],[2,6]]"},
+            {"inputs": [[]], "expected": [], "input_display": "lists=[] (no lists at all)"},
+            {"inputs": [[[]]], "expected": [], "input_display": "lists=[[]] (one empty list)"},
+            {"inputs": [[[1, 2, 3]]], "expected": [1, 2, 3], "hidden": True, "input_display": "lists=[[1,2,3]] (k=1)"},
+            {"inputs": [[[5], [1], [3]]], "expected": [1, 3, 5], "hidden": True, "input_display": "lists=[[5],[1],[3]] (three singletons)"},
+            {"inputs": [[[], [], [1]]], "expected": [1], "hidden": True, "input_display": "lists=[[],[],[1]] (mix of empty and non-empty)"},
+        ],
+    },
+    {
+        "id": "word_break",
+        "title": "Word Break",
+        "difficulty": "Medium",
+        "topic": "Strings / DP",
+        "tags": ["string", "dynamic-programming"],
+        "description_md": """Given a string `s` and a list of strings `wordDict`, return whether `s` can be segmented
+into a space-separated sequence of one or more dictionary words. The same word may be reused any number of
+times.
+
+**Follow-up they'll ask:** `dp[i]` = can `s[:i]` be segmented using dictionary words; for each `i`, scan back
+over every `j < i` where `s[j:i]` is in the dictionary and `dp[j]` is true. What's the time complexity in
+terms of `len(s)` and the dictionary, and how would a trie over `wordDict` speed up the inner scan? (Word
+Break II, already in this set, is the version that returns the actual sentences instead of just yes/no.)""",
+        "diagram_svg": """<svg viewBox="0 0 230 70" width="230" height="70" xmlns="http://www.w3.org/2000/svg" font-family="SF Mono, Cascadia Code, Consolas, monospace"><rect x="6" y="14" width="96" height="26" rx="4" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="1.5"/><text x="54" y="32" text-anchor="middle" font-size="12" fill="#0a0a0a" font-weight="700">leet</text><rect x="106" y="14" width="96" height="26" rx="4" fill="#93c5fd" fill-opacity="0.85" stroke="#93c5fd" stroke-width="1.5"/><text x="154" y="32" text-anchor="middle" font-size="12" fill="#0a0a0a" font-weight="700">code</text><text x="6" y="60" font-size="10.5" fill="var(--text-2)">s="leetcode", wordDict=["leet","code"] -- splits cleanly</text></svg>""",
+        "function_name": "wordBreak",
+        "params": [{"name": "s", "type": "string"}, {"name": "wordDict", "type": "vector<string>"}],
+        "return_type": "bool",
+        "starter_code": {
+            "python": "def wordBreak(s, wordDict):\n    # your code here -- dp[i] = can s[:i] be segmented\n    pass\n",
+            "cpp": "bool wordBreak(string s, vector<string> wordDict) {\n    // your code here -- dp[i] = can s[:i] be segmented\n    return false;\n}\n",
+        },
+        "test_cases": [
+            {"inputs": ["leetcode", ["leet", "code"]], "expected": True, "input_display": 's="leetcode", wordDict=["leet","code"]'},
+            {"inputs": ["applepenapple", ["apple", "pen"]], "expected": True, "input_display": 's="applepenapple", wordDict=["apple","pen"]',
+             "explanation": "\"apple\"+\"pen\"+\"apple\" -- each dictionary word can be reused as many times as needed."},
+            {"inputs": ["catsandog", ["cats", "dog", "sand", "and", "cat"]], "expected": False,
+             "input_display": 's="catsandog", wordDict=["cats","dog","sand","and","cat"]',
+             "explanation": "\"cats\"+\"and\"+\"og\" and \"cat\"+\"sand\"+\"og\" both get stuck on the trailing \"og\", which isn't in the dictionary."},
+            {"inputs": ["aaa", ["aa"]], "expected": False, "hidden": True, "input_display": 's="aaa", wordDict=["aa"] (reuse trap: 2+2=4, not 3)'},
+            {"inputs": ["a", ["a"]], "expected": True, "hidden": True, "input_display": 's="a", wordDict=["a"]'},
+            {"inputs": ["abcd", ["ab", "abc", "cd", "a"]], "expected": True, "hidden": True, "input_display": 's="abcd", wordDict=["ab","abc","cd","a"]'},
+        ],
+    },
+    {
+        "id": "implement_trie",
+        "title": "Implement Trie (Prefix Tree)",
+        "difficulty": "Medium",
+        "topic": "Design / Trie",
+        "tags": ["design", "trie", "string"],
+        "description_md": """Implement a trie (prefix tree) supporting insertion and two kinds of lookups. You're given
+a list of `operations`, each `["insert", word]`, `["search", word]`, or `["startsWith", prefix]`. Apply them
+in order and return a list holding the result of each `search`/`startsWith`, as `1` (true) or `0` (false):
+`search` matches only a complete, previously inserted word; `startsWith` matches if *any* inserted word
+begins with the given prefix.
+
+**Follow-up they'll ask:** each node holds a fixed-size array of child pointers (one per letter) plus an
+`isEnd` flag. Why is a 26-way array often faster in practice than a hash map per node, despite using more
+memory up front?""",
+        "diagram_svg": """<svg viewBox="0 0 220 110" width="220" height="110" xmlns="http://www.w3.org/2000/svg" font-family="SF Mono, Cascadia Code, Consolas, monospace"><circle cx="20" cy="16" r="11" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><line x1="20" y1="27" x2="20" y2="43" stroke="var(--line)" stroke-width="1.5"/><circle cx="20" cy="54" r="11" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="20" y="58" text-anchor="middle" font-size="10" fill="var(--text-0)" font-weight="600">a</text><line x1="20" y1="65" x2="20" y2="81" stroke="var(--line)" stroke-width="1.5"/><circle cx="20" cy="92" r="11" fill="#ffb454" fill-opacity="0.85" stroke="#ffb454" stroke-width="1.5"/><text x="20" y="96" text-anchor="middle" font-size="10" fill="#0a0a0a" font-weight="700">p&#8226;</text><line x1="28" y1="88" x2="60" y2="70" stroke="var(--line)" stroke-width="1.5"/><circle cx="68" cy="60" r="11" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="68" y="64" text-anchor="middle" font-size="10" fill="var(--text-0)" font-weight="600">p</text><line x1="76" y1="56" x2="108" y2="42" stroke="var(--line)" stroke-width="1.5"/><circle cx="116" cy="32" r="11" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="1.5"/><text x="116" y="36" text-anchor="middle" font-size="9" fill="#0a0a0a" font-weight="700">l&#8226;</text><text x="6" y="108" font-size="10" fill="var(--text-2)">insert("apple") -- &#8226; marks a complete word end</text></svg>""",
+        "function_name": "trieOperations",
+        "params": [{"name": "operations", "type": "vector<vector<string>>"}],
+        "return_type": "vector<int>",
+        "starter_code": {
+            "python": "def trieOperations(operations):\n    # operations: [\"insert\", word], [\"search\", word], or [\"startsWith\", prefix]\n    # return 1/0 for each \"search\"/\"startsWith\" encountered, in order\n    pass\n",
+            "cpp": "vector<int> trieOperations(vector<vector<string>> operations) {\n    // operations: {\"insert\", word}, {\"search\", word}, or {\"startsWith\", prefix}\n    // return 1/0 for each \"search\"/\"startsWith\" encountered, in order\n    return {};\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [[["insert", "apple"], ["search", "apple"], ["search", "app"], ["startsWith", "app"], ["insert", "app"], ["search", "app"]]],
+             "expected": [1, 0, 1, 1],
+             "input_display": 'ops: insert("apple") search("apple") search("app") startsWith("app") insert("app") search("app")',
+             "explanation": 'search("app") is false before "app" itself is inserted -- "apple" being in the trie only makes startsWith("app") true, not search("app"). After insert("app"), search("app") flips to true.'},
+            {"inputs": [[["insert", "a"], ["startsWith", "a"], ["search", "a"], ["search", "ab"]]],
+             "expected": [1, 1, 0], "input_display": 'ops: insert("a") startsWith("a") search("a") search("ab")'},
+            {"inputs": [[["startsWith", "x"]]], "expected": [0], "hidden": True, "input_display": 'ops: startsWith("x") (trie is empty)'},
+            {"inputs": [[["insert", "cat"], ["insert", "car"], ["startsWith", "ca"], ["search", "ca"], ["search", "cat"], ["search", "car"]]],
+             "expected": [1, 0, 1, 1], "hidden": True,
+             "input_display": 'ops: insert("cat") insert("car") startsWith("ca") search("ca") search("cat") search("car")'},
+        ],
+    },
+    {
+        "id": "design_hit_counter",
+        "title": "Design Hit Counter",
+        "difficulty": "Medium",
+        "topic": "Design / Queue",
+        "tags": ["design", "queue", "sliding-window"],
+        "description_md": """Design a hit counter that counts hits received in the past 300 seconds (5 minutes),
+inclusive of both endpoints. You're given a list of `operations`, each `["hit", timestamp]` or `["getHits",
+timestamp]` (timestamps are in seconds, strictly increasing across calls, given as strings -- parse them
+yourself). Apply them in order and return a list holding the result of each `getHits`: the number of hits
+with a timestamp in `[timestamp - 299, timestamp]`.
+
+**Follow-up they'll ask:** a queue of raw hit timestamps, popping from the front while they've aged out of
+the window, keeps both `hit` and `getHits` O(1) amortized -- how would you adapt this for a very
+high-traffic system where storing every individual hit is too much memory? (Hint: bucket counts per
+second.)""",
+        "diagram_svg": """<svg viewBox="0 0 230 70" width="230" height="70" xmlns="http://www.w3.org/2000/svg" font-family="SF Mono, Cascadia Code, Consolas, monospace"><rect x="6" y="14" width="26" height="26" rx="4" fill="#f87171" fill-opacity="0.5" stroke="#f87171" stroke-width="1.5"/><text x="19" y="32" text-anchor="middle" font-size="11" fill="var(--text-0)">t=1</text><rect x="36" y="14" width="26" height="26" rx="4" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="1.5"/><text x="49" y="32" text-anchor="middle" font-size="11" fill="#0a0a0a" font-weight="700">t=2</text><rect x="66" y="14" width="26" height="26" rx="4" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="1.5"/><text x="79" y="32" text-anchor="middle" font-size="11" fill="#0a0a0a" font-weight="700">t=3</text><rect x="96" y="14" width="34" height="26" rx="4" fill="#6ee7b7" fill-opacity="0.85" stroke="#6ee7b7" stroke-width="1.5"/><text x="113" y="32" text-anchor="middle" font-size="11" fill="#0a0a0a" font-weight="700">t=300</text><text x="6" y="60" font-size="10.5" fill="var(--text-2)">getHits(301): window [2,301] -- t=1 aged out, 3 hits remain</text></svg>""",
+        "function_name": "hitCounterOperations",
+        "params": [{"name": "operations", "type": "vector<vector<string>>"}],
+        "return_type": "vector<int>",
+        "starter_code": {
+            "python": "def hitCounterOperations(operations):\n    # operations: [\"hit\", timestamp] or [\"getHits\", timestamp] (strings; parse the ints yourself)\n    # return the result of each \"getHits\": hits in [timestamp-299, timestamp]\n    pass\n",
+            "cpp": "vector<int> hitCounterOperations(vector<vector<string>> operations) {\n    // operations: {\"hit\", timestamp} or {\"getHits\", timestamp} (strings; parse the ints yourself)\n    // return the result of each \"getHits\": hits in [timestamp-299, timestamp]\n    return {};\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [[["hit", "1"], ["hit", "2"], ["hit", "3"], ["getHits", "4"], ["hit", "300"], ["getHits", "300"], ["getHits", "301"]]],
+             "expected": [3, 4, 3],
+             "input_display": "ops: hit(1) hit(2) hit(3) getHits(4) hit(300) getHits(300) getHits(301)",
+             "explanation": "getHits(4) sees all 3 early hits (window [-295,4]). getHits(300) sees all 4 hits (window [1,300]). getHits(301) has window [2,301], so the hit at t=1 just aged out, leaving 3."},
+            {"inputs": [[["hit", "1"], ["getHits", "1"]]], "expected": [1], "input_display": "ops: hit(1) getHits(1)"},
+            {"inputs": [[["hit", "1"], ["hit", "1"], ["hit", "1"], ["getHits", "1"]]], "expected": [3], "hidden": True,
+             "input_display": "ops: hit(1) hit(1) hit(1) getHits(1) (multiple hits can share a timestamp)"},
+            {"inputs": [[["hit", "1"], ["getHits", "301"]]], "expected": [0], "hidden": True,
+             "input_display": "ops: hit(1) getHits(301) (window [2,301] -- the one hit has already aged out)"},
+        ],
+    },
+    {
+        "id": "undirected_graph_cycle",
+        "title": "Detect Cycle in an Undirected Graph",
+        "difficulty": "Medium",
+        "topic": "Graphs / DFS",
+        "tags": ["graph", "dfs", "union-find"],
+        "description_md": """Given an undirected graph with `n` nodes labeled `0` to `n-1` and a list of `edges`
+(each `[u, v]`), determine whether the graph contains a cycle. The graph need not be connected.
+
+**Follow-up they'll ask:** DFS works, but you have to track the node you arrived *from* so the edge you just
+walked doesn't get mistaken for a back-edge (undirected edges show up from both endpoints). Union-Find is
+the other classic approach: process edges one at a time, and if an edge's two endpoints are already in the
+same component, adding it closes a cycle. Which approach generalizes better if edges arrive one at a time,
+online, rather than all at once?""",
+        "diagram_svg": """<svg viewBox="0 0 150 110" width="150" height="110" xmlns="http://www.w3.org/2000/svg" font-family="SF Mono, Cascadia Code, Consolas, monospace"><line x1="30" y1="20" x2="90" y2="20" stroke="var(--line)" stroke-width="2"/><line x1="90" y1="20" x2="90" y2="80" stroke="var(--line)" stroke-width="2"/><line x1="90" y1="80" x2="30" y2="80" stroke="var(--line)" stroke-width="2"/><line x1="30" y1="80" x2="30" y2="20" stroke="#f87171" stroke-width="2.5"/><circle cx="30" cy="20" r="13" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="30" y="25" text-anchor="middle" font-size="11" fill="var(--text-0)" font-weight="600">0</text><circle cx="90" cy="20" r="13" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="90" y="25" text-anchor="middle" font-size="11" fill="var(--text-0)" font-weight="600">1</text><circle cx="90" cy="80" r="13" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="90" y="85" text-anchor="middle" font-size="11" fill="var(--text-0)" font-weight="600">2</text><circle cx="30" cy="80" r="13" fill="var(--bg-3)" stroke="var(--line)" stroke-width="1.5"/><text x="30" y="85" text-anchor="middle" font-size="11" fill="var(--text-0)" font-weight="600">3</text><text x="6" y="106" font-size="10" fill="#f87171">edge (3,0) closes the loop -- a cycle</text></svg>""",
+        "function_name": "hasCycle",
+        "params": [{"name": "n", "type": "int"}, {"name": "edges", "type": "vector<vector<int>>"}],
+        "return_type": "bool",
+        "starter_code": {
+            "python": "def hasCycle(n, edges):\n    # your code here -- DFS with a parent check, or Union-Find\n    pass\n",
+            "cpp": "bool hasCycle(int n, vector<vector<int>> edges) {\n    // your code here -- DFS with a parent check, or Union-Find\n    return false;\n}\n",
+        },
+        "test_cases": [
+            {"inputs": [4, [[0, 1], [1, 2], [2, 3]]], "expected": False, "input_display": "n=4, edges=[[0,1],[1,2],[2,3]] (a tree)"},
+            {"inputs": [4, [[0, 1], [1, 2], [2, 3], [3, 0]]], "expected": True, "input_display": "n=4, edges=[[0,1],[1,2],[2,3],[3,0]] (closes a cycle)"},
+            {"inputs": [3, [[0, 1], [1, 2]]], "expected": False, "input_display": "n=3, edges=[[0,1],[1,2]]"},
+            {"inputs": [5, [[0, 1], [1, 2], [2, 0], [3, 4]]], "expected": True, "hidden": True,
+             "input_display": "n=5, edges=[[0,1],[1,2],[2,0],[3,4]] (cycle in one component, graph overall is disconnected)"},
+            {"inputs": [2, []], "expected": False, "hidden": True, "input_display": "n=2, edges=[] (no edges)"},
+            {"inputs": [1, []], "expected": False, "hidden": True, "input_display": "n=1, edges=[] (single isolated node)"},
+        ],
+    },
 ]
 
 

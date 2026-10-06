@@ -1,0 +1,213 @@
+{
+  "id": "pacific_atlantic_water_flow",
+  "title": "Pacific Atlantic Water Flow",
+  "difficulty": "Medium",
+  "topic": "Graphs / Grid DFS",
+  "tags": [
+    "graph",
+    "dfs",
+    "bfs",
+    "grid",
+    "multi-source"
+  ],
+  "description_md": "There's an `m x n` grid of island `heights`. The Pacific Ocean touches the top and left\nedges; the Atlantic touches the bottom and right edges. Water flows from a cell to a 4-directionally\nadjacent cell only if that neighbor's height is less than or equal to the current cell's.\n\nReturn every cell from which water can reach **both** oceans, each as `[row, col]`, sorted by row then\ncolumn so the judge can compare the result exactly.\n\n**Follow-up they'll ask:** simulating water flowing downhill from every single cell toward two oceans is\nO((mn)^2) in the worst case. Flip it: run a multi-source BFS/DFS *uphill* starting from all cells adjacent\nto the Pacific, separately from all cells adjacent to the Atlantic, and intersect the two reachable sets --\nwhy does reversing the direction of travel make this linear in grid size instead of quadratic?",
+  "diagram_svg": "<svg viewBox=\"0 0 230 190\" width=\"230\" height=\"190\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"SF Mono, Cascadia Code, Consolas, monospace\"><text x=\"40\" y=\"14\" font-size=\"10.5\" fill=\"#93c5fd\" font-weight=\"600\">Pacific</text><text x=\"40\" y=\"26\" font-size=\"13\" fill=\"#93c5fd\">&#8595; &#8595; &#8595; &#8595;</text><text x=\"4\" y=\"55\" font-size=\"13\" fill=\"#93c5fd\" transform=\"rotate(-90 14 55)\">&#8594;</text><g transform=\"translate(40,34)\"><rect x=\"0\" y=\"0\" width=\"36\" height=\"36\" fill=\"var(--bg-2)\" stroke=\"var(--line)\" stroke-width=\"1.5\"/><rect x=\"36\" y=\"0\" width=\"36\" height=\"36\" fill=\"var(--bg-2)\" stroke=\"var(--line)\" stroke-width=\"1.5\"/><rect x=\"72\" y=\"0\" width=\"36\" height=\"36\" fill=\"#f0abfc\" fill-opacity=\"0.85\" stroke=\"#f0abfc\" stroke-width=\"1.5\"/><rect x=\"0\" y=\"36\" width=\"36\" height=\"36\" fill=\"var(--bg-2)\" stroke=\"var(--line)\" stroke-width=\"1.5\"/><rect x=\"36\" y=\"36\" width=\"36\" height=\"36\" fill=\"var(--bg-2)\" stroke=\"var(--line)\" stroke-width=\"1.5\"/><rect x=\"72\" y=\"36\" width=\"36\" height=\"36\" fill=\"var(--bg-2)\" stroke=\"var(--line)\" stroke-width=\"1.5\"/><rect x=\"0\" y=\"72\" width=\"36\" height=\"36\" fill=\"#f0abfc\" fill-opacity=\"0.85\" stroke=\"#f0abfc\" stroke-width=\"1.5\"/><rect x=\"36\" y=\"72\" width=\"36\" height=\"36\" fill=\"var(--bg-2)\" stroke=\"var(--line)\" stroke-width=\"1.5\"/><rect x=\"72\" y=\"72\" width=\"36\" height=\"36\" fill=\"var(--bg-2)\" stroke=\"var(--line)\" stroke-width=\"1.5\"/></g><text x=\"150\" y=\"146\" font-size=\"13\" fill=\"#f87171\">&#8593; &#8593; &#8593; &#8593;</text><text x=\"150\" y=\"158\" font-size=\"10.5\" fill=\"#f87171\" font-weight=\"600\">Atlantic</text><text x=\"6\" y=\"182\" font-size=\"10\" fill=\"var(--text-2)\">purple cells reach both oceans</text></svg>",
+  "function_name": "pacificAtlantic",
+  "params": [
+    {
+      "name": "heights",
+      "type": "vector<vector<int>>"
+    }
+  ],
+  "return_type": "vector<vector<int>>",
+  "starter_code": {
+    "python": "def pacificAtlantic(heights):\n    # your code here -- multi-source BFS/DFS uphill from each ocean's border, then intersect\n    # return cells sorted by (row, col)\n    pass\n",
+    "cpp": "vector<vector<int>> pacificAtlantic(vector<vector<int>> heights) {\n    // your code here -- multi-source BFS/DFS uphill from each ocean's border, then intersect\n    // return cells sorted by (row, col)\n    return {};\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          [
+            1,
+            2,
+            2,
+            3,
+            5
+          ],
+          [
+            3,
+            2,
+            3,
+            4,
+            4
+          ],
+          [
+            2,
+            4,
+            5,
+            3,
+            1
+          ],
+          [
+            6,
+            7,
+            1,
+            4,
+            5
+          ],
+          [
+            5,
+            1,
+            1,
+            2,
+            4
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          0,
+          4
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          0
+        ]
+      ],
+      "input_display": "heights=[[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]]"
+    },
+    {
+      "inputs": [
+        [
+          [
+            1
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          0,
+          0
+        ]
+      ],
+      "input_display": "heights=[[1]] (single cell touches both edges)"
+    },
+    {
+      "inputs": [
+        [
+          [
+            1,
+            2
+          ],
+          [
+            4,
+            3
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "input_display": "heights=[[1,2],[4,3]]",
+      "explanation": "(0,0)=1 can't flow anywhere (both neighbors are higher) and isn't adjacent to the Atlantic, so it's excluded even though it touches the Pacific directly."
+    },
+    {
+      "inputs": [
+        [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "hidden": true,
+      "input_display": "heights=[[1,1],[1,1]] (flat grid -- equal-height flow counts, so every cell reaches both)"
+    },
+    {
+      "inputs": [
+        [
+          [
+            1,
+            2,
+            3,
+            4
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          3
+        ]
+      ],
+      "hidden": true,
+      "input_display": "heights=[[1,2,3,4]] (a single row is simultaneously the top and bottom edge)"
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "id": "word_ladder",
+  "title": "Word Ladder",
+  "difficulty": "Hard",
+  "topic": "Graphs / BFS",
+  "tags": [
+    "bfs",
+    "graph",
+    "hash-set",
+    "string"
+  ],
+  "description_md": "Given `beginWord`, `endWord`, and a `wordList`, find the length of the shortest transformation\nsequence from `beginWord` to `endWord` where each step changes exactly one letter and every word after\n`beginWord` is in `wordList`. Count both endpoints in the length. Return `0` if no sequence exists -- in\nparticular, if `endWord` isn't in `wordList`. `beginWord` itself need not be in the list.\n\n**Follow-up they'll ask:** BFS over the implicit graph whose nodes are words and whose edges join words\ndiffering by one letter; generate neighbors by trying all 26 letters at each position. Bidirectional BFS\nroughly square-roots the work.",
+  "diagram_svg": "<svg viewBox=\"0 0 296 116\" width=\"296\" height=\"116\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"SF Mono, Cascadia Code, Consolas, monospace\"><line x1=\"24\" y1=\"58\" x2=\"84\" y2=\"58\" stroke=\"#ffb454\" stroke-width=\"2.5\"/><line x1=\"84\" y1=\"58\" x2=\"144\" y2=\"34\" stroke=\"#ffb454\" stroke-width=\"2.5\"/><line x1=\"144\" y1=\"34\" x2=\"208\" y2=\"34\" stroke=\"#ffb454\" stroke-width=\"2.5\"/><line x1=\"208\" y1=\"34\" x2=\"268\" y2=\"58\" stroke=\"#ffb454\" stroke-width=\"2.5\"/><line x1=\"84\" y1=\"58\" x2=\"144\" y2=\"86\" stroke=\"var(--line)\" stroke-width=\"1.5\"/><line x1=\"144\" y1=\"86\" x2=\"208\" y2=\"86\" stroke=\"var(--line)\" stroke-width=\"1.5\"/><line x1=\"208\" y1=\"86\" x2=\"268\" y2=\"58\" stroke=\"var(--line)\" stroke-width=\"1.5\"/><circle cx=\"24\" cy=\"58\" r=\"15\" fill=\"var(--bg-3)\" stroke=\"#ffb454\" stroke-width=\"2\"/><text x=\"24\" y=\"62\" text-anchor=\"middle\" font-size=\"10\" fill=\"var(--text-0)\" font-weight=\"600\">hit</text><circle cx=\"84\" cy=\"58\" r=\"15\" fill=\"var(--bg-3)\" stroke=\"#ffb454\" stroke-width=\"2\"/><text x=\"84\" y=\"62\" text-anchor=\"middle\" font-size=\"10\" fill=\"var(--text-0)\" font-weight=\"600\">hot</text><circle cx=\"144\" cy=\"34\" r=\"15\" fill=\"var(--bg-3)\" stroke=\"#ffb454\" stroke-width=\"2\"/><text x=\"144\" y=\"38\" text-anchor=\"middle\" font-size=\"10\" fill=\"var(--text-0)\" font-weight=\"600\">dot</text><circle cx=\"208\" cy=\"34\" r=\"15\" fill=\"var(--bg-3)\" stroke=\"#ffb454\" stroke-width=\"2\"/><text x=\"208\" y=\"38\" text-anchor=\"middle\" font-size=\"10\" fill=\"var(--text-0)\" font-weight=\"600\">dog</text><circle cx=\"268\" cy=\"58\" r=\"15\" fill=\"var(--bg-3)\" stroke=\"#ffb454\" stroke-width=\"2\"/><text x=\"268\" y=\"62\" text-anchor=\"middle\" font-size=\"10\" fill=\"var(--text-0)\" font-weight=\"600\">cog</text><circle cx=\"144\" cy=\"86\" r=\"15\" fill=\"var(--bg-3)\" stroke=\"var(--text-2)\" stroke-width=\"1.5\"/><text x=\"144\" y=\"90\" text-anchor=\"middle\" font-size=\"10\" fill=\"var(--text-2)\">lot</text><circle cx=\"208\" cy=\"86\" r=\"15\" fill=\"var(--bg-3)\" stroke=\"var(--text-2)\" stroke-width=\"1.5\"/><text x=\"208\" y=\"90\" text-anchor=\"middle\" font-size=\"10\" fill=\"var(--text-2)\">log</text><text x=\"6\" y=\"110\" font-size=\"10\" fill=\"#ffb454\">hit -&gt; hot -&gt; dot -&gt; dog -&gt; cog   (5 words)</text></svg>",
+  "function_name": "ladderLength",
+  "params": [
+    {
+      "name": "beginWord",
+      "type": "string"
+    },
+    {
+      "name": "endWord",
+      "type": "string"
+    },
+    {
+      "name": "wordList",
+      "type": "vector<string>"
+    }
+  ],
+  "return_type": "int",
+  "starter_code": {
+    "python": "def ladderLength(beginWord, endWord, wordList):\n    # your code here -- BFS; return 0 if endWord is unreachable\n    pass\n",
+    "cpp": "int ladderLength(string beginWord, string endWord, vector<string> wordList) {\n    // your code here -- BFS; return 0 if endWord is unreachable\n    return 0;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        "hit",
+        "cog",
+        [
+          "hot",
+          "dot",
+          "dog",
+          "lot",
+          "log",
+          "cog"
+        ]
+      ],
+      "expected": 5,
+      "input_display": "beginWord=\"hit\", endWord=\"cog\", wordList=[\"hot\",\"dot\",\"dog\",\"lot\",\"log\",\"cog\"]",
+      "explanation": "hit -> hot -> dot -> dog -> cog is 5 words, and no shorter chain reaches cog."
+    },
+    {
+      "inputs": [
+        "hit",
+        "cog",
+        [
+          "hot",
+          "dot",
+          "dog",
+          "lot",
+          "log"
+        ]
+      ],
+      "expected": 0,
+      "input_display": "beginWord=\"hit\", endWord=\"cog\", wordList=[\"hot\",\"dot\",\"dog\",\"lot\",\"log\"]",
+      "explanation": "endWord \"cog\" is not in wordList, so no sequence can end on it."
+    },
+    {
+      "inputs": [
+        "a",
+        "c",
+        [
+          "a",
+          "b",
+          "c"
+        ]
+      ],
+      "expected": 2,
+      "input_display": "beginWord=\"a\", endWord=\"c\", wordList=[\"a\",\"b\",\"c\"]",
+      "explanation": "\"a\" and \"c\" differ by one letter and \"c\" is in the list, so the sequence a -> c has length 2."
+    },
+    {
+      "inputs": [
+        "hot",
+        "dog",
+        [
+          "hot",
+          "dog",
+          "dot"
+        ]
+      ],
+      "expected": 3,
+      "hidden": true,
+      "input_display": "beginWord=\"hot\", endWord=\"dog\", wordList=[\"hot\",\"dog\",\"dot\"]"
+    },
+    {
+      "inputs": [
+        "hot",
+        "dog",
+        [
+          "hot",
+          "dog"
+        ]
+      ],
+      "expected": 0,
+      "hidden": true,
+      "input_display": "beginWord=\"hot\", endWord=\"dog\", wordList=[\"hot\",\"dog\"]"
+    },
+    {
+      "inputs": [
+        "red",
+        "tax",
+        [
+          "ted",
+          "tex",
+          "red",
+          "tax",
+          "tad",
+          "den",
+          "rex",
+          "pee"
+        ]
+      ],
+      "expected": 4,
+      "hidden": true,
+      "input_display": "beginWord=\"red\", endWord=\"tax\", wordList=[\"ted\",\"tex\",\"red\",\"tax\",\"tad\",\"den\",\"rex\",\"pee\"]"
+    }
+  ]
+}

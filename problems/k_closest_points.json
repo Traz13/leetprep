@@ -1,0 +1,205 @@
+{
+  "id": "k_closest_points",
+  "title": "K Closest Points to Origin",
+  "difficulty": "Medium",
+  "topic": "Arrays / Heap",
+  "tags": [
+    "array",
+    "heap",
+    "sorting",
+    "quickselect"
+  ],
+  "description_md": "Given an array `points` where `points[i] = [x, y]` and an integer `k`, return the `k` points\nclosest to the origin `(0, 0)` by Euclidean distance. Compare by **squared** distance `x*x + y*y` -- an\ninteger, so no floating point needed. Return the `k` points ordered by that squared distance ascending,\nbreaking ties by `x` then `y`. (That fixed order is only so the answer can be checked exactly; LeetCode\nitself accepts any order.)\n\n**Follow-up they'll ask:** a size-`k` max-heap gets you O(n log k); quickselect gets O(n) average.",
+  "diagram_svg": "<svg viewBox=\"0 0 200 168\" width=\"200\" height=\"168\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"SF Mono, Cascadia Code, Consolas, monospace\"><line x1=\"100\" y1=\"8\" x2=\"100\" y2=\"150\" stroke=\"var(--line)\" stroke-width=\"1\"/><line x1=\"8\" y1=\"82\" x2=\"192\" y2=\"82\" stroke=\"var(--line)\" stroke-width=\"1\"/><circle cx=\"100\" cy=\"82\" r=\"49\" fill=\"none\" stroke=\"var(--text-2)\" stroke-width=\"1\" stroke-dasharray=\"4,3\"/><circle cx=\"100\" cy=\"82\" r=\"2.5\" fill=\"var(--text-1)\"/><text x=\"104\" y=\"94\" font-size=\"8.5\" fill=\"var(--text-2)\">origin</text><circle cx=\"133\" cy=\"49\" r=\"5\" fill=\"#6ee7b7\" stroke=\"#6ee7b7\" stroke-width=\"1.5\"/><text x=\"139\" y=\"46\" font-size=\"9\" fill=\"var(--text-1)\">(3,3)</text><circle cx=\"78\" cy=\"38\" r=\"5\" fill=\"#6ee7b7\" stroke=\"#6ee7b7\" stroke-width=\"1.5\"/><text x=\"40\" y=\"35\" font-size=\"9\" fill=\"var(--text-1)\">(-2,4)</text><circle cx=\"155\" cy=\"93\" r=\"5\" fill=\"var(--bg-3)\" stroke=\"var(--text-2)\" stroke-width=\"1.5\"/><text x=\"161\" y=\"97\" font-size=\"9\" fill=\"var(--text-2)\">(5,-1)</text><text x=\"6\" y=\"163\" font-size=\"10\" fill=\"#6ee7b7\">k=2 closest to the origin, highlighted</text></svg>",
+  "function_name": "kClosest",
+  "params": [
+    {
+      "name": "points",
+      "type": "vector<vector<int>>"
+    },
+    {
+      "name": "k",
+      "type": "int"
+    }
+  ],
+  "return_type": "vector<vector<int>>",
+  "starter_code": {
+    "python": "def kClosest(points, k):\n    # your code here -- return the k closest, sorted by (dist^2, x, y)\n    pass\n",
+    "cpp": "vector<vector<int>> kClosest(vector<vector<int>> points, int k) {\n    // your code here -- return the k closest, sorted by (dist^2, x, y)\n    return {};\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          [
+            1,
+            3
+          ],
+          [
+            -2,
+            2
+          ]
+        ],
+        1
+      ],
+      "expected": [
+        [
+          -2,
+          2
+        ]
+      ],
+      "input_display": "points=[[1,3],[-2,2]], k=1",
+      "explanation": "Squared distances are 10 and 8, so [-2,2] is closer."
+    },
+    {
+      "inputs": [
+        [
+          [
+            3,
+            3
+          ],
+          [
+            5,
+            -1
+          ],
+          [
+            -2,
+            4
+          ]
+        ],
+        2
+      ],
+      "expected": [
+        [
+          3,
+          3
+        ],
+        [
+          -2,
+          4
+        ]
+      ],
+      "input_display": "points=[[3,3],[5,-1],[-2,4]], k=2",
+      "explanation": "Squared distances are 18, 26, 20; the two smallest are 18 ([3,3]) and 20 ([-2,4]), returned in that order."
+    },
+    {
+      "inputs": [
+        [
+          [
+            1,
+            1
+          ]
+        ],
+        1
+      ],
+      "expected": [
+        [
+          1,
+          1
+        ]
+      ],
+      "input_display": "points=[[1,1]], k=1"
+    },
+    {
+      "inputs": [
+        [
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        3
+      ],
+      "expected": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "hidden": true,
+      "input_display": "points=[[1,1],[2,2],[3,3]], k=3"
+    },
+    {
+      "inputs": [
+        [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            -1
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        2
+      ],
+      "expected": [
+        [
+          0,
+          -1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "hidden": true,
+      "input_display": "points=[[1,0],[0,1],[0,-1],[2,0]], k=2"
+    },
+    {
+      "inputs": [
+        [
+          [
+            -1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        2
+      ],
+      "expected": [
+        [
+          0,
+          0
+        ],
+        [
+          -1,
+          0
+        ]
+      ],
+      "hidden": true,
+      "input_display": "points=[[-1,0],[0,0],[3,4]], k=2"
+    }
+  ]
+}

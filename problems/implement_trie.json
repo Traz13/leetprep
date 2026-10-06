@@ -1,0 +1,146 @@
+{
+  "id": "implement_trie",
+  "title": "Implement Trie (Prefix Tree)",
+  "difficulty": "Medium",
+  "topic": "Design / Trie",
+  "tags": [
+    "design",
+    "trie",
+    "string"
+  ],
+  "description_md": "Implement a trie (prefix tree) supporting insertion and two kinds of lookups. You're given\na list of `operations`, each `[\"insert\", word]`, `[\"search\", word]`, or `[\"startsWith\", prefix]`. Apply them\nin order and return a list holding the result of each `search`/`startsWith`, as `1` (true) or `0` (false):\n`search` matches only a complete, previously inserted word; `startsWith` matches if *any* inserted word\nbegins with the given prefix.\n\n**Follow-up they'll ask:** each node holds a fixed-size array of child pointers (one per letter) plus an\n`isEnd` flag. Why is a 26-way array often faster in practice than a hash map per node, despite using more\nmemory up front?",
+  "diagram_svg": "<svg viewBox=\"0 0 220 110\" width=\"220\" height=\"110\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"SF Mono, Cascadia Code, Consolas, monospace\"><circle cx=\"20\" cy=\"16\" r=\"11\" fill=\"var(--bg-3)\" stroke=\"var(--line)\" stroke-width=\"1.5\"/><line x1=\"20\" y1=\"27\" x2=\"20\" y2=\"43\" stroke=\"var(--line)\" stroke-width=\"1.5\"/><circle cx=\"20\" cy=\"54\" r=\"11\" fill=\"var(--bg-3)\" stroke=\"var(--line)\" stroke-width=\"1.5\"/><text x=\"20\" y=\"58\" text-anchor=\"middle\" font-size=\"10\" fill=\"var(--text-0)\" font-weight=\"600\">a</text><line x1=\"20\" y1=\"65\" x2=\"20\" y2=\"81\" stroke=\"var(--line)\" stroke-width=\"1.5\"/><circle cx=\"20\" cy=\"92\" r=\"11\" fill=\"#ffb454\" fill-opacity=\"0.85\" stroke=\"#ffb454\" stroke-width=\"1.5\"/><text x=\"20\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"#0a0a0a\" font-weight=\"700\">p&#8226;</text><line x1=\"28\" y1=\"88\" x2=\"60\" y2=\"70\" stroke=\"var(--line)\" stroke-width=\"1.5\"/><circle cx=\"68\" cy=\"60\" r=\"11\" fill=\"var(--bg-3)\" stroke=\"var(--line)\" stroke-width=\"1.5\"/><text x=\"68\" y=\"64\" text-anchor=\"middle\" font-size=\"10\" fill=\"var(--text-0)\" font-weight=\"600\">p</text><line x1=\"76\" y1=\"56\" x2=\"108\" y2=\"42\" stroke=\"var(--line)\" stroke-width=\"1.5\"/><circle cx=\"116\" cy=\"32\" r=\"11\" fill=\"#6ee7b7\" fill-opacity=\"0.85\" stroke=\"#6ee7b7\" stroke-width=\"1.5\"/><text x=\"116\" y=\"36\" text-anchor=\"middle\" font-size=\"9\" fill=\"#0a0a0a\" font-weight=\"700\">l&#8226;</text><text x=\"6\" y=\"108\" font-size=\"10\" fill=\"var(--text-2)\">insert(\"apple\") -- &#8226; marks a complete word end</text></svg>",
+  "function_name": "trieOperations",
+  "params": [
+    {
+      "name": "operations",
+      "type": "vector<vector<string>>"
+    }
+  ],
+  "return_type": "vector<int>",
+  "starter_code": {
+    "python": "def trieOperations(operations):\n    # operations: [\"insert\", word], [\"search\", word], or [\"startsWith\", prefix]\n    # return 1/0 for each \"search\"/\"startsWith\" encountered, in order\n    pass\n",
+    "cpp": "vector<int> trieOperations(vector<vector<string>> operations) {\n    // operations: {\"insert\", word}, {\"search\", word}, or {\"startsWith\", prefix}\n    // return 1/0 for each \"search\"/\"startsWith\" encountered, in order\n    return {};\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          [
+            "insert",
+            "apple"
+          ],
+          [
+            "search",
+            "apple"
+          ],
+          [
+            "search",
+            "app"
+          ],
+          [
+            "startsWith",
+            "app"
+          ],
+          [
+            "insert",
+            "app"
+          ],
+          [
+            "search",
+            "app"
+          ]
+        ]
+      ],
+      "expected": [
+        1,
+        0,
+        1,
+        1
+      ],
+      "input_display": "ops: insert(\"apple\") search(\"apple\") search(\"app\") startsWith(\"app\") insert(\"app\") search(\"app\")",
+      "explanation": "search(\"app\") is false before \"app\" itself is inserted -- \"apple\" being in the trie only makes startsWith(\"app\") true, not search(\"app\"). After insert(\"app\"), search(\"app\") flips to true."
+    },
+    {
+      "inputs": [
+        [
+          [
+            "insert",
+            "a"
+          ],
+          [
+            "startsWith",
+            "a"
+          ],
+          [
+            "search",
+            "a"
+          ],
+          [
+            "search",
+            "ab"
+          ]
+        ]
+      ],
+      "expected": [
+        1,
+        1,
+        0
+      ],
+      "input_display": "ops: insert(\"a\") startsWith(\"a\") search(\"a\") search(\"ab\")"
+    },
+    {
+      "inputs": [
+        [
+          [
+            "startsWith",
+            "x"
+          ]
+        ]
+      ],
+      "expected": [
+        0
+      ],
+      "hidden": true,
+      "input_display": "ops: startsWith(\"x\") (trie is empty)"
+    },
+    {
+      "inputs": [
+        [
+          [
+            "insert",
+            "cat"
+          ],
+          [
+            "insert",
+            "car"
+          ],
+          [
+            "startsWith",
+            "ca"
+          ],
+          [
+            "search",
+            "ca"
+          ],
+          [
+            "search",
+            "cat"
+          ],
+          [
+            "search",
+            "car"
+          ]
+        ]
+      ],
+      "expected": [
+        1,
+        0,
+        1,
+        1
+      ],
+      "hidden": true,
+      "input_display": "ops: insert(\"cat\") insert(\"car\") startsWith(\"ca\") search(\"ca\") search(\"cat\") search(\"car\")"
+    }
+  ]
+}

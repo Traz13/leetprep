@@ -1,0 +1,132 @@
+{
+  "id": "design_hit_counter",
+  "title": "Design Hit Counter",
+  "difficulty": "Medium",
+  "topic": "Design / Queue",
+  "tags": [
+    "design",
+    "queue",
+    "sliding-window"
+  ],
+  "description_md": "Design a hit counter that counts hits received in the past 300 seconds (5 minutes),\ninclusive of both endpoints. You're given a list of `operations`, each `[\"hit\", timestamp]` or `[\"getHits\",\ntimestamp]` (timestamps are in seconds, strictly increasing across calls, given as strings -- parse them\nyourself). Apply them in order and return a list holding the result of each `getHits`: the number of hits\nwith a timestamp in `[timestamp - 299, timestamp]`.\n\n**Follow-up they'll ask:** a queue of raw hit timestamps, popping from the front while they've aged out of\nthe window, keeps both `hit` and `getHits` O(1) amortized -- how would you adapt this for a very\nhigh-traffic system where storing every individual hit is too much memory? (Hint: bucket counts per\nsecond.)",
+  "diagram_svg": "<svg viewBox=\"0 0 230 70\" width=\"230\" height=\"70\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"SF Mono, Cascadia Code, Consolas, monospace\"><rect x=\"6\" y=\"14\" width=\"26\" height=\"26\" rx=\"4\" fill=\"#f87171\" fill-opacity=\"0.5\" stroke=\"#f87171\" stroke-width=\"1.5\"/><text x=\"19\" y=\"32\" text-anchor=\"middle\" font-size=\"11\" fill=\"var(--text-0)\">t=1</text><rect x=\"36\" y=\"14\" width=\"26\" height=\"26\" rx=\"4\" fill=\"#6ee7b7\" fill-opacity=\"0.85\" stroke=\"#6ee7b7\" stroke-width=\"1.5\"/><text x=\"49\" y=\"32\" text-anchor=\"middle\" font-size=\"11\" fill=\"#0a0a0a\" font-weight=\"700\">t=2</text><rect x=\"66\" y=\"14\" width=\"26\" height=\"26\" rx=\"4\" fill=\"#6ee7b7\" fill-opacity=\"0.85\" stroke=\"#6ee7b7\" stroke-width=\"1.5\"/><text x=\"79\" y=\"32\" text-anchor=\"middle\" font-size=\"11\" fill=\"#0a0a0a\" font-weight=\"700\">t=3</text><rect x=\"96\" y=\"14\" width=\"34\" height=\"26\" rx=\"4\" fill=\"#6ee7b7\" fill-opacity=\"0.85\" stroke=\"#6ee7b7\" stroke-width=\"1.5\"/><text x=\"113\" y=\"32\" text-anchor=\"middle\" font-size=\"11\" fill=\"#0a0a0a\" font-weight=\"700\">t=300</text><text x=\"6\" y=\"60\" font-size=\"10.5\" fill=\"var(--text-2)\">getHits(301): window [2,301] -- t=1 aged out, 3 hits remain</text></svg>",
+  "function_name": "hitCounterOperations",
+  "params": [
+    {
+      "name": "operations",
+      "type": "vector<vector<string>>"
+    }
+  ],
+  "return_type": "vector<int>",
+  "starter_code": {
+    "python": "def hitCounterOperations(operations):\n    # operations: [\"hit\", timestamp] or [\"getHits\", timestamp] (strings; parse the ints yourself)\n    # return the result of each \"getHits\": hits in [timestamp-299, timestamp]\n    pass\n",
+    "cpp": "vector<int> hitCounterOperations(vector<vector<string>> operations) {\n    // operations: {\"hit\", timestamp} or {\"getHits\", timestamp} (strings; parse the ints yourself)\n    // return the result of each \"getHits\": hits in [timestamp-299, timestamp]\n    return {};\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          [
+            "hit",
+            "1"
+          ],
+          [
+            "hit",
+            "2"
+          ],
+          [
+            "hit",
+            "3"
+          ],
+          [
+            "getHits",
+            "4"
+          ],
+          [
+            "hit",
+            "300"
+          ],
+          [
+            "getHits",
+            "300"
+          ],
+          [
+            "getHits",
+            "301"
+          ]
+        ]
+      ],
+      "expected": [
+        3,
+        4,
+        3
+      ],
+      "input_display": "ops: hit(1) hit(2) hit(3) getHits(4) hit(300) getHits(300) getHits(301)",
+      "explanation": "getHits(4) sees all 3 early hits (window [-295,4]). getHits(300) sees all 4 hits (window [1,300]). getHits(301) has window [2,301], so the hit at t=1 just aged out, leaving 3."
+    },
+    {
+      "inputs": [
+        [
+          [
+            "hit",
+            "1"
+          ],
+          [
+            "getHits",
+            "1"
+          ]
+        ]
+      ],
+      "expected": [
+        1
+      ],
+      "input_display": "ops: hit(1) getHits(1)"
+    },
+    {
+      "inputs": [
+        [
+          [
+            "hit",
+            "1"
+          ],
+          [
+            "hit",
+            "1"
+          ],
+          [
+            "hit",
+            "1"
+          ],
+          [
+            "getHits",
+            "1"
+          ]
+        ]
+      ],
+      "expected": [
+        3
+      ],
+      "hidden": true,
+      "input_display": "ops: hit(1) hit(1) hit(1) getHits(1) (multiple hits can share a timestamp)"
+    },
+    {
+      "inputs": [
+        [
+          [
+            "hit",
+            "1"
+          ],
+          [
+            "getHits",
+            "301"
+          ]
+        ]
+      ],
+      "expected": [
+        0
+      ],
+      "hidden": true,
+      "input_display": "ops: hit(1) getHits(301) (window [2,301] -- the one hit has already aged out)"
+    }
+  ]
+}

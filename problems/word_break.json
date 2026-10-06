@@ -1,0 +1,104 @@
+{
+  "id": "word_break",
+  "title": "Word Break",
+  "difficulty": "Medium",
+  "topic": "Strings / DP",
+  "tags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "description_md": "Given a string `s` and a list of strings `wordDict`, return whether `s` can be segmented\ninto a space-separated sequence of one or more dictionary words. The same word may be reused any number of\ntimes.\n\n**Follow-up they'll ask:** `dp[i]` = can `s[:i]` be segmented using dictionary words; for each `i`, scan back\nover every `j < i` where `s[j:i]` is in the dictionary and `dp[j]` is true. What's the time complexity in\nterms of `len(s)` and the dictionary, and how would a trie over `wordDict` speed up the inner scan? (Word\nBreak II, already in this set, is the version that returns the actual sentences instead of just yes/no.)",
+  "diagram_svg": "<svg viewBox=\"0 0 230 70\" width=\"230\" height=\"70\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"SF Mono, Cascadia Code, Consolas, monospace\"><rect x=\"6\" y=\"14\" width=\"96\" height=\"26\" rx=\"4\" fill=\"#6ee7b7\" fill-opacity=\"0.85\" stroke=\"#6ee7b7\" stroke-width=\"1.5\"/><text x=\"54\" y=\"32\" text-anchor=\"middle\" font-size=\"12\" fill=\"#0a0a0a\" font-weight=\"700\">leet</text><rect x=\"106\" y=\"14\" width=\"96\" height=\"26\" rx=\"4\" fill=\"#93c5fd\" fill-opacity=\"0.85\" stroke=\"#93c5fd\" stroke-width=\"1.5\"/><text x=\"154\" y=\"32\" text-anchor=\"middle\" font-size=\"12\" fill=\"#0a0a0a\" font-weight=\"700\">code</text><text x=\"6\" y=\"60\" font-size=\"10.5\" fill=\"var(--text-2)\">s=\"leetcode\", wordDict=[\"leet\",\"code\"] -- splits cleanly</text></svg>",
+  "function_name": "wordBreak",
+  "params": [
+    {
+      "name": "s",
+      "type": "string"
+    },
+    {
+      "name": "wordDict",
+      "type": "vector<string>"
+    }
+  ],
+  "return_type": "bool",
+  "starter_code": {
+    "python": "def wordBreak(s, wordDict):\n    # your code here -- dp[i] = can s[:i] be segmented\n    pass\n",
+    "cpp": "bool wordBreak(string s, vector<string> wordDict) {\n    // your code here -- dp[i] = can s[:i] be segmented\n    return false;\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        "leetcode",
+        [
+          "leet",
+          "code"
+        ]
+      ],
+      "expected": true,
+      "input_display": "s=\"leetcode\", wordDict=[\"leet\",\"code\"]"
+    },
+    {
+      "inputs": [
+        "applepenapple",
+        [
+          "apple",
+          "pen"
+        ]
+      ],
+      "expected": true,
+      "input_display": "s=\"applepenapple\", wordDict=[\"apple\",\"pen\"]",
+      "explanation": "\"apple\"+\"pen\"+\"apple\" -- each dictionary word can be reused as many times as needed."
+    },
+    {
+      "inputs": [
+        "catsandog",
+        [
+          "cats",
+          "dog",
+          "sand",
+          "and",
+          "cat"
+        ]
+      ],
+      "expected": false,
+      "input_display": "s=\"catsandog\", wordDict=[\"cats\",\"dog\",\"sand\",\"and\",\"cat\"]",
+      "explanation": "\"cats\"+\"and\"+\"og\" and \"cat\"+\"sand\"+\"og\" both get stuck on the trailing \"og\", which isn't in the dictionary."
+    },
+    {
+      "inputs": [
+        "aaa",
+        [
+          "aa"
+        ]
+      ],
+      "expected": false,
+      "hidden": true,
+      "input_display": "s=\"aaa\", wordDict=[\"aa\"] (reuse trap: 2+2=4, not 3)"
+    },
+    {
+      "inputs": [
+        "a",
+        [
+          "a"
+        ]
+      ],
+      "expected": true,
+      "hidden": true,
+      "input_display": "s=\"a\", wordDict=[\"a\"]"
+    },
+    {
+      "inputs": [
+        "abcd",
+        [
+          "ab",
+          "abc",
+          "cd",
+          "a"
+        ]
+      ],
+      "expected": true,
+      "hidden": true,
+      "input_display": "s=\"abcd\", wordDict=[\"ab\",\"abc\",\"cd\",\"a\"]"
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "id": "design_hashmap",
+  "title": "Design HashMap",
+  "difficulty": "Easy",
+  "topic": "Design / Hash Table",
+  "tags": [
+    "design",
+    "hash-map",
+    "array"
+  ],
+  "description_md": "Design a key-value map without reaching for a built-in hash table (`dict` / `unordered_map`) --\nthe point is the array-plus-collision-handling underneath one.\n\nYou're given a list of `operations`, each `[\"put\", key, value]`, `[\"get\", key]`, or `[\"remove\", key]` (every\nelement is a string -- parse the numbers yourself). Apply them in order and return a list holding the result\nof **each `get`**: the stored value, or `-1` if the key isn't present (never set, or since removed). A `put`\non an existing key overwrites its value; `remove` on a missing key is a no-op.\n\n**Follow-up they'll ask:** fixed-size bucket array, hash the key down to an index, then chain (linked list or\nsmall vector) within a bucket to handle collisions -- when would you resize the array?",
+  "diagram_svg": "<svg viewBox=\"0 0 230 118\" width=\"230\" height=\"118\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"SF Mono, Cascadia Code, Consolas, monospace\"><text x=\"6\" y=\"14\" font-size=\"10.5\" fill=\"var(--text-2)\">key % 4 selects a bucket</text><rect x=\"6\" y=\"20\" width=\"50\" height=\"24\" rx=\"4\" fill=\"var(--bg-2)\" stroke=\"var(--line)\" stroke-width=\"1.5\"/><text x=\"31\" y=\"36\" text-anchor=\"middle\" font-size=\"11\" fill=\"var(--text-2)\">0</text><rect x=\"62\" y=\"20\" width=\"50\" height=\"24\" rx=\"4\" fill=\"#ffb454\" fill-opacity=\"0.2\" stroke=\"#ffb454\" stroke-width=\"1.5\"/><text x=\"87\" y=\"36\" text-anchor=\"middle\" font-size=\"11\" fill=\"var(--text-0)\" font-weight=\"600\">1</text><rect x=\"118\" y=\"20\" width=\"50\" height=\"24\" rx=\"4\" fill=\"var(--bg-2)\" stroke=\"var(--line)\" stroke-width=\"1.5\"/><text x=\"143\" y=\"36\" text-anchor=\"middle\" font-size=\"11\" fill=\"var(--text-2)\">2</text><rect x=\"174\" y=\"20\" width=\"50\" height=\"24\" rx=\"4\" fill=\"var(--bg-2)\" stroke=\"var(--line)\" stroke-width=\"1.5\"/><text x=\"199\" y=\"36\" text-anchor=\"middle\" font-size=\"11\" fill=\"var(--text-2)\">3</text><line x1=\"87\" y1=\"44\" x2=\"87\" y2=\"58\" stroke=\"var(--line)\" stroke-width=\"1.5\"/><rect x=\"62\" y=\"58\" width=\"50\" height=\"22\" rx=\"4\" fill=\"#6ee7b7\" fill-opacity=\"0.85\" stroke=\"#6ee7b7\" stroke-width=\"1.5\"/><text x=\"87\" y=\"73\" text-anchor=\"middle\" font-size=\"10.5\" fill=\"#0a0a0a\" font-weight=\"700\">(1,1)</text><line x1=\"87\" y1=\"80\" x2=\"87\" y2=\"88\" stroke=\"var(--line)\" stroke-width=\"1.5\"/><rect x=\"62\" y=\"88\" width=\"50\" height=\"22\" rx=\"4\" fill=\"#6ee7b7\" fill-opacity=\"0.85\" stroke=\"#6ee7b7\" stroke-width=\"1.5\"/><text x=\"87\" y=\"103\" text-anchor=\"middle\" font-size=\"10.5\" fill=\"#0a0a0a\" font-weight=\"700\">(5,9)</text></svg>",
+  "function_name": "designHashMap",
+  "params": [
+    {
+      "name": "operations",
+      "type": "vector<vector<string>>"
+    }
+  ],
+  "return_type": "vector<int>",
+  "starter_code": {
+    "python": "def designHashMap(operations):\n    # operations: [\"put\", key, value], [\"get\", key], or [\"remove\", key] (all strings)\n    # return the result of each \"get\": the value, or -1 if absent\n    pass\n",
+    "cpp": "vector<int> designHashMap(vector<vector<string>> operations) {\n    // operations: {\"put\", key, value}, {\"get\", key}, or {\"remove\", key} (all strings)\n    // return the result of each \"get\": the value, or -1 if absent\n    return {};\n}\n"
+  },
+  "test_cases": [
+    {
+      "inputs": [
+        [
+          [
+            "put",
+            "1",
+            "1"
+          ],
+          [
+            "put",
+            "2",
+            "2"
+          ],
+          [
+            "get",
+            "1"
+          ],
+          [
+            "get",
+            "3"
+          ],
+          [
+            "put",
+            "2",
+            "1"
+          ],
+          [
+            "get",
+            "2"
+          ],
+          [
+            "remove",
+            "2"
+          ],
+          [
+            "get",
+            "2"
+          ]
+        ]
+      ],
+      "expected": [
+        1,
+        -1,
+        1,
+        -1
+      ],
+      "input_display": "ops: put(1,1) put(2,2) get(1) get(3) put(2,1) get(2) remove(2) get(2)",
+      "explanation": "get(1)=1 and get(3)=-1 (never set). put(2,1) overwrites key 2's value, so get(2)=1. remove(2) deletes it, so the final get(2)=-1."
+    },
+    {
+      "inputs": [
+        [
+          [
+            "put",
+            "0",
+            "0"
+          ],
+          [
+            "get",
+            "0"
+          ]
+        ]
+      ],
+      "expected": [
+        0
+      ],
+      "input_display": "ops: put(0,0) get(0)"
+    },
+    {
+      "inputs": [
+        [
+          [
+            "remove",
+            "5"
+          ],
+          [
+            "get",
+            "5"
+          ]
+        ]
+      ],
+      "expected": [
+        -1
+      ],
+      "hidden": true,
+      "input_display": "ops: remove(5) get(5) (removing a key that was never set is a no-op)"
+    },
+    {
+      "inputs": [
+        [
+          [
+            "put",
+            "1",
+            "1"
+          ],
+          [
+            "put",
+            "1",
+            "2"
+          ],
+          [
+            "get",
+            "1"
+          ]
+        ]
+      ],
+      "expected": [
+        2
+      ],
+      "hidden": true,
+      "input_display": "ops: put(1,1) put(1,2) get(1)"
+    }
+  ]
+}
