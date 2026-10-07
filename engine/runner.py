@@ -9,6 +9,7 @@ for your own practice, not to accept code from strangers.
 import subprocess
 import tempfile
 import os
+import re
 import json
 import time
 import uuid
@@ -412,12 +413,43 @@ def _describe_crash(returncode):
     return "Unknown error"
 
 
+def _crash_location(src_path, workdir, user_code, user_start):
+    """Rebuilds the driver at -O0 (so line attribution is exact), runs it under gdb, and
+    returns the innermost frame that lies in the user's code as a 1-based line number.
+    Returns "" if the rebuild or gdb fails, or no frame falls in user code."""
+    debug_bin = os.path.join(workdir, "debug.out")
+    try:
+        build = subprocess.run(
+            [_gpp_path(), "-O0", "-g", "-D_GLIBCXX_ASSERTIONS", "-std=c++20",
+             "-static-libgcc", "-static-libstdc++", "-static", "-o", debug_bin, src_path],
+            capture_output=True, text=True, timeout=CPP_COMPILE_TIMEOUT,
+        )
+        if build.returncode != 0:
+            return ""
+        gdb = os.path.join(os.path.dirname(_gpp_path()), "gdb.exe")
+        if not os.path.isfile(gdb):
+            gdb = "gdb"
+        proc = subprocess.run(
+            [gdb, "-batch", "-ex", "run", "-ex", "bt", debug_bin],
+            capture_output=True, text=True, timeout=20, cwd=workdir,
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        return ""
+    user_lines = user_code.split("\n")
+    for m in re.finditer(r"sol\.cpp:(\d+)", proc.stdout):
+        k = int(m.group(1)) - user_start + 1
+        if 1 <= k <= len(user_lines):
+            return f"Crashed at line {k} of your code:\n    {user_lines[k - 1].strip()}"
+    return ""
+
+
 def run_cpp(user_code, problem):
     fn = problem["function_name"]
     params = problem["params"]
     ret_type = _cpp_arg_decl(problem["return_type"])
     cases = problem["test_cases"]
 
+    user_start = (CPP_PRELUDE + "\n// ---- USER CODE ----\n").count("\n") + 1
     driver = [CPP_PRELUDE, "\n// ---- USER CODE ----\n", user_code, "\n// ---- DRIVER ----\n", "int main(){\n"]
     driver.append(f'  vector<pair<bool,string>> results;\n')
     for i, tc in enumerate(cases):
@@ -459,7 +491,7 @@ def run_cpp(user_code, problem):
 
         try:
             compile_proc = subprocess.run(
-                [_gpp_path(), "-O2", "-std=c++20", "-static-libgcc", "-static-libstdc++", "-static",
+                [_gpp_path(), "-O2", "-g", "-D_GLIBCXX_ASSERTIONS", "-std=c++20", "-static-libgcc", "-static-libstdc++", "-static",
                  "-o", bin_path, src_path],
                 capture_output=True, text=True, timeout=CPP_COMPILE_TIMEOUT,
             )
@@ -502,6 +534,10 @@ def run_cpp(user_code, problem):
             msg = (run_proc.stderr or run_proc.stdout or "").strip()
             if not msg:
                 msg = _describe_crash(run_proc.returncode)
+            if run_proc.returncode != 0:
+                location = _crash_location(src_path, td, user_code, user_start)
+                if location:
+                    msg += "\n\n" + location
             result.runtime_error = msg[-4000:]
             return result
 
